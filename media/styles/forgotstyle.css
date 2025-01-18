@@ -1,0 +1,74 @@
+body {
+    background-image: url("../img/fondo-forgot.jpg");
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+
+
+.registro-form {
+    background-color: var(--background-dark);
+    border-radius: 23px;
+    padding: 30px;
+    margin: 30px auto;
+}
+
+.form-control {
+    background-color: #0f1c23;
+    border: 1px solid var(--secondary);
+    color: var(--background-light);
+    border-radius: 23px;
+    padding: 12px 20px;
+    margin-bottom: 15px;
+}
+
+.form-control:focus {
+    background-color: var(--shadow-grey);
+    border-color: var(--complementary);
+    color: var(--background-light);
+    box-shadow: none;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border: none;
+    border-radius: 23px;
+    padding: 12px 30px;
+    color: var(--background-dark);
+    font-weight:bold;
+    font-size: 1.2em;
+}
+
+.btn-primary:hover {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+}
+
+.form-label {
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.header-text {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--background-light);
+}
+
+.header-text h4 {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--background-light);
+}
+
+.header-text span {
+    color: var(--primary);
+}
+
+.contrasenya{
+    display: flex;
+    justify-content: center;
+}
+

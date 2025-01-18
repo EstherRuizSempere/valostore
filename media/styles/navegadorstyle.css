@@ -1,0 +1,73 @@
+.navegador {
+    background-color: var(--background-dark);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.img-logo {
+    width: 200px;
+    padding: 10px;
+}
+
+.iconos-nav {
+    gap: 1rem;
+}
+
+.iconos-nav a{
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.nav-item i {
+    padding: 0 8px;
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--primary);
+    color: var(--background-dark);
+    padding: 8px 16px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link.active:hover {
+    background-color: var(--secondary);
+    color: var(--background-dark);
+}
+
+.dropdown-menu {
+    background-color: var(--background-dark);
+    border: 1px solid var(--primary);
+    margin-top: 0.5rem;
+}
+
+.dropdown-item {
+    color: var(--background-light);
+    padding: 0.5rem 1rem;
+}
+
+.dropdown-item:hover {
+    background-color: var(--primary);
+    color: var(--background-dark);
+}
+
+.dropdown-divider {
+    border-color: var(--primary);
+    opacity: 0.2;
+}
+
+@media (max-width: 768px) {
+    .iconos-nav {
+        gap: 0.5rem;
+    }
+
+    .nav-pills .nav-link.active {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+
+    .img-logo {
+        width: 150px;
+    }
+}
