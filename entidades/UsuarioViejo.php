@@ -19,7 +19,7 @@ class GestorUsuarios
 
     }
 
-    public function verificarLogin($email)
+    public function verificarLogin($email, $contrasenya)
     {
         try {
             Utilidades::validarEmail($email);
@@ -29,7 +29,7 @@ class GestorUsuarios
         }
 
         //Consulto los datos del usuario
-        $statement = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = :email AND activo = 1");
+        $statement = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = :email AND contrasenya = :contrasenya AND activo = 1");
         $statement->bindParam(':email', $email);
         $statement->execute();
 

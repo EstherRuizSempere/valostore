@@ -15,7 +15,7 @@ class UsuarioControladorViejo
     {
         //Verifico si hay un usuario logueado y si es admin
         if (!isset($_SESSION['email']) || $_SESSION['rol'] != 'admin') {
-            header("Location: ../../public/login.php?error=NoTienesPermisos");
+            header("Location: ../../public/autentifiacion.php?error=NoTienesPermisos");
             exit();
         }
 
@@ -138,7 +138,7 @@ class UsuarioControladorViejo
     {
         //Si no estás registrado, no puedes entrar
         if (!isset($_SESSION['email'])) {
-            header("Location: ../../public/login.php?error=NoTienesPermisos");
+            header("Location: ../../public/autentifiacion.php?error=NoTienesPermisos");
             exit();
         }
         //Si no es post, return

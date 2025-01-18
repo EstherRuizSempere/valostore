@@ -6,7 +6,7 @@
     --dark: #53212B;
     --background-light: #FFFBF5;
     --background-dark: #111823;
-    --shadow-grey: #2C3E50;
+    --shadow-grey: rgba(44, 62, 80, 0.34);
 }
 
 * {

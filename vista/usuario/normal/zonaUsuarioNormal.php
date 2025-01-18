@@ -1,3 +1,9 @@
+<?php
+include_once __DIR__ . '/../../../config/seguridad.php';
+
+Seguridad::usuarioPermisos(['usuario']);
+
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -27,7 +33,7 @@
 
                 <ul class="nav nav-pills ms-auto iconos-nav">
                     <li class="nav-item">
-                        <a href="tienda.html" class="nav-link active">
+                        <a href="../../producto/catalogo.php" class="nav-link active">
                             <i class="bi bi-shop img-iconos"></i>
                             Tienda
                         </a>
@@ -39,15 +45,21 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                        <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                           aria-expanded="false">
                             <i class="bi bi-person-circle img-iconos"></i>
                             ¡Hola, Esther!
                         </a>
                         <ul class="dropdown-menu dropdown-menu">
-                            <li><a class="dropdown-item" href="perfil.html"><i class="bi bi-person me-2"></i>Mi Perfil</a></li>
-                            <li><a class="dropdown-item" href="pedidos.html"><i class="bi bi-box me-2"></i>Mis Pedidos</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="cerrar-sesion.html"><i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
+                            <li><a class="dropdown-item" href="perfil.html"><i class="bi bi-person me-2"></i>Mi
+                                    Perfil</a></li>
+                            <li><a class="dropdown-item" href="pedidos.html"><i class="bi bi-box me-2"></i>Mis
+                                    Pedidos</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="cerrar-sesion.html"><i
+                                            class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -65,7 +77,8 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="perfil-avatar">
-                                    <img src="../../../media/img/imagen-perfil.png" alt="Avatar del usuario" class="img-fluid rounded">
+                                    <img src="../../../media/img/imagen-perfil.png" alt="Avatar del usuario"
+                                         class="img-fluid rounded">
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -74,27 +87,29 @@
                                         <i class="bi bi-circle-fill"></i> Online
                                     </span>
                                     <h2 class="perfil-username">TherBeep</h2>
-                                    <button class="btn  edit-perfil-btn">
+                                    <a href="actualizarUsuarioNormal.php" class="btn  edit-perfil-btn">
                                         <i class="bi bi-pencil"></i> Editar Perfil
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="perfil-status">
                                     <div class="status-item">
                                         <i class="bi bi-person-badge"></i>
-                                        <span class="status-valor">4</span>
+                                        <span class="status-valor">10</span>
                                         <span class="status-label">Personajes</span>
                                     </div>
                                     <div class="status-item">
-                                        <i class="bi bi-bag"></i>
-                                        <span class="status-valor">7</span>
-                                        <span class="status-label">Compras</span>
+                                        <a href=""> <i class="bi bi-backpack3"></i>
+                                            <span class="status-valor">10</span>
+                                            <span class="status-label">Compras</span>
+                                        </a>
+
                                     </div>
                                     <div class="status-item">
-                                        <i class="bi bi-trophy"></i>
-                                        <span class="status-valor">450</span>
-                                        <span class="status-label">Puntos</span>
+                                        <i class="bi bi-slash-circle"></i>
+                                        <span class="status-valor">10</span>
+                                        <span class="status-label">Personajes no en posesión</span>
                                     </div>
                                 </div>
                             </div>
@@ -108,59 +123,202 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-3 mb-4">
+                            <div class="col-md-2 mb-4">
                                 <div class="personaje-item">
                                     <div class="personaje-imagen">
-                                        <img src="" alt="Personaje 1" class="img-fluid">
-                                        <div class="personaje-overlay">
+                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                             class="img-fluid">
+                                        <div class="personaje-detalles">
                                             <button class="btn btn-light btn-sm">Ver Detalles</button>
                                         </div>
                                     </div>
                                     <div class="personaje-info">
                                         <h4>Astra</h4>
-                                        <span class="personaje-level">Nivel 25</span>
+                                        <span class="personaje-rol">Humos</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                                <div class="personaje-item">
+                                    <div class="personaje-imagen">
+                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                             class="img-fluid">
+                                        <div class="personaje-detalles">
+                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
+                                        </div>
+                                    </div>
+                                    <div class="personaje-info">
+                                        <h4>Astra</h4>
+                                        <span class="personaje-rol">Humos</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                                <div class="personaje-item">
+                                    <div class="personaje-imagen">
+                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                             class="img-fluid">
+                                        <div class="personaje-detalles">
+                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
+                                        </div>
+                                    </div>
+                                    <div class="personaje-info">
+                                        <h4>Astra</h4>
+                                        <span class="personaje-rol">Humos</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                                <div class="personaje-item">
+                                    <div class="personaje-imagen">
+                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                             class="img-fluid">
+                                        <div class="personaje-detalles">
+                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
+                                        </div>
+                                    </div>
+                                    <div class="personaje-info">
+                                        <h4>Astra</h4>
+                                        <span class="personaje-rol">Humos</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-2 mb-4">
+                                <div class="personaje-item">
+                                    <div class="personaje-imagen">
+                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                             class="img-fluid">
+                                        <div class="personaje-detalles">
+                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
+                                        </div>
+                                    </div>
+                                    <div class="personaje-info">
+                                        <h4>Astra</h4>
+                                        <span class="personaje-rol">Humos</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                                <div class="personaje-item">
+                                    <div class="personaje-imagen">
+                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                             class="img-fluid">
+                                        <div class="personaje-detalles">
+                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
+                                        </div>
+                                    </div>
+                                    <div class="personaje-info">
+                                        <h4>Astra</h4>
+                                        <span class="personaje-rol">Humos</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="card personaje-list-card">
+                <div class="card personajes-card mb-4">
                     <div class="card-header">
-                        <h3><i class="bi bi-list-ul"></i> Detalles de Personajes</h3>
+                        <h3><i class="bi bi-person-dash"></i> Personajes no en posesión</h3>
                     </div>
                     <div class="card-body">
-                        <div class="personaje-list">
-                            <div class="personaje-list-item">
-                                <div class="row align-items-center">
-                                    <div class="col-md-2">
-                                        <img src="../../media/img/character1.jpg" alt="Astra" class="img-fluid rounded">
+                        <div class="row">
+                            <div class="col-md-2 mb-4">
+                                <div class="personaje-item">
+                                    <div class="personaje-imagen">
+                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                             class="img-fluid">
+                                        <div class="personaje-detalles">
+                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
+                                        </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="personaje-info">
                                         <h4>Astra</h4>
-                                        <span class="personaje-clase">Controlador</span>
+                                        <span class="personaje-rol">Humos</span>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="personaje-estado">
-                                            <span class="satus-label">Creado</span>
-                                            <span class="stat-value">15/01/2024</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                                <div class="personaje-item">
+                                    <div class="personaje-imagen">
+                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                             class="img-fluid">
+                                        <div class="personaje-detalles">
+                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="personaje-estado">
-                                            <span class="satus-label">Tiempo jugado</span>
-                                            <span class="stat-value">134h 22m</span>
+                                    <div class="personaje-info">
+                                        <h4>Astra</h4>
+                                        <span class="personaje-rol">Humos</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                                <div class="personaje-item">
+                                    <div class="personaje-imagen">
+                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                             class="img-fluid">
+                                        <div class="personaje-detalles">
+                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <button class="btn btn-primary btn-sm w-100">Jugar</button>
+                                    <div class="personaje-info">
+                                        <h4>Astra</h4>
+                                        <span class="personaje-rol">Humos</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                                <div class="personaje-item">
+                                    <div class="personaje-imagen">
+                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                             class="img-fluid">
+                                        <div class="personaje-detalles">
+                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
+                                        </div>
+                                    </div>
+                                    <div class="personaje-info">
+                                        <h4>Astra</h4>
+                                        <span class="personaje-rol">Humos</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-2 mb-4">
+                                <div class="personaje-item">
+                                    <div class="personaje-imagen">
+                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                             class="img-fluid">
+                                        <div class="personaje-detalles">
+                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
+                                        </div>
+                                    </div>
+                                    <div class="personaje-info">
+                                        <h4>Astra</h4>
+                                        <span class="personaje-rol">Humos</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                                <div class="personaje-item">
+                                    <div class="personaje-imagen">
+                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                             class="img-fluid">
+                                        <div class="personaje-detalles">
+                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
+                                        </div>
+                                    </div>
+                                    <div class="personaje-info">
+                                        <h4>Astra</h4>
+                                        <span class="personaje-rol">Humos</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
         </div>
     </div>

@@ -23,7 +23,7 @@ class GestorUsuarios
             if (!Utilidades::validarContrasenya($usuario->getContrasenya())) {
                 throw new Exception("La contraseña debe tener al menos 4 caracteres");
             }
-            if(!Utilidades::validarEmail($usuario->getEmail())){
+            if (!Utilidades::validarEmail($usuario->getEmail())) {
                 throw new Exception("El email no es válido");
             }
             if (!Utilidades::validarTelefono($usuario->getTelefono())) {
@@ -46,6 +46,35 @@ class GestorUsuarios
         }
     }
 
+    public function verificarLogin($email, $contrasenya)
+    {
+        $email = strtolower($email);
+        try {
+            Utilidades::validarEmail($email);
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+            return null;
+        }
+
+        //Consulto los datos del usuario
+        $statement = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = :email AND contrasenya = :contrasenya AND activo = 1");
+        $statement->bindParam(':email', $email);
+        $contrasenyahash = Utilidades::hashContrasenya($contrasenya);
+        $statement->bindParam(':contrasenya', $contrasenyahash);
+        $statement->execute();
+
+        //Verifico que el usuario existe
+        $usuario_bd = $statement->fetch(PDO::FETCH_ASSOC);
+        $fechaNacimiento = new DateTime($usuario_bd['fechaNacimiento']);
+
+
+        if ($usuario_bd) {
+            //Si el usuario existe creo la instancia del objeto con sus datos:
+            $usuario = new Usuario($usuario_bd['id'], $usuario_bd['usuario'], $usuario_bd['email'], $usuario_bd['nombre'], $usuario_bd['apellido1'], $usuario_bd['apellido2'], $usuario_bd['direccion'], $usuario_bd['localidad'], $usuario_bd['provincia'], $usuario_bd['telefono'], $usuario_bd['contrasenya'], $fechaNacimiento, $usuario_bd['rol'], $usuario_bd['activo']);
+            return $usuario;
+        }
+        return null; //En caso de fallo
+    }
 
     public function comprobarUsuarioExiste(string $usuario, string $email)
     {
@@ -66,8 +95,8 @@ class GestorUsuarios
     public function rellenarDatosUsuario(string $sql, Usuario $usuario)
     {
         $statement = $this->pdo->prepare($sql);
-        $statement->bindValue(':usuario', $usuario->getUsuario());
-        $statement->bindValue(':email', $usuario->getEmail());
+        $statement->bindValue(':usuario', strtolower($usuario->getUsuario()));
+        $statement->bindValue(':email', strtolower($usuario->getEmail()));
         $statement->bindValue(':nombre', $usuario->getNombre());
         $statement->bindValue(':apellido1', $usuario->getApellido1());
         $statement->bindValue(':apellido2', $usuario->getApellido2());

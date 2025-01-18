@@ -6,13 +6,13 @@ class Utilidades
     //Función para coger una contraseña texto plano y convertirla en hash, para guardarla en la base de datos en vez de la normal
     public static function hashContrasenya($contrasenya)
     {
-        return password_hash($contrasenya, PASSWORD_DEFAULT);
+        return  hash('sha512', $contrasenya);
     }
 
     //Función para verificar que la contraseña introducida por el usuario es la misma que la guardada en la base de datos
     public static function verificarContrasenya($contrasenya, $hash)
     {
-        return password_verify($contrasenya, $hash);
+        return Utilidades::hashContrasenya($contrasenya) == $hash;
     }
    //Requisito para crear la contraseña
     public static function validarContrasenya($contrasenya)

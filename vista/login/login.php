@@ -48,7 +48,7 @@
                         <img class="img-fluid img-login" src="../../media/img/Astra.png"
                              alt="Logo poro">
                         <h3 class="text-center mb-4 ">Iniciar Sesión</h3>
-                        <form method="POST" action="../../rutas/usuarios/comprobarUsuario.php">
+                        <form method="POST" action="../../servicios/autentifiacion/login.php">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-person"></i></span>
                                 <input type="email" class="form-control" placeholder="Email" name="email"

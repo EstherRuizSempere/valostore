@@ -19,8 +19,7 @@
 }
 
 .status-badge {
-    background-color: var(--complementary);
-    color: var(--background-dark);
+    color: var(--complementary);
     padding: 0.5rem 1rem;
     border-radius: 20px;
     display: inline-flex;
@@ -31,25 +30,27 @@
 }
 
 .status-badge i {
-    color: var(--secondary);
+    color: var(--complementary);
     font-size: 1rem;
 }
 
 .perfil-username {
     color: var(--background-dark);
-    margin-bottom: 2rem;
+    padding: 10px;
 }
 
-.edit-perfil-btn{
+.edit-perfil-btn {
     background-color: var(--primary);
     border: none;
     border-radius: 23px;
     padding: 12px 30px;
-    color: var(--background-dark);
-    font-weight:bold;
+    color: var(--background-light);
+    font-weight: bold;
     font-size: 1.2em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.edit-perfil-btn:hover{
+
+.edit-perfil-btn:hover {
     background-color: var(--complementary);
     color: var(--background-dark);
 }
@@ -65,32 +66,61 @@
     align-items: center;
     gap: 1rem;
     padding: 0.5rem;
-    background: var(--color-dark);
+    background: rgba(220, 208, 190, 0.44);
     border-radius: 10px;
+    color: var(--background-dark);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/*TODO: pijada del scroll*/
+.status-item a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--background-dark);
 }
 
 .status-item i {
-    color: var(--color-primary);
+    color: var(--background-dark);
     font-size: 1.5rem;
 }
 
 .status-valor {
     font-size: 1.2rem;
     font-weight: bold;
-    color: var(--color-text);
+    color: var(--background-dark);
 }
 
 .status-label {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
+    color: var(--background-dark);
+    font-size: 1.2rem;
 }
 
-/* Estilos para la sección de personajes */
+.personajes-card {
+    background-color: var(--background-light);
+}
+
+.card-header {
+    background-color: var(--background-dark);
+    color: var(--primary);
+}
+
+.card-header h3 {
+    padding: 5px;
+}
+
+.card-header i {
+    font-size: 1.2em;
+    margin-right: 3px;
+}
+
+
 .personaje-item {
     position: relative;
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s ease;
+    padding: 20px;
 }
 
 .personaje-imagen {
@@ -102,7 +132,7 @@
     border-radius: 10px;
 }
 
-.personaje-overlay {
+.personaje-detalles {
     position: absolute;
     top: 0;
     left: 0;
@@ -116,54 +146,28 @@
     transition: opacity 0.3s ease;
 }
 
-.personaje-item:hover .personaje-overlay {
+.personaje-item:hover .personaje-detalles {
     opacity: 1;
+    border-radius: 10px;
+}
+
+.personaje-detalles .btn {
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+    color: var(--background-light);
+}
+
+.personaje-detalles .btn:hover {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+    border: 1px solid var(--complementary);
 }
 
 .personaje-info {
-    padding: 1rem;
-    background: var(--color-dark);
+    padding: 0.5rem;
+    text-align: center;
 }
 
-.personaje-info h4 {
-    color: var(--color-primary);
-    margin: 0;
-}
-
-.personaje-level {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-}
-
-.personaje-list-item {
-    padding: 1rem;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.personaje-list-item:last-child {
-    border-bottom: none;
-}
-
-.personaje-clase {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-}
-
-.personaje-estado {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.edit-perfil-btn {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-}
-
-.edit-perfil-btn:hover {
-    background-color: var(--color-primary);
-    color: var(--color-text);
-}
 
 @media (max-width: 768px) {
     .perfil-stats {

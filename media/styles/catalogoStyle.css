@@ -1,0 +1,116 @@
+body{
+    background-image: url("../img/fondo-catalogo.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+.catalogo-container {
+    padding: 40px;
+}
+
+
+
+.catalogo-header {
+    color: var(--primary);
+    background-color: var(--background-dark);
+    box-shadow: 0 4px 8px var(--background-dark);
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    text-align: center;
+    padding: 20px;
+}
+
+.filtros-section {
+    background-color: var(--background-dark);
+    padding: 1rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px var(--background-dark);
+}
+
+
+.form-select {
+    border: 2px solid var(--primary);
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    background-color: var(--background-light);
+    color: var(--background-dark);
+    font-size: 1em;
+}
+
+.form-select:focus{
+    border: 2px solid var(--primary);
+}
+
+.contenedor-cards{
+    padding: 30px;
+    background-color: var(--background-dark);
+    border-radius: 20px;
+}
+
+.personaje-card {
+    background: var(--background-light);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px var(--shadow-grey);
+}
+
+.personaje-card:hover {
+    transform: translateY(-5px);
+}
+
+.personaje-imagen {
+    position: relative;
+    overflow: hidden;
+}
+
+.personaje-imagen img {
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.personaje-detalles {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.personaje-nombre {
+    color: var(--background-dark);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.personaje-rol {
+    color: var(--complementary);
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.personaje-precio {
+    color: var(--dark);
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.btn-comprar {
+    background-color: var(--primary);
+    color: var(--background-light);
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-comprar:hover {
+    background-color: var(--complementary);
+    color: var(--background-light);
+}
+
+

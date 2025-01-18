@@ -50,3 +50,6 @@ try {
     header("Location: ../../vista/usuario/registro.php?error=" . $e->getMessage());
     exit();
 }
+
+header("Location: ../../vista/login/login.php?mensaje=UsuarioCreado");
+exit();
