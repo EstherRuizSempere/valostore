@@ -13,7 +13,7 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../media/styles/style.css">
     <link rel="stylesheet" href="../../media/styles/navegadorstyle.css">
-    <link rel="stylesheet" href="../../media/styles/catalogoStyle.css">
+    <link rel="stylesheet" href="../../media/styles/pagostyle.css">
     <link rel="stylesheet" href="../../media/styles/footer.css">
 </head>
 <body>
@@ -21,7 +21,7 @@
     <nav class="navegador">
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
-                <a href="../login/login.php" class="navbar-brand">
+                <a href="../../vista/login/login.php" class="navbar-brand">
                     <img class="img-fluid img-logo" src="../../media/img/logo-valostore.png" alt="Logo Valo Store">
                 </a>
 
@@ -53,7 +53,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item" href="cerrar-sesion.html"><i
-                                            class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
+                                        class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -63,88 +63,85 @@
 </header>
 
 <main>
-    <div class="container-fluid catalogo-container">
+    <div class="container-fluid pago-container">
         <div class="container">
-            <h1 class="catalogo-header">Catálogo de Personajes</h1>
+            <h1 class="pago-titulo">Finalizar Compra</h1>
 
-            <div class="filtros-section">
-                <div class="row">
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected>Filtrar por Rol</option>
-                            <option>Duelista</option>
-                            <option>Centinela</option>
-                            <option>Iniciador</option>
-                            <option>Controlador</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected>Ordenar por Precio</option>
-                            <option>Menor a Mayor</option>
-                            <option>Mayor a Menor</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected>Ordenar por nombre</option>
-                            <option>Ascendente</option>
-                            <option>Descendente</option>
-                        </select>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="pago-form">
+                        <form action="confirmacion.php" method="POST">
+                            <!-- Información personal -->
+                            <div class="form-section">
+                                <h2>Información Personal</h2>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Apellidos</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <!-- Información de pago -->
+                            <div class="form-section">
+                                <h2>Información de Pago</h2>
+                                <div class="form-group">
+                                    <label>Número de tarjeta</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Fecha de expiración</label>
+                                            <input type="text" class="form-control" placeholder="MM/AA" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>CVV</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-finalizar">
+                                Finalizar Compra
+                            </button>
+                        </form>
                     </div>
                 </div>
 
-            </div>
-        </div>
-
-        <div class="contenedor-cards">
-            <div class="row">
-                <div class="col-md-3 mb-4">
-                    <a href="producto-detalle.php">
-                        <div class="personaje-card">
-                            <div class="personaje-imagen">
-                                <img src="../../media/img/jett.png" alt="Jett">
+                <div class="col-lg-4">
+                    <!-- Resumen del pedido -->
+                    <div class="pago-resumen">
+                        <h2>Tu Pedido</h2>
+                        <div class="resumen-items">
+                            <div class="resumen-item">
+                                <span>Jett</span>
+                                <span>1000 VP</span>
                             </div>
-
-                            <div class="personaje-detalles">
-                                <h3 class="personaje-nombre">Jett</h3>
-                                <span class="personaje-rol">Duelista</span>
-                                <div class="personaje-precio">1000 VP</div>
+                            <div class="resumen-item">
+                                <span>Sage</span>
+                                <span>950 VP</span>
                             </div>
                         </div>
-                    </a>
-
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="personaje-card">
-                        <a href="producto-detalle.php">
-                            <div class="personaje-imagen">
-                                <img src="../../media/img/sage.png" alt="Sage">
-                            </div>
-                            <div class="personaje-detalles">
-                                <h3 class="personaje-nombre">Sage</h3>
-                                <span class="personaje-rol">Centinela</span>
-                                <div class="personaje-precio">950 VP</div>
-                            </div>
-                        </a>
-
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="personaje-card">
-                        <a href="producto-detalle.php">
-                            <div class="personaje-imagen">
-                                <img src="../../media/img/omen.png" alt="Omen">
-                            </div>
-                            <div class="personaje-detalles">
-                                <h3 class="personaje-nombre">Omen</h3>
-                                <span class="personaje-rol">Controlador</span>
-                                <div class="personaje-precio">900 VP</div>
-                            </div>
-                        </a>
-
+                        <div class="resumen-total">
+                            <span>Total</span>
+                            <span>1950 VP</span>
+                        </div>
                     </div>
                 </div>
             </div>

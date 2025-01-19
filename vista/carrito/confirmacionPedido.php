@@ -13,7 +13,7 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../media/styles/style.css">
     <link rel="stylesheet" href="../../media/styles/navegadorstyle.css">
-    <link rel="stylesheet" href="../../media/styles/forgotstyle.css">
+    <link rel="stylesheet" href="../../media/styles/confirmacionstyle.css">
     <link rel="stylesheet" href="../../media/styles/footer.css">
 </head>
 <body>
@@ -21,67 +21,91 @@
     <nav class="navegador">
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
-                <a href="../login/login.php" class="navbar-brand">
+                <a href="../../vista/login/login.php" class="navbar-brand">
                     <img class="img-fluid img-logo" src="../../media/img/logo-valostore.png" alt="Logo Valo Store">
                 </a>
 
-
                 <ul class="nav nav-pills ms-auto iconos-nav">
                     <li class="nav-item">
-                        <a href="" class="nav-link active">
-                            <i class="bi bi-download img-iconos"></i>
-                            Descargar juego
+                        <a href="catalogo.php" class="nav-link active">
+                            <i class="bi bi-shop img-iconos"></i>
+                            Tienda
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link active">
-                            <i class="bi bi-person-circle img-iconos"></i>
-                            Iniciar sesión
+                        <a href="carrito.html" class="nav-link active">
+                            <i class="bi bi-cart img-iconos"></i>
+                            Carrito
                         </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                           aria-expanded="false">
+                            <i class="bi bi-person-circle img-iconos"></i>
+                            ¡Hola, Esther!
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu">
+                            <li><a class="dropdown-item" href="perfil.html"><i class="bi bi-person me-2"></i>Mi
+                                    Perfil</a></li>
+                            <li><a class="dropdown-item" href="pedidos.html"><i class="bi bi-box me-2"></i>Mis
+                                    Pedidos</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="cerrar-sesion.html"><i
+                                        class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
-<div class="container p-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="registro-form">
-                <div class="header-text">
-                    <h4>¿Quieres cambiar tu <span>contraseña</span>?</h4>
-                    <p>Introduce tu nueva contraseña para cambiarla</p>
+
+<main>
+    <div class="container-fluid confirmacion-container">
+        <div class="container">
+            <div class="confirmacion-content">
+                <div class="confirmacion-icon">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+                <h1>¡Pedido Confirmado!</h1>
+                <p class="confirmacion-mensaje">Gracias por tu compra. Tu pedido ha sido procesado correctamente.</p>
+
+                <div class="confirmacion-detalles">
+                    <h2>Detalles del pedido</h2>
+                    <div class="detalles-item">
+                        <span>Número de pedido:</span>
+                        <span>#VAL12345</span>
+                    </div>
+                    <div class="detalles-productos">
+                        <div class="producto-item">
+                            <span>Jett</span>
+                            <span>1000 VP</span>
+                        </div>
+                        <div class="producto-item">
+                            <span>Sage</span>
+                            <span>950 VP</span>
+                        </div>
+                    </div>
+                    <div class="detalles-total">
+                        <span>Total</span>
+                        <span>1950 VP</span>
+                    </div>
                 </div>
 
-                <form id="registroForm">
-                    <div class="row contrasenya">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="contrasenya" class="form-label">Contraseña*</label>
-                                <input type="password" name="contrasenya" class="form-control" id="contrasenya" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row contrasenya">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="contrasenya" class="form-label">Contraseña*</label>
-                                <input type="password" name="contrasenya" class="form-control" id="contrasenya" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Cambiar contraseña</button>
-                        <!--TODO: poner ternario para depende del usuario que sea, volver a su zona -->
-                        <a class="btn btn-primary" href="">Vuelve atrás</a>
-
-                    </div>
-                </form>
+                <div class="confirmacion-acciones">
+                    <a href="catalogo.php" class="btn-volver">
+                        Volver a la tienda
+                    </a>
+                    <a href="pedidos.php" class="btn-pedidos">
+                        Ver mis pedidos
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</main>
 
 <footer class="footer">
     <div class="container">
@@ -132,5 +156,6 @@
         </div>
     </div>
 </footer>
+
 </body>
 </html>

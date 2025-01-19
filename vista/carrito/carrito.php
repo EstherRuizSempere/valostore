@@ -13,7 +13,7 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../media/styles/style.css">
     <link rel="stylesheet" href="../../media/styles/navegadorstyle.css">
-    <link rel="stylesheet" href="../../media/styles/forgotstyle.css">
+    <link rel="stylesheet" href="../../media/styles/carritostyle.css">
     <link rel="stylesheet" href="../../media/styles/footer.css">
 </head>
 <body>
@@ -21,67 +21,107 @@
     <nav class="navegador">
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
-                <a href="../login/login.php" class="navbar-brand">
+                <a href="../../vista/login/login.php" class="navbar-brand">
                     <img class="img-fluid img-logo" src="../../media/img/logo-valostore.png" alt="Logo Valo Store">
                 </a>
 
-
                 <ul class="nav nav-pills ms-auto iconos-nav">
                     <li class="nav-item">
-                        <a href="" class="nav-link active">
-                            <i class="bi bi-download img-iconos"></i>
-                            Descargar juego
+                        <a href="catalogo.php" class="nav-link active">
+                            <i class="bi bi-shop img-iconos"></i>
+                            Tienda
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link active">
-                            <i class="bi bi-person-circle img-iconos"></i>
-                            Iniciar sesión
+                        <a href="carrito.html" class="nav-link active">
+                            <i class="bi bi-cart img-iconos"></i>
+                            Carrito
                         </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                           aria-expanded="false">
+                            <i class="bi bi-person-circle img-iconos"></i>
+                            ¡Hola, Esther!
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu">
+                            <li><a class="dropdown-item" href="perfil.html"><i class="bi bi-person me-2"></i>Mi
+                                    Perfil</a></li>
+                            <li><a class="dropdown-item" href="pedidos.html"><i class="bi bi-box me-2"></i>Mis
+                                    Pedidos</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="cerrar-sesion.html"><i
+                                        class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
-<div class="container p-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="registro-form">
-                <div class="header-text">
-                    <h4>¿Quieres cambiar tu <span>contraseña</span>?</h4>
-                    <p>Introduce tu nueva contraseña para cambiarla</p>
+
+<main>
+    <div class="container-fluid carrito-container">
+        <div class="container">
+            <h1 class="carrito-titulo">Tu Carrito</h1>
+
+            <div class="carrito-content">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="carrito-items">
+                            <div class="carrito-item">
+                                <img src="../../media/img/jett.png" alt="Jett" class="item-imagen">
+                                <div class="item-detalles">
+                                    <h3>Jett</h3>
+                                    <span class="item-rol">Duelista</span>
+                                </div>
+                                <div class="item-precio">1000 VP</div>
+                                <button class="btn-eliminar">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+
+                            <div class="carrito-item">
+                                <img src="../../media/img/sage.png" alt="Sage" class="item-imagen">
+                                <div class="item-detalles">
+                                    <h3>Sage</h3>
+                                    <span class="item-rol">Centinela</span>
+                                </div>
+                                <div class="item-precio">950 VP</div>
+                                <button class="btn-eliminar">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="carrito-resumen">
+                            <h2>Resumen del pedido</h2>
+                            <div class="resumen-item">
+                                <span>Subtotal</span>
+                                <span>1950 VP</span>
+                            </div>
+                            <div class="resumen-item total">
+                                <span>Total</span>
+                                <span>1950 VP</span>
+                            </div>
+                            <a href="pago.php" class="btn-pagar">
+                                Proceder al pago
+                            </a>
+                            <a href="catalogo.php" class="btn-seguir-comprando">
+                                Seguir comprando
+                            </a>
+                        </div>
+                    </div>
                 </div>
-
-                <form id="registroForm">
-                    <div class="row contrasenya">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="contrasenya" class="form-label">Contraseña*</label>
-                                <input type="password" name="contrasenya" class="form-control" id="contrasenya" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row contrasenya">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="contrasenya" class="form-label">Contraseña*</label>
-                                <input type="password" name="contrasenya" class="form-control" id="contrasenya" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Cambiar contraseña</button>
-                        <!--TODO: poner ternario para depende del usuario que sea, volver a su zona -->
-                        <a class="btn btn-primary" href="">Vuelve atrás</a>
-
-                    </div>
-                </form>
             </div>
         </div>
     </div>
-</div>
+</main>
+
 
 <footer class="footer">
     <div class="container">
@@ -132,5 +172,6 @@
         </div>
     </div>
 </footer>
+
 </body>
 </html>

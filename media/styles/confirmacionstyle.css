@@ -1,0 +1,121 @@
+.confirmacion-container {
+    padding: 40px;
+    background-image: url("../img/fondo-catalogo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.confirmacion-content {
+    background: var(--background-light);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 4px 8px var(--shadow-grey);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.confirmacion-icon {
+    color: var(--primary);
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.confirmacion-content h1 {
+    color: var(--background-dark);
+    margin-bottom: 15px;
+}
+
+.confirmacion-mensaje {
+    color: var(--background-dark);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.confirmacion-detalles {
+    background: rgba(220, 208, 190, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.confirmacion-detalles h2 {
+    color: var(--background-dark);
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+.detalles-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    color: var(--background-dark);
+}
+
+.detalles-productos {
+    margin: 20px 0;
+    padding: 20px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.producto-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: var(--background-dark);
+}
+
+.detalles-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: var(--background-dark);
+    margin-top: 20px;
+}
+
+.confirmacion-acciones {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn-volver,
+.btn-pedidos {
+    padding: 15px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-volver {
+    background-color: var(--background-dark);
+    color: var(--background-light);
+}
+
+.btn-pedidos {
+    background-color: var(--primary);
+    color: var(--background-light);
+}
+
+.btn-volver:hover,
+.btn-pedidos:hover {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+}
+
+@media (max-width: 768px) {
+    .confirmacion-acciones {
+        flex-direction: column;
+    }
+
+    .btn-volver,
+    .btn-pedidos {
+        width: 100%;
+        text-align: center;
+    }
+}

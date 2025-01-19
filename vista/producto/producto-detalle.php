@@ -13,7 +13,7 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../media/styles/style.css">
     <link rel="stylesheet" href="../../media/styles/navegadorstyle.css">
-    <link rel="stylesheet" href="../../media/styles/catalogoStyle.css">
+    <link rel="stylesheet" href="../../media/styles/productostyle.css">
     <link rel="stylesheet" href="../../media/styles/footer.css">
 </head>
 <body>
@@ -63,88 +63,74 @@
 </header>
 
 <main>
-    <div class="container-fluid catalogo-container">
+    <div class="container-fluid producto-container">
         <div class="container">
-            <h1 class="catalogo-header">Catálogo de Personajes</h1>
-
-            <div class="filtros-section">
-                <div class="row">
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected>Filtrar por Rol</option>
-                            <option>Duelista</option>
-                            <option>Centinela</option>
-                            <option>Iniciador</option>
-                            <option>Controlador</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected>Ordenar por Precio</option>
-                            <option>Menor a Mayor</option>
-                            <option>Mayor a Menor</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected>Ordenar por nombre</option>
-                            <option>Ascendente</option>
-                            <option>Descendente</option>
-                        </select>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="producto-imagen-container">
+                        <img src="../../media/img/jett.png" alt="Jett" class="producto-imagen">
                     </div>
                 </div>
-
-            </div>
-        </div>
-
-        <div class="contenedor-cards">
-            <div class="row">
-                <div class="col-md-3 mb-4">
-                    <a href="producto-detalle.php">
-                        <div class="personaje-card">
-                            <div class="personaje-imagen">
-                                <img src="../../media/img/jett.png" alt="Jett">
-                            </div>
-
-                            <div class="personaje-detalles">
-                                <h3 class="personaje-nombre">Jett</h3>
-                                <span class="personaje-rol">Duelista</span>
-                                <div class="personaje-precio">1000 VP</div>
+                <div class="col-md-6">
+                    <div class="producto-info">
+                        <div class="producto-rol-badge">Duelista</div>
+                        <h1 class="producto-nombre">Jett</h1>
+                        <div class="producto-precio">1000 VP</div>
+                        <div class="producto-dificultad">
+                            <span>Dificultad:</span>
+                            <div class="dificultad-barras">
+                                <div class="barra activa"></div>
+                                <div class="barra activa"></div>
+                                <div class="barra"></div>
                             </div>
                         </div>
-                    </a>
-
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="personaje-card">
-                        <a href="producto-detalle.php">
-                            <div class="personaje-imagen">
-                                <img src="../../media/img/sage.png" alt="Sage">
-                            </div>
-                            <div class="personaje-detalles">
-                                <h3 class="personaje-nombre">Sage</h3>
-                                <span class="personaje-rol">Centinela</span>
-                                <div class="personaje-precio">950 VP</div>
-                            </div>
-                        </a>
-
+                        <div class="producto-acciones">
+                            <button class="btn-comprar">
+                                <i class="bi bi-cart-plus"></i> Añadir al carrito
+                            </button>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-md-3 mb-4">
-                    <div class="personaje-card">
-                        <a href="producto-detalle.php">
-                            <div class="personaje-imagen">
-                                <img src="../../media/img/omen.png" alt="Omen">
-                            </div>
-                            <div class="personaje-detalles">
-                                <h3 class="personaje-nombre">Omen</h3>
-                                <span class="personaje-rol">Controlador</span>
-                                <div class="personaje-precio">900 VP</div>
-                            </div>
-                        </a>
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="producto-tabs">
+                        <ul class="nav nav-tabs" id="producto-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#historia"  type="button">Historia</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#habilidades" type="button">Habilidades</button>
+                            </li>
+                        </ul>
 
+                        <div class="tab-content" id="producto-tab-content">
+                            <div class="tab-pane fade show active" id="historia">
+                                <div class="producto-descripcion">
+                                    <h3>Historia</h3>
+                                    <p>Representando a Corea del Sur, el estilo de lucha ágil y evasivo de Jett le permite asumir grandes riesgos. Corre y esquiva en cada refriega mientras hace trizas a los enemigos con una rapidez vertiginosa.</p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="habilidades">
+                                <div class="habilidades-grid">
+                                    <div class="habilidad-card">
+                                        <div class="habilidad-header">
+                                            <img src="../../media/img/habilidad1.png" alt="Corriente Ascendente">
+                                            <h4>Corriente Ascendente</h4>
+                                        </div>
+                                        <p>Te PROPULSAS instantáneamente hacia arriba.</p>
+                                    </div>
+                                    <div class="habilidad-card">
+                                        <div class="habilidad-header">
+                                            <img src="../../media/img/habilidad2.png" alt="Viento de Cola">
+                                            <h4>Viento de Cola</h4>
+                                        </div>
+                                        <p>ACTIVAS propulsión instantáneamente hacia la dirección en la que te estés moviendo.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

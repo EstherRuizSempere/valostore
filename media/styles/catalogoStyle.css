@@ -48,6 +48,9 @@ body{
     border-radius: 20px;
 }
 
+ a{
+     text-decoration: none;
+}
 .personaje-card {
     background: var(--background-light);
     border-radius: 15px;

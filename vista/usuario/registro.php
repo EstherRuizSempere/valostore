@@ -138,6 +138,8 @@
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Crear Cuenta</button>
+                        <a class="btn btn-primary ms-4" href="../login/login.php">Vuelve atrás</a>
+
                     </div>
                 </form>
             </div>

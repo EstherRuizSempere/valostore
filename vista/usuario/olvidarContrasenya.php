@@ -80,6 +80,8 @@
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Cambiar contraseña</button>
+                        <!--TODO: poner ternario para depende del usuario que sea, volver a su zona -->
+                        <a class="btn btn-primary" href="">Vuelve atrás</a>
                     </div>
                 </form>
             </div>

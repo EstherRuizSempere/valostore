@@ -1,0 +1,103 @@
+.pago-container {
+    padding: 40px;
+    background-image: url("../img/fondo-catalogo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.pago-titulo {
+    color: var(--background-light);
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.pago-form {
+    background: var(--background-light);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 8px var(--shadow-grey);
+    margin-bottom: 30px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+.form-section h2 {
+    color: var(--background-dark);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: var(--background-dark);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-control {
+    border: 2px solid rgba(220, 208, 190, 0.3);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: none;
+}
+
+.btn-finalizar {
+    background-color: var(--primary);
+    color: var(--background-light);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.btn-finalizar:hover {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+}
+
+.pago-resumen {
+    background: var(--background-light);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 8px var(--shadow-grey);
+}
+
+.pago-resumen h2 {
+    color: var(--background-dark);
+    margin-bottom: 20px;
+}
+
+.resumen-items {
+    margin-bottom: 20px;
+}
+
+.resumen-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: var(--background-dark);
+}
+
+.resumen-total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 2px solid var(--primary);
+    font-weight: bold;
+    color: var(--background-dark);
+}

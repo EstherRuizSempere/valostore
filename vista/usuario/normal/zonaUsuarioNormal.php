@@ -87,9 +87,24 @@ Seguridad::usuarioPermisos(['usuario']);
                                         <i class="bi bi-circle-fill"></i> Online
                                     </span>
                                     <h2 class="perfil-username">TherBeep</h2>
-                                    <a href="actualizarUsuarioNormal.php" class="btn  edit-perfil-btn">
-                                        <i class="bi bi-pencil"></i> Editar Perfil
-                                    </a>
+                                    <div class="mb-2 ">
+                                        <a href="../editarContrasenya.php" class="btn  edit-perfil-btn">
+                                            <i class="bi bi-pencil"></i> Cambio Contraseña
+                                        </a>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <a href="actualizarUsuarioNormal.php" class="btn  edit-perfil-btn">
+                                                <i class="bi bi-pencil"></i> Editar Perfil
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <a href="borrarUsuarioNormal.php" class="btn  edit-perfil-btn">
+                                                <i class="bi bi-trash"></i> Eliminar Perfil
+                                            </a>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">

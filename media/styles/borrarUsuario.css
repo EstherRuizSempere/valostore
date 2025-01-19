@@ -1,0 +1,119 @@
+.perfil-container {
+    padding: 40px;
+    background-image: url("../img/fondo-forgot.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+}
+
+.perfil-card {
+    background: var(--background-light);
+    border: none;
+    border-radius: 15px;
+}
+
+.card-header {
+    background-color: var(--background-dark);
+    color: var(--primary);
+    text-align: center;
+}
+
+.card-header h3 {
+    padding: 5px;
+}
+
+.card-header i {
+    font-size: 1.2em;
+    margin-right: 3px;
+}
+
+.bi-person-x{
+    font-size: 3em;
+    color: var(--primary);
+
+}
+
+ a{
+    text-decoration: none;
+}
+
+.borrar-perfil-btn {
+    background-color: var(--primary);
+    border: none;
+    border-radius: 23px;
+    padding: 10px 20px;
+    color: var(--background-light);
+    font-weight: bold;
+    font-size: 1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.borrar-perfil-btn:hover {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+}
+
+.form-control {
+    border-radius: 23px;
+    padding: 12px 20px;
+    border: 1px solid var(--background-dark);
+    margin-bottom: 20px;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 208, 190, 0.25);
+    border-color: var(--primary);
+}
+
+.status-item {
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(220, 208, 190, 0.44);
+    border-radius: 10px;
+    color: var(--background-dark);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.status-item ul {
+    margin: 0;
+    padding: 0;
+}
+
+.status-item li {
+    margin: 10px 0;
+    color: var(--background-dark);
+    font-size: 1.1em;
+}
+
+.status-item i {
+    color: var(--background-dark);
+    margin-right: 10px;
+}
+
+
+@media (max-width: 768px) {
+    .perfil-container {
+        padding: 20px;
+    }
+
+    .status-item {
+        padding: 0.8rem;
+    }
+
+    .status-item li {
+        font-size: 1em;
+    }
+
+    .d-flex.justify-content-center.gap-3 {
+        flex-direction: column;
+        gap: 1rem !important;
+    }
+
+    .edit-perfil-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
