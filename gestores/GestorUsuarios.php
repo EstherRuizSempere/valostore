@@ -46,7 +46,63 @@ class GestorUsuarios
         }
     }
 
-    public function verificarLogin($email, $contrasenya)
+    public function editarUsuario(Usuario $usuario)
+    {
+        //Preparo la consulta
+        $sql = "UPDATE usuarios SET usuario = :usuario, email = :email, nombre = :nombre, apellido1 = :apellido1, apellido2 = :apellido2, direccion = :direccion, localidad = :localidad, provincia = :provincia, telefono = :telefono, fechaNacimiento = :fechaNacimiento, activo = :activo WHERE id = :id";
+        try {
+            $statement = $this->rellenarDatosUsuario($sql, $usuario);
+            $statement->bindValue(':id', $usuario->getId());
+
+            //Si no se ejecuta, da fallo:
+            if (!$statement->execute()) {
+                throw new Exception("Error al editar al usuario");
+            }
+        } catch (Throwable $error) {
+            throw new Exception($error->getMessage());
+        }
+    }
+    public function editarContrasenya($id, $contrasenya){
+        //Preparo la consulta
+        $sql = "UPDATE usuarios SET contrasenya = :contrasenya WHERE id = :id";
+
+        try {
+            $statement = $this->pdo->prepare($sql);
+            $contrasenyaHash = Utilidades::hashContrasenya($contrasenya);
+            $statement->bindValue(':contrasenya', $contrasenyaHash);
+            $statement->bindValue(':id', $id);
+
+            if (!$statement->execute()) {
+                throw new Exception("Error al editar la contraseña");
+            }
+        }catch (Throwable $error) {
+            throw new Exception($error->getMessage());
+        }
+    }
+
+    public function getUsuario(int $id): Usuario
+    {
+        //Preparo la consulta
+        $sql = "SELECT * FROM usuarios WHERE id = :id";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':id', $id);
+
+        try {
+            $statement->execute();
+            $usuario_bd = $statement->fetch(PDO::FETCH_ASSOC);
+            //Cambio el formato de fecha de nacimiento
+            $fechaNacimiento = new DateTime($usuario_bd['fechaNacimiento']);
+
+            $usuario = new Usuario($usuario_bd['id'], $usuario_bd['usuario'], $usuario_bd['email'], $usuario_bd['nombre'], $usuario_bd['apellido1'], $usuario_bd['apellido2'], $usuario_bd['direccion'], $usuario_bd['localidad'], $usuario_bd['provincia'], $usuario_bd['telefono'], $usuario_bd['contrasenya'], $fechaNacimiento, $usuario_bd['rol'], $usuario_bd['activo']);
+            return $usuario;
+        } catch (Throwable $error) {
+            throw new Exception($error->getMessage());
+        }
+    }
+
+
+    public
+    function verificarLogin($email, $contrasenya)
     {
         $email = strtolower($email);
         try {
@@ -83,6 +139,22 @@ class GestorUsuarios
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(':usuario', $usuario);
         $statement->bindValue(':email', $email);
+        $statement->execute();
+
+        if ($statement->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function comprobarUserNameExiste(string $usuario, int $id)
+    {
+        $sql = "SELECT id FROM usuarios WHERE usuario = :usuario AND id != :id";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':usuario', $usuario);
+        $statement->bindValue(':id', $id);
         $statement->execute();
 
         if ($statement->rowCount() > 0) {

@@ -100,7 +100,7 @@
         <div class="contenedor-cards">
             <div class="row">
                 <div class="col-md-3 mb-4">
-                    <a href="producto-detalle.php">
+                    <a href="vista/producto/producto-detalle.php">
                         <div class="personaje-card">
                             <div class="personaje-imagen">
                                 <img src="media/img/jett.png" alt="Jett">

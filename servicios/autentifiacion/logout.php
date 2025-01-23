@@ -1,4 +1,5 @@
 <?php
+//TODO: Implementar la funcionalidad de cerrar sesión arreglando el nav
 session_start();
 $_SESSION = array();
 session_destroy();

@@ -1,3 +1,11 @@
+<?php
+require_once __DIR__ . '/../../config/seguridad.php';
+require_once __DIR__ . '/../../gestores/GestorUsuarios.php';
+
+Seguridad::usuarioPermisos(['usuario']);
+$gestorUsuarios = new GestorUsuarios();
+$usuario = $gestorUsuarios->getUsuario($_SESSION['id']);
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -53,7 +61,7 @@
                     <p>Introduce tu nueva contraseña para cambiarla</p>
                 </div>
 
-                <form id="registroForm">
+                <form id="registroForm" action="../../servicios/usuarios/editarContrasenya.php" method="POST">
                     <div class="row contrasenya">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -65,8 +73,8 @@
                     <div class="row contrasenya">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="contrasenya" class="form-label">Contraseña*</label>
-                                <input type="password" name="contrasenya" class="form-control" id="contrasenya" required>
+                                <label for="validarContrasenya" class="form-label">Confirma la Contraseña*</label>
+                                <input type="password" name="validarContrasenya" class="form-control" id="contrasenya" required>
                             </div>
                         </div>
                     </div>

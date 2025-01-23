@@ -1,3 +1,14 @@
+<?php
+require_once '../../../gestores/GestorUsuarios.php';
+require_once '../../../config/seguridad.php';
+
+Seguridad::usuarioPermisos(['usuario']);
+
+$gestorUsuarios = new GestorUsuarios();
+$usuario = $gestorUsuarios->getUsuario($_SESSION['id']);
+
+
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -48,7 +59,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item" href="cerrar-sesion.html"><i
-                                        class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
+                                            class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -69,14 +80,16 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="usuario"  class="form-label">Nombre de Usuario*</label>
-                                <input type="text" name="usuario" class="form-control" id="usuario" required>
+                                <label for="usuario" class="form-label">Nombre de Usuario*</label>
+                                <input type="text" name="usuario" class="form-control" id="usuario" required
+                                       value="<?= $usuario->getUsuario() ?>">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email*</label>
-                                <input type="email" name="email" class="form-control" id="email" required>
+                                <input type="email" name="email" class="form-control" id="email" required
+                                       value="<?= $usuario->getEmail() ?>">
                             </div>
                         </div>
                     </div>
@@ -85,52 +98,60 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre*</label>
-                                <input type="text" name="nombre" class="form-control" id="nombre" required>
+                                <input type="text" name="nombre" class="form-control" id="nombre" required
+                                       value="<?= $usuario->getNombre() ?>">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="apellido1" class="form-label">Primer Apellido*</label>
-                                <input type="text" name="apellido1" class="form-control" id="apellido1" required>
+                                <input type="text" name="apellido1" class="form-control" id="apellido1" required
+                                       value="<?= $usuario->getApellido1() ?>">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="apellido2" class="form-label">Segundo Apellido</label>
-                                <input type="text" name="apellido2" class="form-control" id="apellido2">
+                                <input type="text" name="apellido2" class="form-control" id="apellido2"
+                                       value="<?= $usuario->getApellido2() ?>">
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="direccion" class="form-label">Dirección*</label>
-                        <input type="text"  name="direccion" class="form-control" id="direccion">
+                        <input type="text" name="direccion" class="form-control" id="direccion" required
+                               value="<?= $usuario->getDireccion() ?>">
                     </div>
 
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="localidad" class="form-label">Localidad*</label>
-                                <input type="text" name="localidad" class="form-control" id="localidad" required>
+                                <input type="text" name="localidad" class="form-control" id="localidad" required
+                                       value="<?= $usuario->getLocalidad() ?>">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="provincia" class="form-label">Provincia*</label>
-                                <input type="text" name="provincia" class="form-control" id="provincia" required>
+                                <input type="text" name="provincia" class="form-control" id="provincia" required
+                                       value="<?= $usuario->getProvincia() ?>">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="telefono" class="form-label">Teléfono*</label>
-                                <input type="tel" name="telefono" class="form-control" id="telefono" required>
+                                <input type="tel" name="telefono" class="form-control" id="telefono" required
+                                       value="<?= $usuario->getTelefono() ?>">
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-4">
                         <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento*</label>
-                        <input type="date" name="fechaNacimiento" class="form-control" id="fechaNacimiento" required>
+                        <input type="date" name="fechaNacimiento" class="form-control" id="fechaNacimiento" required
+                               value="<?= $usuario->getFechaNacimiento()->format('Y-m-d') ?>">
                     </div>
 
                     <div class="text-center">

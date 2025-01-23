@@ -19,80 +19,11 @@ class GestorUsuarios
 
     }
 
-    public function verificarLogin($email, $contrasenya)
-    {
-        try {
-            Utilidades::validarEmail($email);
-        } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage();
-            return null;
-        }
 
-        //Consulto los datos del usuario
-        $statement = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = :email AND contrasenya = :contrasenya AND activo = 1");
-        $statement->bindParam(':email', $email);
-        $statement->execute();
 
-        //Verifico que el usuario existe
-        $usuario_bd = $statement->fetch(PDO::FETCH_ASSOC);
 
-        if ($usuario_bd) {
-            //Si el usuario existe creo la instancia del objeto con sus datos:
-            $usuario = new Usuario($usuario_bd['dni'], $usuario_bd['nombre'], $usuario_bd['apellido1'], $usuario_bd['apellido2'], $usuario_bd['direccion'], $usuario_bd['localidad'], $usuario_bd['provincia'], $usuario_bd['telefono'], $usuario_bd['email'], $usuario_bd['contrasenya'], $usuario_bd['rol']);
-            return $usuario;
-        }
-        return null; //En caso de fallo
-    }
 
-    public function nuevoUsuario(Usuario $usuario)
-    {
-        $sql = "INSERT INTO usuarios (dni, nombre, apellido1, apellido2, direccion, localidad, provincia, telefono, email, fechaNacimiento, contrasenya, rol) VALUES (:dni, :nombre, :apellido1, :apellido2, :direccion, :localidad, :provincia, :telefono, :email, :fechaNacimiento, :contrasenya, :rol)";
 
-        try {
-
-            //Valido la contraseña antes de procesarla:
-            if (!Utilidades::validarContrasenya($usuario->getContrasenya())) {
-                throw new Exception("La contraseña debe tener al menos 4 caracteres");
-            }
-
-            //Antes de almacenar la contraseña hay que "hasearla"
-            $contrasenyaHash = Utilidades::hashContrasenya($usuario->getContrasenya());
-
-            //Preparamos la consulta
-            $statement = $this->rellenarDatosUsuario($sql, $usuario);
-            $statement->bindValue(':contrasenya', $contrasenyaHash);
-            $statement->bindValue(':rol', $usuario->getRol());
-
-            if (!$statement->execute()) {
-                throw new Exception("Error al insertar al usuario");
-            }
-        } catch (Throwable $error) {
-            throw new Exception($error->getMessage());
-        }
-    }
-
-    public function editarUsuario($usuario)
-    {
-        if ($usuario == null) {
-            throw new Exception("El usuario debe existir");
-        }
-
-        //Preparamos la consulta
-        $sql = "UPDATE usuarios SET dni = :dni, nombre = :nombre, apellido1 = :apellido1, apellido2 = :apellido2, direccion = :direccion, localidad = :localidad, provincia = :provincia, telefono = :telefono, email = :email, fechaNacimiento = :fechaNacimiento, contrasenya = :contrasenya, rol = :rol WHERE email = :email";
-
-        try {
-            $statement = $this->rellenarDatosUsuario($sql, $usuario);
-            $statement->bindValue(':contrasenya', $usuario->getContrasenya());
-            $statement->bindValue(':rol', $usuario->getRol());
-
-            //Si no se ejecuta la consulta, dará fallo:
-            if (!$statement->execute()) {
-                throw new Exception("Error al editar al usuario");
-            }
-        } catch (Throwable $error) {
-            throw new Exception($error->getMessage());
-        }
-    }
 
     public function editarContrasenya($email, $contrasenyaHash)
     {
