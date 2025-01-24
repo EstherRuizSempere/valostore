@@ -91,7 +91,7 @@ Seguridad::usuarioPermisos(['usuario']);
                                         <li><i class="bi bi-cart"></i> Carrito de compras</li>
                                     </ul>
                                 </div>
-                                <form action="" method="POST" class="mb-4">
+                                <form action="../../../servicios/usuarios/desactivarUsuario.php" method="POST" class="mb-4">
                                     <div class="mb-3">
                                         <input type="password" class="form-control" id="contrasenya" name="contrasenya"
                                                placeholder="Introduce tu contraseña para confirmar" required>

@@ -1,0 +1,66 @@
+@import url('zonaUsuarioNormalStyle.css');
+.admin-table {
+    width: 100%;
+    margin-bottom: 1rem;
+    text-align: center; /* Center-align all table content */
+}
+
+.admin-table thead {
+    background-color: var(--background-dark);
+    color: var(--primary);
+}
+
+.admin-table thead th {
+    vertical-align: middle;
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.admin-table tbody td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.admin-table-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-table-actions .btn {
+    background-color: var(--primary);
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    color: var(--background-light);
+}
+
+.admin-table-actions .btn:hover {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+}
+
+.admin-table-actions .btn-danger {
+    background-color: #dc3545;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--background-light);
+}
+
+.pagination .page-link {
+    color: var(--background-dark);
+}

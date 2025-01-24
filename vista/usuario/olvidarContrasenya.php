@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -53,15 +54,14 @@
                     <p>Introduce tu correo electrónico y nombre de usuario para cambiarla</p>
                 </div>
 
-                <form id="registroForm">
+                <?php if (isset($_GET['error']) || !empty($_GET['error'])) {
+                    echo '<p>' . $_GET['error'] . '</p>';
+                } ?>
+
+                <form id="registroForm" action="../../servicios/usuarios/olvidarContrasenya.php" method="post">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="usuario" class="form-label">Nombre de Usuario*</label>
-                                <input type="text" name="usuario" class="form-control" id="usuario" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+
+                        <div class="col-md-8 text-center">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email*</label>
                                 <input type="email" name="email" class="form-control" id="email" required>
@@ -73,15 +73,15 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="contrasenya" class="form-label">Contraseña*</label>
-                                <input type="password" name="contrasenya" class="form-control" id="contrasenya" required>
+                                <input type="password" name="contrasenya" class="form-control" id="contrasenya"
+                                       required>
                             </div>
                         </div>
                     </div>
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Cambiar contraseña</button>
-                        <!--TODO: poner ternario para depende del usuario que sea, volver a su zona -->
-                        <a class="btn btn-primary" href="">Vuelve atrás</a>
+                        <a class="btn btn-primary" href="../login/login.php">Vuelve atrás</a>
                     </div>
                 </form>
             </div>

@@ -1,0 +1,18 @@
+@import url('registrostyle.css');
+
+body {
+    background-image: url("../img/fondo-update-admin.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+option{
+    color: var(--background-dark);
+}
+
+option:checked {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+}

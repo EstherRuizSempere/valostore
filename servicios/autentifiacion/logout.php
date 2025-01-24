@@ -3,4 +3,4 @@
 session_start();
 $_SESSION = array();
 session_destroy();
-header("Location: ../../public/autentifiacion.php");
+header("Location: ../../vista/login/login.php?mensaje=SesionCerrada");

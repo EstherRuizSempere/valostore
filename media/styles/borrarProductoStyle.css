@@ -1,0 +1,9 @@
+@import url('borrarUsuario.css');
+
+.perfil-container{
+    background-image: url("../img/fondo-nuevo-producto.jpg")!important;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

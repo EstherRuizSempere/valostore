@@ -35,8 +35,8 @@ class Usuario{
     public function __construct(int $id, string $usuario, string $email, string $nombre, string $apellido1, string $apellido2, string $direccion, string $localidad, string $provincia, string $telefono, string $contrasenya, DateTime $fechaNacimiento, string $rol, int $activo)
     {
         $this->id = $id;
-        $this->usuario = $usuario;
-        $this->email = $email;
+        $this->usuario = strtolower($usuario);
+        $this->email = strtolower($email);
         $this->nombre = $nombre;
         $this->apellido1 = $apellido1;
         $this->apellido2 = $apellido2;
@@ -68,7 +68,7 @@ class Usuario{
 
     public function setUsuario(string $usuario): void
     {
-        $this->usuario = $usuario;
+        $this->usuario = strtolower($usuario);
     }
 
     public function getEmail(): string
@@ -78,7 +78,7 @@ class Usuario{
 
     public function setEmail(string $email): void
     {
-        $this->email = $email;
+        $this->email = strtolower($email);
     }
 
     public function getNombre(): string

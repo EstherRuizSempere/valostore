@@ -62,7 +62,27 @@ class GestorUsuarios
             throw new Exception($error->getMessage());
         }
     }
-    public function editarContrasenya($id, $contrasenya){
+
+    public function desactivarUsuario($id)
+    {
+        //Preparo la consulta
+        $sql = "UPDATE usuarios SET activo = 0 WHERE id = :id";
+
+        try {
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(':id', $id);
+
+            if (!$statement->execute()) {
+                throw new Exception("Error al desactivar al usuario");
+            }
+        } catch (Throwable $error) {
+            throw new Exception($error->getMessage());
+        }
+
+    }
+
+    public function editarContrasenya($id, $contrasenya)
+    {
         //Preparo la consulta
         $sql = "UPDATE usuarios SET contrasenya = :contrasenya WHERE id = :id";
 
@@ -75,7 +95,7 @@ class GestorUsuarios
             if (!$statement->execute()) {
                 throw new Exception("Error al editar la contraseña");
             }
-        }catch (Throwable $error) {
+        } catch (Throwable $error) {
             throw new Exception($error->getMessage());
         }
     }
@@ -100,9 +120,7 @@ class GestorUsuarios
         }
     }
 
-
-    public
-    function verificarLogin($email, $contrasenya)
+    public function verificarLogin($email, $contrasenya)
     {
         $email = strtolower($email);
         try {
@@ -131,6 +149,96 @@ class GestorUsuarios
         }
         return null; //En caso de fallo
     }
+
+    public function listarUnUsuario($email)
+    {
+        if (empty(trim($email))) {
+            throw new Exception("El email no puede estar vacío");
+        }
+
+        $sql = "SELECT * FROM usuarios WHERE email = :email LIMIT 1";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':email', $email);
+
+        if (!$statement->execute()) {
+            throw new Exception("Error al listar el usuario");
+        }
+
+        $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+        if (count($resultado) == 0) {
+            throw new Exception("No se ha encontrado el usuario");
+        }
+
+        $usuario = $resultado[0];
+        return new Usuario(
+            $usuario['id'],
+            $usuario['usuario'],
+            $usuario['email'],
+            $usuario['nombre'],
+            $usuario['apellido1'],
+            $usuario['apellido2'],
+            $usuario['direccion'],
+            $usuario['localidad'],
+            $usuario['provincia'],
+            $usuario['telefono'],
+            $usuario['contrasenya'],
+            new DateTime($usuario['fechaNacimiento']),
+            $usuario['rol'],
+            $usuario['activo']
+        );
+    }
+
+    public function listarUsuarios($email)
+    {
+        // Valido el parámetro $email que no tenga espacios y esté escrito
+        $email = trim($email);
+        //Inicializo la consulta sql:
+        $sql = "";
+
+        if (empty($email)) {
+            // Consulta sin filtro por email
+            $sql = "SELECT * FROM usuarios ORDER BY nombre";
+            $statement = $this->pdo->prepare($sql);
+        } else {
+            // Consulta con filtro por email
+            $sql = "SELECT * FROM usuarios WHERE email LIKE :email ORDER BY nombre";
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(':email', "%$email%", PDO::PARAM_STR);
+        }
+
+        try {
+            // Ejecutar la consulta
+            if (!$statement->execute()) {
+                throw new Exception("Error al listar los usuarios");
+            }
+
+            // Obtengo los resultados
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            // Convierto los resultados en objetos Usuario
+            $usuarios = [];
+            foreach ($resultado as $usuario) {
+                $usuarios[] = new Usuario(
+                    $usuario['dni'],
+                    $usuario['nombre'],
+                    $usuario['direccion'],
+                    $usuario['localidad'],
+                    $usuario['provincia'],
+                    $usuario['telefono'],
+                    $usuario['email'],
+                    $usuario['password'],
+                    $usuario['rol']
+                );
+            }
+
+            return $usuarios;
+
+        } catch (Exception $error) {
+            // Lanza una excepción si ocurre un error
+            throw new Exception("Error al procesar la consulta: " . $error->getMessage());
+        }
+    }
+
 
     public function comprobarUsuarioExiste(string $usuario, string $email)
     {
@@ -180,4 +288,5 @@ class GestorUsuarios
         $statement->bindValue(':activo', $usuario->getActivo());
         return $statement;
     }
+
 }

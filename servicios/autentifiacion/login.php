@@ -27,6 +27,12 @@ try {
         header("Location: ../../vista/login/login.php?error=UsuarioNoExiste");
         exit();
     }
+    //Comprobamos que el usuario esté activo
+    if($usuario->getActivo() == 0){
+        header("Location: ../../vista/login/login.php?error=UsuarioNoActivo");
+        exit();
+    }
+
     //Si el usuario sí existe, crea la sesión
     session_start();
     $_SESSION['id'] = $usuario->getId();

@@ -1,11 +1,12 @@
 <?php
+/*
 require_once __DIR__ . '/../../config/seguridad.php';
 require_once __DIR__ . '/../../gestores/GestorUsuarios.php';
 
 Seguridad::usuarioPermisos(['usuario']);
 $gestorUsuarios = new GestorUsuarios();
 $usuario = $gestorUsuarios->getUsuario($_SESSION['id']);
-?>
+*/?>
 <!doctype html>
 <html lang="es">
 <head>

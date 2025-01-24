@@ -1,0 +1,38 @@
+@import url('registrostyle.css');
+
+body{
+    background-image: url("../img/fondo-nuevo-producto.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.formulario-producto {
+    background-color: var(--background-dark);
+    border-radius: 23px;
+    padding: 30px;
+    margin: 30px auto;
+}
+
+.selector-categoria {
+    background-color: #0f1c23;
+    border: 1px solid var(--secondary);
+    color: var(--background-light);
+    border-radius: 23px;
+    padding: 12px 20px;
+}
+
+
+option{
+    color: var(--background-dark);
+}
+
+option:checked {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+}
+
+.imagen-form{
+    padding: 25px;
+}
