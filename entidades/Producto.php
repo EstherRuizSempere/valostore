@@ -1,20 +1,22 @@
 <?php
-class Producto{
+class Producto
+{
     private int $id;
-    private string $codigo;
     private string $nombre;
     private string $descripcion;
-    private int $categoria;
+    private int $categoria_id;
+    private string $categoria;
     private float $precio;
     private string $imagen;
     private int $activo;
 
-    public function __construct(int $id, string $codigo, string $nombre, string $descripcion, int $categoria, float $precio, string $imagen, int $activo)
+
+    public function __construct(int $id, string $nombre, string $descripcion, int $categoria_id, string $categoria, float $precio, string $imagen, int $activo)
     {
         $this->id = $id;
-        $this->codigo = $codigo;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
+        $this->categoria_id = $categoria_id;
         $this->categoria = $categoria;
         $this->precio = $precio;
         $this->imagen = $imagen;
@@ -29,16 +31,6 @@ class Producto{
     public function setId(int $id): void
     {
         $this->id = $id;
-    }
-
-    public function getCodigo(): string
-    {
-        return $this->codigo;
-    }
-
-    public function setCodigo(string $codigo): void
-    {
-        $this->codigo = $codigo;
     }
 
     public function getNombre(): string
@@ -61,12 +53,22 @@ class Producto{
         $this->descripcion = $descripcion;
     }
 
-    public function getCategoria(): int
+    public function getCategoriaId(): int
+    {
+        return $this->categoria_id;
+    }
+
+    public function setCategoriaId(int $categoria_id): void
+    {
+        $this->categoria_id = $categoria_id;
+    }
+
+    public function getCategoria(): string
     {
         return $this->categoria;
     }
 
-    public function setCategoria(int $categoria): void
+    public function setCategoria(string $categoria): void
     {
         $this->categoria = $categoria;
     }

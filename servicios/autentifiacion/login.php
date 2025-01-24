@@ -45,6 +45,9 @@ try {
     if ($usuario->getRol() == "usuario") {
         header("Location: ../../vista/usuario/normal/zonaUsuarioNormal.php");
         exit();
+    }else if ($usuario->getRol() == "admin") {
+        header("Location: ../../vista/backoffice/perfil/zonaAdmin.php");
+        exit();
     }
 
 } catch (Exception $error) {

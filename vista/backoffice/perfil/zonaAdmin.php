@@ -1,9 +1,16 @@
+<?php
+
+include_once __DIR__ . '/../../../config/seguridad.php';
+
+Seguridad::usuarioPermisos(['admin']);
+
+?>
 <!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lol Store</title>
+    <title>Valo Store</title>
     <link rel="icon" href="../../../media/img/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -17,50 +24,8 @@
     <link rel="stylesheet" href="../../../media/styles/footer.css">
 </head>
 <body>
-<header>
-    <nav class="navegador">
-        <div class="container-fluid">
-            <div class="d-flex align-items-center justify-content-between">
-                <a href="../../login/login.php" class="navbar-brand">
-                    <img class="img-fluid img-logo" src="../../../media/img/logo-valostore.png" alt="Logo Valo Store">
-                </a>
 
-                <ul class="nav nav-pills ms-auto iconos-nav">
-                    <li class="nav-item">
-                        <a href="../../producto/catalogo.php" class="nav-link active">
-                            <i class="bi bi-shop img-iconos"></i>
-                            Tienda
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="carrito.html" class="nav-link active">
-                            <i class="bi bi-cart img-iconos"></i>
-                            Carrito
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                           aria-expanded="false">
-                            <i class="bi bi-person-circle img-iconos"></i>
-                            ¡Hola, Esther!
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu">
-                            <li><a class="dropdown-item" href="perfil.html"><i class="bi bi-person me-2"></i>Mi
-                                    Perfil</a></li>
-                            <li><a class="dropdown-item" href="pedidos.html"><i class="bi bi-box me-2"></i>Mis
-                                    Pedidos</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="cerrar-sesion.html"><i
-                                            class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
+<?php include_once __DIR__ . '/../../navegador/navegadorlogueado.php'; ?>
 
 <main>
     <div class="container-fluid perfil-container">
