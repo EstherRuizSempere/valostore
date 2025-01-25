@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 footer-info">
-                <img src="../../media/img/logo-valostore.png" alt="Logo Valo Store" class="footer-logo">
+                <img src="/./media/img/logo-valostore.png" alt="Logo Valo Store" class="footer-logo">
                 <p class="mt-3">Tu tienda de confianza para conseguir los mejores personajes de Valorant.</p>
                 <div class="social-links mt-3">
                     <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>

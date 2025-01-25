@@ -1,3 +1,11 @@
+<?php
+
+include_once __DIR__ . '/../../../config/seguridad.php';
+
+Seguridad::usuarioPermisos(['admin']);
+
+?>
+
 <!doctype html>
 <html lang="es">
 <head>

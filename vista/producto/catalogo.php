@@ -1,3 +1,10 @@
+<?php
+
+include_once __DIR__ . '/../../config/seguridad.php';
+
+Seguridad::usuarioPermisos(['user', 'admin']);
+
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -17,9 +24,8 @@
     <link rel="stylesheet" href="../../media/styles/footer.css">
 </head>
 <body>
+
 <?php include_once '../navegador/navegadorlogueado.php'; ?>
-
-
 <main>
     <div class="container-fluid catalogo-container">
         <div class="container">

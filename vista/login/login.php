@@ -16,30 +16,9 @@
     <link rel="stylesheet" href="../../media/styles/navegadorstyle.css">
 </head>
 <body>
-<header>
+
     <div class="w-100 vh-100 d-flex flex-column" id="contenedor-padre">
-        <header>
-            <nav class="navegador">
-                <div class="container-fluid d-flex align-items-center">
-                    <a href="index.html" class="navbar-brand">
-                        <img class="img-fluid img-logo" src="../../media/img/logo-valostore.png" alt="Logo Valo Store">
-                    </a>
-                    <ul class="nav nav-pills ms-auto iconos-nav">
-                        <li class="nav-item">
-                            <a href="https://playvalorant.com/es-es/download/" class="nav-link active"
-                               aria-current="page"><i class="bi bi-download img-iconos"></i>
-                                Descargar juego</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://playvalorant.com/es-es/"
-                               class="nav-link active" aria-current="page"><i
-                                        class="bi bi-arrow-bar-right img-iconos"></i>
-                                Visitar web oficial</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
+    <?php include_once '../navegador/navegadornologueado.php'; ?>
 
         <main class="container-fluid d-flex justify-content-end align-items-center flex-grow-1">
             <div class="card m-2 row justify-content-center">
