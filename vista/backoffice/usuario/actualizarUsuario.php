@@ -1,4 +1,10 @@
+<?php
+include_once __DIR__ . '/../../../config/seguridad.php';
+include_once __DIR__ . '/../../../gestores/GestorUsuarios.php';
 
+Seguridad::usuarioPermisos(['admin']);
+
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -18,7 +24,7 @@
     <link rel="stylesheet" href="../../../media/styles/footer.css">
 </head>
 <body>
-<?php include_once '../../navegador/navegadorlogueado.php'; ?>
+<?php include_once __DIR__ . '/../../navegador/navegadorlogueado.php'; ?>
 
 <div class="container">
     <div class="row justify-content-center">

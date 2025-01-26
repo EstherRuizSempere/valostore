@@ -34,7 +34,10 @@ try {
     }
 
     //Si el usuario sí existe, crea la sesión
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
     $_SESSION['id'] = $usuario->getId();
     $_SESSION['usuario'] = $usuario->getUsuario();
     $_SESSION['email'] = $usuario->getEmail();

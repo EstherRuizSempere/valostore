@@ -53,3 +53,5 @@ try {
 
 header("Location: ../../vista/login/login.php?mensaje=UsuarioCreado");
 exit();
+
+//TODO: añadir que cuando se va a registrar un usuario dormido, pase a estar activo

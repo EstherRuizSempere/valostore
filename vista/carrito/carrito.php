@@ -1,3 +1,14 @@
+<?php
+
+    include_once __DIR__ . '/../../gestores/GestorCarrito.php';
+
+    $gestorCarrito = new GestorCarrito();
+
+    $carrito = $gestorCarrito->getCarrito();
+    $total = $gestorCarrito->getTotal();
+
+?>
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -17,7 +28,14 @@
     <link rel="stylesheet" href="../../media/styles/footer.css">
 </head>
 <body>
-<?php include_once '../navegador/navegadorlogueado.php'; ?>
+<?php
+
+if (isset($_SESSION['usuario'])) {
+    include_once __DIR__ . '/../navegador/navegadorlogueado.php';
+} else {
+    include_once __DIR__ . '/../navegador/navegadornologueado.php';
+}
+?>
 
 
 <main>
@@ -29,29 +47,23 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="carrito-items">
+                            <?php foreach($carrito as $carritoItem): ?>
                             <div class="carrito-item">
-                                <img src="../../media/img/jett.png" alt="Jett" class="item-imagen">
+                                <img src="<?= $carritoItem->getProducto()->getImagen() ?>" alt="Jett" class="item-imagen">
                                 <div class="item-detalles">
-                                    <h3>Jett</h3>
-                                    <span class="item-rol">Duelista</span>
+                                    <h3><?= $carritoItem->getProducto()->getNombre() ?></h3>
+                                    <span class="item-rol"><?= $carritoItem->getProducto()->getCategoria() ?></span>
                                 </div>
-                                <div class="item-precio">1000 VP</div>
-                                <button class="btn-eliminar">
-                                    <i class="bi bi-trash"></i>
-                                </button>
+                                <div class="item-precio"><?= $carritoItem->getProducto()->getPrecio() ?> VP</div>
+                                <form action="../../servicios/carrito/eliminarProductoDeCarrito.php" method="POST">
+                                    <input type="hidden" name="id" value="<?= $carritoItem->getId() ?>">
+                                    <button class="btn-eliminar">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
                             </div>
+                                <?php endforeach; ?>
 
-                            <div class="carrito-item">
-                                <img src="../../media/img/sage.png" alt="Sage" class="item-imagen">
-                                <div class="item-detalles">
-                                    <h3>Sage</h3>
-                                    <span class="item-rol">Centinela</span>
-                                </div>
-                                <div class="item-precio">950 VP</div>
-                                <button class="btn-eliminar">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
                         </div>
                     </div>
 
@@ -60,11 +72,11 @@
                             <h2>Resumen del pedido</h2>
                             <div class="resumen-item">
                                 <span>Subtotal</span>
-                                <span>1950 VP</span>
+                                <span><?= $total ?> VP</span>
                             </div>
                             <div class="resumen-item total">
                                 <span>Total</span>
-                                <span>1950 VP</span>
+                                <span><?= $total ?> VP</span>
                             </div>
                             <a href="pago.php" class="btn-pagar">
                                 Proceder al pago

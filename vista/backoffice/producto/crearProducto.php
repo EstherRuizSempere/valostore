@@ -37,27 +37,34 @@ Seguridad::usuarioPermisos(['admin']);
                         <p>Añade un nuevo producto a la tienda</p>
                     </div>
 
-                    <form id="crearProductoForm" action="" method="POST" enctype="multipart/form-data">
+                    <form id="crearProductoForm" action="/servicios/productos/crearProducto.php" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="categoriaPadre" class="form-label">Tipo de personaje*</label>
-                                    <select name="categoriaPadre" class="form-control selector-categoria"
-                                            id="categoriaPadre" required>
+                                    <label for="categoria_id" class="form-label">Tipo de personaje*</label>
+                                    <select name="categoria_id" class="form-control selector-categoria"
+                                            id="categoria_id" required>
                                         <option value="">Selecciona tipo de personaje</option>
-                                        <option value="iniciador">Iniciador</option>
-                                        <option value="duelista">Duelista</option>
-                                        <option value="centinela">Centinela</option>
+                                        <option value="5">Duelista - Alta moviliadad</option>
+                                        <option value="6"></option>
+                                        <option value="7"></option>
+                                        <option value="8"></option>
+                                        <option value="9"></option>
+                                        <option value="10"></option>
+                                        <option value="11"></option>
+                                        <option value="12"></option>
+                                        <option value="13"></option>
+                                        <option value="14"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="subcategoria" class="form-label">Sexo personaje*</label>
-                                    <select name="subcategoria" class="form-control selector-categoria"
-                                            id="subcategoria" required>
-                                        <option value="hombre">Hombre</option>
-                                        <option value="mujer">Mujer</option>
+                                    <label for="activo" class="form-label">Activo*</label>
+                                    <select name="activo" class="form-control selector-categoria"
+                                            id="activo" required>
+                                        <option value="1">Activo</option>
+                                        <option value="0">Inactivo</option>
 
                                     </select>
                                 </div>
@@ -67,8 +74,8 @@ Seguridad::usuarioPermisos(['admin']);
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="nombreProducto" class="form-label">Nombre del personaje*</label>
-                                    <input type="text" name="nombreProducto" class="form-control" id="nombreProducto"
+                                    <label for="nombre" class="form-label">Nombre del personaje*</label>
+                                    <input type="text" name="nombre" class="form-control" id="nombre"
                                            required>
                                 </div>
                             </div>
@@ -86,13 +93,6 @@ Seguridad::usuarioPermisos(['admin']);
                                 <div class="mb-3">
                                     <label for="imagen" class="form-label">Imagen del Producto*</label>
                                     <input type="file" name="imagen" class="form-control imagen-form" id="imagen"
-                                           required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="codigo" class="form-label">Código del Producto*</label>
-                                    <input type="text" name="codigo" class="form-control imagen-form" id="codigo"
                                            required>
                                 </div>
                             </div>

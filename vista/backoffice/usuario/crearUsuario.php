@@ -1,3 +1,22 @@
+<?php
+include_once __DIR__ . '/../../../config/seguridad.php';
+include_once __DIR__ . '/../../../gestores/gestorUsuarios.php';
+
+Seguridad::usuarioPermisos(['admin']);
+$gestorUSuarios = new GestorUsuarios();
+$usuario_bd = $_SESSION['id'];
+
+
+try {
+    //Ternaria para que nos devuelva el valor de la variable si existe y no sea null
+    $email = (isset($_POST['email']) && !empty($_POST['email'])) ? $_POST['email'] : null;
+
+    //Listamos usuarios:
+    $listadoUsuarios = $gestorUSuarios->listarUsuarios($email);
+} catch (Throwable $e) {
+    $mensaje = $e->getMessage();
+}
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -17,7 +36,7 @@
     <link rel="stylesheet" href="../../../media/styles/footer.css">
 </head>
 <body>
-<?php include_once '../../navegador/navegadorlogueado.php'; ?>
+<?php include_once __DIR__ . '/../../navegador/navegadorlogueado.php'; ?>
 
 
 <div class="container">

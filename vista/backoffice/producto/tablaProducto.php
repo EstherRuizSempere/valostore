@@ -1,8 +1,15 @@
 <?php
 
 include_once __DIR__ . '/../../../config/seguridad.php';
+include_once __DIR__ . '/../../../gestores/GestorProducto.php';
 
 Seguridad::usuarioPermisos(['admin']);
+
+$gestorProducto = new GestorProducto();
+
+$productos = $gestorProducto->listarProductos();
+
+
 
 ?>
 <!doctype html>
@@ -36,37 +43,46 @@ Seguridad::usuarioPermisos(['admin']);
                 <div class="card personajes-card">
                     <div class="card-header">
                         <h3><i class="bi bi-box-seam"></i> Listado de Productos</h3>
+                        <a href="/vista/backoffice/producto/crearProducto.php" class="nav-link active">
+                            <i class="bi bi-person me-2"></i> Crear producto
+                        </a>
                     </div>
                     <div class="card-body">
                         <table class="table admin-table">
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Código</th>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
                                 <th>Categoría</th>
                                 <th>Precio</th>
                                 <th>Imagen</th>
                                 <th>Activo</th>
+                                <th style="width: 130px">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
+                            <?php foreach ($productos as $producto){ ?>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="admin-table-actions">
+                                <td><?= $producto->getId() ?></td>
+                                <td><?= $producto->getNombre() ?></td>
+                                <td><?= $producto->getDescripcion() ?></td>
+                                <td><?= $producto->getCategoria() ?></td>
+                                <td><?= $producto->getPrecio() ?> €</td>
+                                <td>
+                                    <img style="height: 60px" src="<?= $producto->getImagen() ?>" alt="">
+                                </td>
+                                <td>
+                                    <?= $producto->getActivo() == 1 ? '<i class="bi bi-check2"></i>' : '<i class="bi bi-x-lg"></i>' ?>
+
+                                </td>
+                                <td>
                                     <a href="/vista/producto/producto-detalle.php" class="btn btn-sm admin-btn"><i class="bi bi-eye"></i></a>
                                     <a href="/vista/backoffice/producto/actualizarProducto.php" class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
                                     <a href="/vista/backoffice/producto/borrarProducto.php" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
                                 </td>
                             </tr>
+                            <?php } ?>
 
                             </tbody>
                         </table>

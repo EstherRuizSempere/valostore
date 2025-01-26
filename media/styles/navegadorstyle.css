@@ -24,6 +24,18 @@
     padding: 0 8px;
 }
 
+.nav-item a {
+    position: relative;
+}
+
+span#carrito-cantidad-productos {
+
+    border-radius: 30px;
+    background-color: white;
+    padding: 2px 9px;
+
+}
+
 .nav-pills .nav-link.active {
     background-color: var(--primary);
     color: var(--background-dark);

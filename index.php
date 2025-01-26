@@ -1,24 +1,36 @@
+<?php
+    include_once __DIR__ . '/gestores/GestorProducto.php';
+
+    $gestorProducto = new GestorProducto();
+    $productos = $gestorProducto->listarProductos();
+?>
 <!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Lol Store</title>
-    <link rel="icon" href="media/img/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../media/img/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="media/styles/style.css">
-    <link rel="stylesheet" href="media/styles/navegadorstyle.css">
-    <link rel="stylesheet" href="media/styles/catalogoStyle.css">
-    <link rel="stylesheet" href="media/styles/footer.css">
+    <link rel="stylesheet" href="../../media/styles/style.css">
+    <link rel="stylesheet" href="../../media/styles/navegadorstyle.css">
+    <link rel="stylesheet" href="../../media/styles/catalogoStyle.css">
+    <link rel="stylesheet" href="../../media/styles/footer.css">
 </head>
 <body>
-<?php include_once 'vista/navegador/navegadornologueado.php'; ?>
 
+<?php
+    if (isset($_SESSION['usuario'])) {
+        include_once __DIR__ . '/vista/navegador/navegadorlogueado.php';
+    } else {
+        include_once __DIR__ . '/vista/navegador/navegadornologueado.php';
+    }
+?>
 <main>
     <div class="container-fluid catalogo-container">
         <div class="container">
@@ -56,54 +68,23 @@
 
         <div class="contenedor-cards">
             <div class="row">
-                <div class="col-md-3 mb-4">
-                    <a href="vista/producto/producto-detalle.php">
-                        <div class="personaje-card">
-                            <div class="personaje-imagen">
-                                <img src="media/img/jett.png" alt="Jett">
-                            </div>
+                <?php foreach ($productos as $producto){ ?>
+                    <div class="col-md-3 mb-4">
+                        <a href="/vista/producto/producto-detalle.php?id=<?= $producto->getId() ?>">
+                            <div class="personaje-card">
+                                <div class="personaje-imagen">
+                                    <img src="<?= $producto->getImagen() ?>" alt="Jett">
+                                </div>
 
-                            <div class="personaje-detalles">
-                                <h3 class="personaje-nombre">Jett</h3>
-                                <span class="personaje-rol">Duelista</span>
-                                <div class="personaje-precio">1000 VP</div>
-                            </div>
-                        </div>
-                    </a>
-
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="personaje-card">
-                        <a href="producto-detalle.php">
-                            <div class="personaje-imagen">
-                                <img src="../../media/img/sage.png" alt="Sage">
-                            </div>
-                            <div class="personaje-detalles">
-                                <h3 class="personaje-nombre">Sage</h3>
-                                <span class="personaje-rol">Centinela</span>
-                                <div class="personaje-precio">950 VP</div>
+                                <div class="personaje-detalles">
+                                    <h3 class="personaje-nombre"><?= $producto->getNombre() ?></h3>
+                                    <span class="personaje-rol"><?= $producto->getCategoria() ?></span>
+                                    <div class="personaje-precio"><?= $producto->getPrecio() ?> VP</div>
+                                </div>
                             </div>
                         </a>
-
                     </div>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="personaje-card">
-                        <a href="producto-detalle.php">
-                            <div class="personaje-imagen">
-                                <img src="media/img/omen.png" alt="Omen">
-                            </div>
-                            <div class="personaje-detalles">
-                                <h3 class="personaje-nombre">Omen</h3>
-                                <span class="personaje-rol">Controlador</span>
-                                <div class="personaje-precio">900 VP</div>
-                            </div>
-                        </a>
-
-                    </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -113,7 +94,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 footer-info">
-                <img src="media/img/logo-valostore.png" alt="Logo Valo Store" class="footer-logo">
+                <img src="../../media/img/logo-valostore.png" alt="Logo Valo Store" class="footer-logo">
                 <p class="mt-3">Tu tienda de confianza para conseguir los mejores personajes de Valorant.</p>
                 <div class="social-links mt-3">
                     <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>

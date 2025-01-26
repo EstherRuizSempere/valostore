@@ -1,6 +1,6 @@
 <?php
 include_once __DIR__ . '/../../../config/seguridad.php';
-include_once __DIR__ . '/../../../gestores/gestorUsuarios.php';
+include_once __DIR__ . '/../../../gestores/GestorUsuarios.php';
 
 Seguridad::usuarioPermisos(['admin']);
 $gestorUSuarios = new GestorUsuarios();
@@ -66,6 +66,8 @@ try {
                                 <th>Fecha de nacimiento</th>
                                 <th>Rol</th>
                                 <th>Activo</th>
+                                <th>Acciones</th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -75,19 +77,19 @@ try {
                                     <td><?= $usuario->getUsuario() ?></td>
                                     <td><?= $usuario->getEmail() ?></td>
                                     <td><?= $usuario->getNombre() ?></td>
-                                    <td><?= $usuario->getPrimerApellido() ?></td>
-                                    <td><?= $usuario->getSegundoApellido() ?></td>
+                                    <td><?= $usuario->getApellido1() ?></td>
+                                    <td><?= $usuario->getApellido2() ?></td>
                                     <td><?= $usuario->getDireccion() ?></td>
                                     <td><?= $usuario->getLocalidad() ?></td>
                                     <td><?= $usuario->getProvincia() ?></td>
                                     <td><?= $usuario->getTelefono() ?></td>
-                                    <td><?= $usuario->getFechaNacimiento() ?></td>
+                                    <td><?= $usuario->getFechaNacimiento()->format('Y-m-d') ?></td>
                                     <td><?= $usuario->getRol() ?></td>
                                     <td><?= $usuario->getActivo() ?></td>
-                                    <?php if ($usuario_bd == $usuario->getId()) { ?>
-                                        <td class="admin-table-actions">
-                                            <a href="/vista/backoffice/usuario/actualizarUsuario.php"
-                                               class="btn btn-sm admin-btn"><i class="bi bi-eye"></i></a>
+                                    <?php if ($usuario_bd != $usuario->getId()) { ?>
+                                        <td>
+                                            <a href="/vista/backoffice/usuario/borrarUsuario.php"
+                                               class="btn btn-sm admin-btn"><i class="bi bi-trash"></i></a>
                                             <a href="/vista/backoffice/usuario/actualizarUsuario.php"
                                                class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
                                         </td>

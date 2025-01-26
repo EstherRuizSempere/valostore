@@ -1,8 +1,11 @@
 <?php
 
+echo "no funciona";
+exit();
+
 include_once __DIR__ . '/../../config/seguridad.php';
 
-Seguridad::usuarioPermisos(['user', 'admin']);
+Seguridad::usuarioPermisos(['usuario', 'admin']);
 
 ?>
 <!doctype html>

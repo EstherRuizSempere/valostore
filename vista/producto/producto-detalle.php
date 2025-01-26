@@ -1,8 +1,16 @@
 <?php
 
-include_once __DIR__ . '/../../config/seguridad.php';
+include_once __DIR__ . '/../../gestores/GestorProducto.php';
 
-Seguridad::usuarioPermisos(['user', 'admin']);
+$idProducto = $_GET['id'] ?? null;
+
+if (!$idProducto) {
+    header('Location: index.php');
+    exit();
+}
+
+$gestorProducto = new GestorProducto();
+$producto = $gestorProducto->getProducto($idProducto);
 
 ?>
 <!doctype html>
@@ -24,7 +32,13 @@ Seguridad::usuarioPermisos(['user', 'admin']);
     <link rel="stylesheet" href="../../media/styles/footer.css">
 </head>
 <body>
-<?php include_once '../navegador/navegadorlogueado.php'; ?>
+<?php
+if (isset($_SESSION['usuario'])) {
+    include_once __DIR__ . '/../navegador/navegadorlogueado.php';
+} else {
+    include_once __DIR__ . '/../navegador/navegadornologueado.php';
+}
+?>
 
 <main>
     <div class="container-fluid producto-container">
@@ -32,14 +46,14 @@ Seguridad::usuarioPermisos(['user', 'admin']);
             <div class="row">
                 <div class="col-md-6">
                     <div class="producto-imagen-container">
-                        <img src="../../media/img/jett.png" alt="Jett" class="producto-imagen">
+                        <img src="<?= $producto->getImagen() ?>" alt="Jett" class="producto-imagen">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="producto-info">
-                        <div class="producto-rol-badge">Duelista</div>
-                        <h1 class="producto-nombre">Jett</h1>
-                        <div class="producto-precio">1000 VP</div>
+                        <div class="producto-rol-badge"><?= $producto->getCategoria() ?></div>
+                        <h1 class="producto-nombre"><?= $producto->getNombre() ?></h1>
+                        <div class="producto-precio"><?= $producto->getPrecio() ?> VP</div>
                         <div class="producto-dificultad">
                             <span>Dificultad:</span>
                             <div class="dificultad-barras">
@@ -49,9 +63,12 @@ Seguridad::usuarioPermisos(['user', 'admin']);
                             </div>
                         </div>
                         <div class="producto-acciones">
+                            <form action="../../servicios/carrito/crearProductoEnCarrito.php" method="POST">
+                                <input type="hidden" name="id" value="<?= $producto->getId() ?>">
                             <button class="btn-comprar">
                                 <i class="bi bi-cart-plus"></i> Añadir al carrito
                             </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -64,34 +81,13 @@ Seguridad::usuarioPermisos(['user', 'admin']);
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#historia"  type="button">Historia</button>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#habilidades" type="button">Habilidades</button>
-                            </li>
                         </ul>
 
                         <div class="tab-content" id="producto-tab-content">
                             <div class="tab-pane fade show active" id="historia">
                                 <div class="producto-descripcion">
                                     <h3>Historia</h3>
-                                    <p>Representando a Corea del Sur, el estilo de lucha ágil y evasivo de Jett le permite asumir grandes riesgos. Corre y esquiva en cada refriega mientras hace trizas a los enemigos con una rapidez vertiginosa.</p>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="habilidades">
-                                <div class="habilidades-grid">
-                                    <div class="habilidad-card">
-                                        <div class="habilidad-header">
-                                            <img src="../../media/img/habilidad1.png" alt="Corriente Ascendente">
-                                            <h4>Corriente Ascendente</h4>
-                                        </div>
-                                        <p>Te PROPULSAS instantáneamente hacia arriba.</p>
-                                    </div>
-                                    <div class="habilidad-card">
-                                        <div class="habilidad-header">
-                                            <img src="../../media/img/habilidad2.png" alt="Viento de Cola">
-                                            <h4>Viento de Cola</h4>
-                                        </div>
-                                        <p>ACTIVAS propulsión instantáneamente hacia la dirección en la que te estés moviendo.</p>
-                                    </div>
+                                    <p><?= $producto->getDescripcion() ?></p>
                                 </div>
                             </div>
                         </div>

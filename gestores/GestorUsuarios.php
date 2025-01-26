@@ -190,8 +190,6 @@ class GestorUsuarios
 
     public function listarUsuarios($email)
     {
-        // Valido el parámetro $email que no tenga espacios y esté escrito
-        $email = trim($email);
         //Inicializo la consulta sql:
         $sql = "";
 
@@ -200,6 +198,8 @@ class GestorUsuarios
             $sql = "SELECT * FROM usuarios ORDER BY nombre";
             $statement = $this->pdo->prepare($sql);
         } else {
+            // Valido el parámetro $email que no tenga espacios y esté escrito
+            $email = trim($email);
             // Consulta con filtro por email
             $sql = "SELECT * FROM usuarios WHERE email LIKE :email ORDER BY nombre";
             $statement = $this->pdo->prepare($sql);
@@ -219,15 +219,20 @@ class GestorUsuarios
             $usuarios = [];
             foreach ($resultado as $usuario) {
                 $usuarios[] = new Usuario(
-                    $usuario['dni'],
+                    $usuario['id'],
+                    $usuario['usuario'],
+                    $usuario['email'],
                     $usuario['nombre'],
+                    $usuario['apellido1'],
+                    $usuario['apellido2'],
                     $usuario['direccion'],
                     $usuario['localidad'],
                     $usuario['provincia'],
                     $usuario['telefono'],
-                    $usuario['email'],
-                    $usuario['password'],
-                    $usuario['rol']
+                    $usuario['contrasenya'],
+                    new DateTime($usuario['fechaNacimiento']),
+                    $usuario['rol'],
+                    $usuario['activo']
                 );
             }
 

@@ -28,7 +28,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="cerrar-sesion.html"><i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión</a></li>
+                                <li><a class="dropdown-item" href="/./servicios/autentifiacion/logout.php"><i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión</a></li>
                             </ul>
                         </li>
                     </ul>
