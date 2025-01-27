@@ -41,7 +41,28 @@ body{
 .form-select:focus{
     border: 2px solid var(--primary);
 }
+.search-container {
+    position: relative;
+}
 
+.search-input {
+    border: 2px solid var(--primary);
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    background-color: var(--background-light);
+    color: var(--background-dark);
+    font-size: 1em;
+}
+
+.search-input:focus {
+    border-color: var(--complementary);
+    box-shadow: none;
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: var(--shadow-grey);
+}
 .contenedor-cards{
     padding: 30px;
     background-color: var(--background-dark);

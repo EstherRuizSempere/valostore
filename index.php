@@ -9,18 +9,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lol Store</title>
-    <link rel="icon" href="../../media/img/favicon.png" type="image/x-icon">
+    <title>Valo Store</title>
+    <link rel="icon" href="./media/img/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../media/styles/style.css">
-    <link rel="stylesheet" href="../../media/styles/navegadorstyle.css">
-    <link rel="stylesheet" href="../../media/styles/catalogoStyle.css">
-    <link rel="stylesheet" href="../../media/styles/footer.css">
+    <link rel="stylesheet" href="./media/styles/style.css">
+    <link rel="stylesheet" href="./media/styles/navegadorstyle.css">
+    <link rel="stylesheet" href="./media/styles/catalogoStyle.css">
+    <link rel="stylesheet" href="./media/styles/footer.css">
 </head>
 <body>
 
@@ -37,32 +37,24 @@
             <h1 class="catalogo-header">Catálogo de Personajes</h1>
 
             <div class="filtros-section">
-                <div class="row">
-                    <div class="col-md-4">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
                         <select class="form-select">
-                            <option selected>Filtrar por Rol</option>
-                            <option>Duelista</option>
-                            <option>Centinela</option>
-                            <option>Iniciador</option>
-                            <option>Controlador</option>
+                            <option selected>Ordenar por...</option>
+                            <option value="precio_asc">Precio: Menor a Mayor</option>
+                            <option value="precio_desc">Precio: Mayor a Menor</option>
+                            <option value="categoria_asc">Categoría: A-Z</option>
+                            <option value="categoria_desc">Categoría: Z-A</option>
+                            <option value="nombre_asc">Nombre: A-Z</option>
+                            <option value="nombre_desc">Nombre: Z-A</option>
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected>Ordenar por Precio</option>
-                            <option>Menor a Mayor</option>
-                            <option>Mayor a Menor</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected>Ordenar por nombre</option>
-                            <option>Ascendente</option>
-                            <option>Descendente</option>
-                        </select>
+                        <div class="search-container">
+                            <input type="text" class="form-control search-input" placeholder="Buscar personaje...">
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
