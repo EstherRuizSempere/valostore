@@ -2,8 +2,10 @@
 require_once __DIR__ . '/../../gestores/GestorUsuarios.php';
 require_once __DIR__ . '/../../config/seguridad.php';
 
-Seguridad::usuarioPermisos(['usuario']);
+//Permito acceso a:
+Seguridad::usuarioPermisos(['usuario', 'admin', 'editor']);
 
+//Compruebo que el método de la petición sea POST
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     return;
 }
@@ -19,7 +21,7 @@ $localidad = $_POST["localidad"] ?? null;
 $provincia = $_POST["provincia"] ?? null;
 $telefono = $_POST["telefono"] ?? null;
 $fechaNacimiento = $_POST["fechaNacimiento"] ?? null;
-$rol = "usuario";
+$rol = $_SESSION['rol']; //Mantengo el rol actual del usuario
 $activo = 1;
 
 //Compruebo que los datos no estén vacíos
@@ -59,10 +61,17 @@ try {
     if ($_SESSION['rol'] == 'usuario') {
         header("Location: ../../vista/usuario/normal/zonaUsuarioNormal.php?mensaje=UsuarioActualizado");
         exit();
+    } else if ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'editor') {
+        header("Location:./../../backoffice/perfil/zonaAdmin.php?mensaje=UsuarioActualizado");
+        exit();
     }
+
 } catch (Exception $e) {
     if ($_SESSION['rol'] == 'usuario') {
         header("Location: ../../vista/usuario/normal/actualizarUsuarioNormal.php?error=" . $e->getMessage());
+        exit();
+    } else if ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'editor') {
+        header("Location: ../../backoffice/perfil/actualizarUsuarioNormal.php?error=" . $e->getMessage());
         exit();
     }
 }

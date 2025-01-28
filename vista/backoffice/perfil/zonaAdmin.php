@@ -50,7 +50,7 @@ Seguridad::usuarioPermisos(['admin']);
                                 </span>
                                     <h2 class="perfil-username">NombreAdmin</h2>
                                     <div class="mb-2">
-                                        <a href="#" class="btn edit-perfil-btn">
+                                        <a href="./../../usuario/normal/actualizarUsuarioNormal.php" class="btn edit-perfil-btn">
                                             <i class="bi bi-pencil"></i> Editar Perfil
                                         </a>
                                     </div>

@@ -2,10 +2,13 @@
 require_once '../../../gestores/GestorUsuarios.php';
 require_once '../../../config/seguridad.php';
 
-Seguridad::usuarioPermisos(['usuario']);
+Seguridad::usuarioPermisos(['usuario', 'admin', 'editor']);
 
 $gestorUsuarios = new GestorUsuarios();
 $usuario = $gestorUsuarios->getUsuario($_SESSION['id']);
+
+//Hago una ternaria para volver a la zona:
+$redirigirZona = ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'editor') ? './../../backoffice/perfil/zonaAdmin.php' : 'zonaUsuarioNormal.php';
 
 
 ?>
@@ -118,7 +121,7 @@ $usuario = $gestorUsuarios->getUsuario($_SESSION['id']);
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Editar Cuenta</button>
-                        <a class="btn btn-primary ms-2" href="zonaUsuarioNormal.php">Vuelve atrás</a>
+                        <a class="btn btn-primary ms-2" href="<?= $redirigirZona ?>">Vuelve atrás</a>
                     </div>
                 </form>
             </div>
