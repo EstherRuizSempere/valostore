@@ -25,6 +25,7 @@ $usuario_bd = $gestorUsuarios->getUsuario($id);
 
 //Compruebo que la contraseña esté bien:
 if($usuario_bd->getContrasenya() != Utilidades::hashContrasenya($contrasenya)){
+
     header("Location: ../../vista/usuario/normal/borrarUsuarioNormal.php?error=ContrasenyaIncorrecta");
     exit();
 }

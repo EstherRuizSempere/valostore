@@ -1,9 +1,18 @@
 <?php
 
 include_once __DIR__ . '/../../../config/seguridad.php';
+include_once __DIR__ . '/../../../gestores/GestorProducto.php';
 
-Seguridad::usuarioPermisos(['admin']);
+Seguridad::usuarioPermisos(['admin', 'editor']);
 
+$gestorProducto = new GestorProducto();
+
+try {
+    $producto = $gestorProducto->listarProductoUnico($_GET['id']);
+} catch (Exception $e) {
+    header("Location: tablaProducto.php?error=ProductoNoEncontrado");
+    exit();
+}
 ?>
 <!doctype html>
 <html lang="es">
@@ -32,45 +41,57 @@ Seguridad::usuarioPermisos(['admin']);
                 <div class="formulario-producto">
                     <div class="header-text">
                         <h4><span>Actualizar</span> Producto</h4>
-                        <p>Modifica los detalles del producto *PONEMOS CÓDIGO PRODUCTO*</p>
+                        <p>Modifica los detalles del producto <?php echo $producto->getNombre() ?></p>
                     </div>
 
-                    <form id="actualizarProductoForm" action="" method="POST" enctype="multipart/form-data">
+                    <form id="actualizarProductoForm" action="../../../servicios/productos/editarProducto.php"
+                          method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="<?php echo $producto->getId() ?>">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="categoriaPadre" class="form-label">Tipo de personaje*</label>
-                                    <select name="categoriaPadre" class="form-control selector-categoria" id="categoriaPadre" required>
+                                    <label for="categoria_id" class="form-label">Tipo de personaje*</label>
+                                    <select name="categoria_id" class="form-control selector-categoria"
+                                            id="categoria_id" required>
                                         <option value="">Selecciona tipo de personaje</option>
-                                        <option value="iniciador">Iniciador</option>
-                                        <option value="duelista">Duelista</option>
-                                        <option value="centinela">Centinela</option>
+                                        <option value="5">Duelista - Alta moviliadad</option>
+                                        <option value="6"></option>
+                                        <option value="7"></option>
+                                        <option value="8"></option>
+                                        <option value="9"></option>
+                                        <option value="10"></option>
+                                        <option value="11"></option>
+                                        <option value="12"></option>
+                                        <option value="13"></option>
+                                        <option value="14"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="subcategoria" class="form-label">Sexo personaje*</label>
-                                    <select name="subcategoria" class="form-control selector-categoria" id="subcategoria" required>
-                                        <option value="hombre">Hombre</option>
-                                        <option value="mujer">Mujer</option>
+                                    <label for="activo" class="form-label">Activo*</label>
+                                    <select name="activo" class="form-control selector-categoria"
+                                            id="activo" required>
+                                        <option value="1">Activo</option>
+                                        <option value="0">Inactivo</option>
 
                                     </select>
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="nombreProducto" class="form-label">Nombre del personaje*</label>
-                                    <input type="text" name="nombreProducto" class="form-control" id="nombreProducto" required>
+                                    <label for="nombre" class="form-label">Nombre del personaje*</label>
+                                    <input type="text" name="nombre" class="form-control" id="nombre"
+                                           required value="<?php echo $producto->getNombre() ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="precio" class="form-label">Precio*</label>
-                                    <input type="number" name="precio" class="form-control" id="precio" step="0.01" required>
+                                    <input type="number" name="precio" class="form-control" id="precio" step="0.01"
+                                           required value="<?php echo $producto->getPrecio() ?>">
                                 </div>
                             </div>
                         </div>
@@ -79,19 +100,21 @@ Seguridad::usuarioPermisos(['admin']);
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="imagen" class="form-label">Imagen del Producto*</label>
-                                    <input type="file" name="imagen" class="form-control imagen-form" id="imagen" required>
+                                    <input type="file" name="imagen" class="form-control imagen-form" id="imagen"
+                                            value="<?php echo $producto->getImagen() ?>">
                                 </div>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="descripcion" class="form-label">Descripción</label>
-                            <textarea name="descripcion" class="form-control" id="descripcion" rows="3"></textarea>
+                            <textarea name="descripcion" class="form-control" id="descripcion"
+                                      rows="3"><?php  echo $producto->getDescripcion(); ?></textarea>
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Crear Producto</button>
-                            <a class="btn btn-primary ms-4" href="">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Actualizar Producto</button>
+                            <a class="btn btn-primary ms-4" href="tablaProducto.php">Cancelar</a>
                         </div>
                     </form>
                 </div>

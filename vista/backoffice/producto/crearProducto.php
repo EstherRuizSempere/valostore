@@ -105,7 +105,7 @@ Seguridad::usuarioPermisos(['admin']);
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Crear Producto</button>
-                            <a class="btn btn-primary ms-4" href="">Cancelar</a>
+                            <a class="btn btn-primary ms-4" href="tablaProducto.php">Cancelar</a>
                         </div>
                     </form>
                 </div>

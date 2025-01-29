@@ -4,6 +4,29 @@ include_once __DIR__ . '/../../../gestores/GestorUsuarios.php';
 
 Seguridad::usuarioPermisos(['admin']);
 
+
+$idUsuario = $_GET['id'];
+$gestorUsuarios = new GestorUsuarios();
+
+try {
+    //Capturo al usuario
+    $usuario = $gestorUsuarios->getUsuario($idUsuario);
+
+    if (!$usuario) {
+        header('Location: ./../perfil/zonaAdmin.php?error=Usuario no encontrado');
+        exit();
+    }
+
+    //Verifico que no pueda eliminarse a sí mismo
+    if ($usuario->getId() == $_SESSION['id']) {
+        header('Location: ./../perfil/zonaAdmin.php?error=No puedes eliminarte a ti mismo');
+        exit();
+    }
+} catch (Throwable $e) {
+    $mensaje = $e->getMessage();
+    header('Location: ./../perfil/zonaAdmin.php?error=' . urlencode($mensaje));
+    exit();
+}
 ?>
 
 <!doctype html>
@@ -39,17 +62,19 @@ Seguridad::usuarioPermisos(['admin']);
                         <div class="row justify-content-center">
                             <div class="col-md-8 text-center">
                                 <h4 class="mb-4 p-3"><i class="bi bi-person-x me-4"></i>¿Estás seguro de que deseas
-                                    eliminar al usuario X?</h4>
+                                    eliminar a <?php echo $usuario->getUsuario() ?>?</h4>
                                 <p class="mb-4">Esta acción no se puede deshacer.
                                     Se eliminarán todos sus datos.</p>
 
-                                <form action="" method="POST" class="mb-4">
+                                <form action="./../../../servicios/backoffice/desactivarUsuario.php" method="POST"
+                                      class="mb-4">
+                                    <input type="hidden" name="usuario_id" value="<?php echo $usuario->getId() ?>">
                                     <div class="mb-3">
                                         <input type="password" class="form-control" id="contrasenya" name="contrasenya"
                                                placeholder="Introduce tu contraseña para confirmar" required>
                                     </div>
                                     <div class="d-flex justify-content-center gap-3">
-                                        <a href="zonaUsuarioNormal.php" class="borrar-perfil-btn">
+                                        <a href="tablaUsuarios.php" class="borrar-perfil-btn">
                                             Cancelar
                                         </a>
                                         <button type="submit" class="borrar-perfil-btn">

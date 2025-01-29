@@ -62,7 +62,7 @@ try {
         header("Location: ../../vista/usuario/normal/zonaUsuarioNormal.php?mensaje=UsuarioActualizado");
         exit();
     } else if ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'editor') {
-        header("Location:./../../backoffice/perfil/zonaAdmin.php?mensaje=UsuarioActualizado");
+        header("Location: ../../vista/backoffice/perfil/zonaAdmin.php?mensaje=UsuarioActualizado");
         exit();
     }
 

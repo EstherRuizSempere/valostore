@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include_once __DIR__ . '/gestores/GestorProducto.php';
 
     $gestorProducto = new GestorProducto();

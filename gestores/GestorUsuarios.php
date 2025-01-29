@@ -65,18 +65,37 @@ class GestorUsuarios
 
     public function desactivarUsuario($id)
     {
-        //Preparo la consulta
+        // Verificar que el usuario existe y está activo
+        $sql = "SELECT activo FROM usuarios WHERE id = :id";
+        // Preparar y ejecutar la consulta de selección
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Comprobar si el usuario existe
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$usuario) {
+            throw new Exception("El usuario no existe");
+        }
+
+        // Comprobar si el usuario está activo
+        if ($usuario['activo'] == 0) {
+            throw new Exception("El usuario ya está desactivado");
+        }
+
+        // Desactivar el usuario en la base de datos
         $sql = "UPDATE usuarios SET activo = 0 WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
-        try {
-            $statement = $this->pdo->prepare($sql);
-            $statement->bindValue(':id', $id);
+        //Manejar errores
+        if (!$stmt->execute()) {
+            throw new Exception("Error al desactivar el usuario");
+        }
 
-            if (!$statement->execute()) {
-                throw new Exception("Error al desactivar al usuario");
-            }
-        } catch (Throwable $error) {
-            throw new Exception($error->getMessage());
+        // Comprobar si se ha desactivado el usuario
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("No se pudo desactivar el usuario");
         }
 
     }
@@ -119,6 +138,8 @@ class GestorUsuarios
             throw new Exception($error->getMessage());
         }
     }
+
+
 
     public function verificarLogin($email, $contrasenya)
     {
@@ -244,7 +265,6 @@ class GestorUsuarios
         }
     }
 
-
     public function comprobarUsuarioExiste(string $usuario, string $email)
     {
         $sql = "SELECT id FROM usuarios WHERE usuario = :usuario OR email = :email";
@@ -267,6 +287,22 @@ class GestorUsuarios
 
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(':usuario', $usuario);
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+
+        if ($statement->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function comprobarEmailExiste(string $email, int $id)
+    {
+        $sql = "SELECT id FROM usuarios WHERE email = :email AND id != :id";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':email', $email);
         $statement->bindValue(':id', $id);
         $statement->execute();
 

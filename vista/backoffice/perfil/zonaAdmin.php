@@ -48,7 +48,7 @@ Seguridad::usuarioPermisos(['admin']);
                                 <span class="status-badge">
                                     <i class="bi bi-circle-fill"></i> Administrador
                                 </span>
-                                    <h2 class="perfil-username">NombreAdmin</h2>
+                                    <h2 class="perfil-username"><?php echo $_SESSION['usuario'] ?></h2>
                                     <div class="mb-2">
                                         <a href="./../../usuario/normal/actualizarUsuarioNormal.php" class="btn edit-perfil-btn">
                                             <i class="bi bi-pencil"></i> Editar Perfil
@@ -56,7 +56,7 @@ Seguridad::usuarioPermisos(['admin']);
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <a href="#" class="btn edit-perfil-btn">
+                                            <a href="./../../usuario/editarContrasenya.php" class="btn edit-perfil-btn">
                                                 <i class="bi bi-lock"></i> Cambiar Contraseña
                                             </a>
                                         </div>

@@ -4,6 +4,30 @@ include_once __DIR__ . '/../../../gestores/GestorUsuarios.php';
 
 Seguridad::usuarioPermisos(['admin']);
 
+
+$idUsuario = $_GET['id'];
+$gestorUsuarios = new GestorUsuarios();
+
+try {
+    //Capturo al usuario
+    $usuario = $gestorUsuarios->getUsuario($idUsuario);
+
+    if (!$usuario) {
+        header('Location: tablaUsuarios.php?error=Usuario no encontrado');
+        exit();
+    }
+
+    //Verifico que admin no se edite en este apartado a si mismo
+    if ($usuario->getId() == $_SESSION['id']) {
+        header('Location: tablaUsuarios.php?error=No puedes eliminarte a ti mismo');
+        exit();
+    }
+} catch (Throwable $e) {
+    $mensaje = $e->getMessage();
+    header('Location: tablaUsuarios.php?error=' . urlencode($mensaje));
+    exit();
+}
+
 ?>
 <!doctype html>
 <html lang="es">
@@ -32,21 +56,26 @@ Seguridad::usuarioPermisos(['admin']);
             <div class="registro-form">
                 <div class="header-text">
                     <h4><span>Actualizar</span> Usuario</h4>
-                    <p>Modifica los datos del usuario</p>
+                    <p>Modifica los datos del usuario <?php echo $usuario->getUsuario() ?></p>
                 </div>
 
-                <form id="actualizarUsuarioForm" action="" method="POST">
+                <form id="actualizarUsuarioForm" action="../../../servicios/backoffice/actualizarUsuario.php"
+                      method="POST">
+                    <input type="hidden" name="id" value="<?php echo $usuario->getId(); ?>">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="usuario" class="form-label">Nombre de Usuario*</label>
-                                <input type="text" name="usuario" class="form-control" id="usuario" required>
+                                <label for="usuario" class="form-label">Nombre de Usuario</label>
+                                <input type="text" name="usuario" class="form-control" id="usuario" required
+                                       value="<?= $usuario->getUsuario() ?>">
+                                >
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email*</label>
-                                <input type="email" name="email" class="form-control" id="email" required>
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" class="form-control" id="email" required
+                                       value="<?= $usuario->getEmail() ?>">>
                             </div>
                         </div>
                     </div>
@@ -54,14 +83,18 @@ Seguridad::usuarioPermisos(['admin']);
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre*</label>
-                                <input type="text" name="nombre" class="form-control" id="nombre" required>
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" name="nombre" class="form-control" id="nombre" required
+                                       value="<?= $usuario->getNombre() ?>">
+                                >
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
-                                <label for="apellido1" class="form-label">Primer Apellido*</label>
-                                <input type="text" name="apellido1" class="form-control" id="apellido1" required>
+                                <label for="apellido1" class="form-label">Primer Apellido</label>
+                                <input type="text" name="apellido1" class="form-control" id="apellido1" required
+                                       value="<?= $usuario->getApellido1() ?>">
+                                >
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -79,7 +112,7 @@ Seguridad::usuarioPermisos(['admin']);
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
-                        <a class="btn btn-primary ms-4" href="">Cancelar</a>
+                        <a class="btn btn-primary ms-4" href="tablaUsuarios.php">Cancelar</a>
                     </div>
                 </form>
             </div>

@@ -1,12 +1,17 @@
 <?php
-/*
+
 require_once __DIR__ . '/../../config/seguridad.php';
 require_once __DIR__ . '/../../gestores/GestorUsuarios.php';
 
-Seguridad::usuarioPermisos(['usuario']);
+Seguridad::usuarioPermisos(['usuario', 'admin', 'editor']);
+
 $gestorUsuarios = new GestorUsuarios();
 $usuario = $gestorUsuarios->getUsuario($_SESSION['id']);
-*/?>
+
+//Hago una ternaria para volver a la zona:
+$redirigirZona = ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'editor') ? './../backoffice/perfil/zonaAdmin.php' : './normal/zonaUsuarioNormal.php';
+
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -82,8 +87,7 @@ $usuario = $gestorUsuarios->getUsuario($_SESSION['id']);
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Cambiar contraseña</button>
-                        <!--TODO: poner ternario para depende del usuario que sea, volver a su zona -->
-                        <a class="btn btn-primary" href="">Vuelve atrás</a>
+                        <a class="btn btn-primary" href="<?= $redirigirZona ?>">Vuelve atrás</a>
 
                     </div>
                 </form>

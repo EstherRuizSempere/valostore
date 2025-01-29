@@ -88,9 +88,9 @@ try {
                                     <td><?= $usuario->getActivo() ?></td>
                                     <?php if ($usuario_bd != $usuario->getId()) { ?>
                                         <td>
-                                            <a href="/vista/backoffice/usuario/borrarUsuario.php"
+                                            <a href="borrarUsuario.php?id=<?= $usuario->getId() ?>"
                                                class="btn btn-sm admin-btn"><i class="bi bi-trash"></i></a>
-                                            <a href="/vista/backoffice/usuario/actualizarUsuario.php"
+                                            <a href="actualizarUsuario.php?id=<?= $usuario->getId() ?>"
                                                class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
                                         </td>
                                     <?php } ?>

@@ -44,7 +44,7 @@ Seguridad::usuarioPermisos(['usuario']);
                                     <span class="status-badge">
                                         <i class="bi bi-circle-fill"></i> Online
                                     </span>
-                                    <h2 class="perfil-username">TherBeep</h2>
+                                    <h2 class="perfil-username"><?php echo $_SESSION['usuario'] ?></h2>
                                     <div class="mb-2 ">
                                         <a href="../editarContrasenya.php" class="btn  edit-perfil-btn">
                                             <i class="bi bi-pencil"></i> Cambio Contraseña

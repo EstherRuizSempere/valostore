@@ -2,16 +2,57 @@
 require_once __DIR__ . '/../../config/seguridad.php';
 require_once __DIR__ . '/../../gestores/GestorUsuarios.php';
 
-//Verifico permisos
-Seguridad::usuarioPermisos(['admin'],);
+//Verifico que el usuario esté logueado y tenga permisos de administrador
+Seguridad::usuarioPermisos(['admin']);
 
-//Si no es un post, no hago nada
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
+
+//Si no es post, return
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     return;
 }
 
-//Defino las variables que llegan por post y compruebo que no estén vacías
-$usuario = $_POST["usuario"] ?? null;
-$email = $_POST["email"] ?? null;
-$nombre = $_POST["nombre"] ?? null;
-$apellido1 = $_POST["apellido1"] ?? null;
+//Obtengo los datos del formulario:
+$id = $_POST['id'] ?? null;
+$usuario = $_POST['usuario'] ?? null;
+$email = $_POST['email'] ?? null;
+$nombre = $_POST['nombre'] ?? null;
+$apellido1 = $_POST['apellido1'] ?? null;
+$rol = $_POST['rol'] ?? null;
+$activo = 1;
+
+//Compruebo que los datos no estén vacíos
+if ($id == null || $usuario == null || $email == null || $nombre == null || $apellido1 == null || $rol == null) {
+    header('Location: ../../vista/backoffice/usuario/actualizarUsuario.php?error=CamposVacios');
+    exit();
+}
+
+//Compruebo que no exista el nombre de usuario
+$gestorUsuarios = new GestorUsuarios();
+if ($gestorUsuarios->comprobarUserNameExiste($usuario, $id)) {
+    header('Location: ../../vista/backoffice/usuario/actualizarUsuario.php?error=ElNombreDeUsuarioYaExiste');
+    exit();
+}
+
+//Compruebo que no exista el email de usuario
+if ($gestorUsuarios->comprobarEmailExiste($email, $id)) {
+    header('Location: ../../vista/backoffice/usuario/actualizarUsuario.php?error=ElEmailYaExiste');
+    exit();
+}
+
+try {
+    $usuario_bd = $gestorUsuarios->getUsuario($id);
+    $usuario_bd->setUsuario($usuario);
+    $usuario_bd->setEmail($email);
+    $usuario_bd->setNombre($nombre);
+    $usuario_bd->setApellido1($apellido1);
+    $usuario_bd->setRol($rol);
+    $usuario_bd->setActivo($activo);
+
+    $gestorUsuarios->editarUsuario($usuario_bd);
+
+    header("Location: ../../vista/backoffice/usuario/tablaUsuarios.php?mensaje=UsuarioActualizado");
+    exit();
+} catch (Exception $e) {
+    header("Location: ../../vista/backoffice/usuario/actualizarUsuario.php?error=ErrorActualizarUsuario");
+    exit();
+}

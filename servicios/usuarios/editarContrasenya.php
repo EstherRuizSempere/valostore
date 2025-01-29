@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../gestores/GestorUsuarios.php';
 require_once __DIR__ . '/../../config/utilidades.php';
 
 //Usuarios que tienen permiso para entrar
-Seguridad::usuarioPermisos(['usuario']);
+Seguridad::usuarioPermisos(['usuario', 'admin', 'editor']);
 
 //Si el método no viene por post, return
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -42,8 +42,17 @@ try{
 
     if ($_SESSION['rol'] == 'usuario') {
         header("Location: ../../vista/usuario/normal/zonaUsuarioNormal.php?mensaje=ContrasenyaActualizada");
+        exit();
+    } else if ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'editor') {
+        header("Location: ../../vista/backoffice/perfil/zonaAdmin.php?mensaje=ContrasenyaActualizada");
+        exit();
     }
 }catch (Exception $e) {
-    header("Location: ../../vista/usuario/editarContrasenya.php?error=" . $e->getMessage());
-    exit();
+   if ($_SESSION['rol'] == 'usuario') {
+        header("Location: ../../vista/usuario/normal/zonaUsuarioNormal.php?error=ErrorActualizarContrasenya");
+        exit();
+    } else if ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'editor') {
+        header("Location: ../../vista/backoffice/perfil/zonaAdmin.php?error=ErrorActualizarContrasenya");
+        exit();
+    }
 }
