@@ -27,7 +27,7 @@ class Utilidades
         // Elimina espacios, guiones y parentesis
         $telefono = str_replace([' ', '-', '(', ')'], '', $telefono);
 
-        // Verifica que el teléfono tenga  9 dígitos y que sean todos números
+        // Verifica que el teléfono tenga 9 dígitos y que sean todos números
         if (preg_match('/^[0-9]{9}$/', $telefono)) {
             return true;
         } else {

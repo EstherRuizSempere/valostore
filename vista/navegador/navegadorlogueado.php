@@ -36,10 +36,12 @@
                 <?php } else if ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'editor') { ?>
                     <ul class="nav nav-pills ms-auto iconos-nav">
                         <li class="nav-item">
+                            <?php if($_SESSION['rol'] == 'admin'){?>
                             <a href="/vista/backoffice/usuario/tablaUsuarios.php" class="nav-link active">
                                 <i class="bi bi-person me-2"></i> Usuarios
                             </a>
                         </li>
+                        <?php } ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
                                 <i class="bi bi-shop img-iconos"></i> Productos
@@ -49,7 +51,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="/vista/backoffice/perfil/zonaAdmin.php"><i class="bi bi-tag"></i> Categorías</a></li>
+                                <li><a class="dropdown-item" href="/vista/backoffice/categoria/tablaCategorias.php"><i class="bi bi-tag"></i> Categorías</a></li>
 
                             </ul>
                         </li>

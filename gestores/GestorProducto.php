@@ -204,8 +204,11 @@ class GestorProducto
 
     public function listarProductosCategoria($categoria_id = null, $orden = "ASC")
     {
-        //Valido que orden sea ascendente o desc
+        //Valido que orden sea ascendente o descendente
         $orden = strtoupper($orden);
+        if ($orden != "ASC") {
+            $orden = "DESC";
+        }
         if ($orden !== "ASC" && $orden !== "DESC") {
             throw new Exception("El orden especificado no es válido. Use 'ASC' o 'DESC'.");
         }
@@ -272,7 +275,7 @@ class GestorProducto
     {
 
         $statement = $this->pdo->prepare($sql);
-        $statement->bindValue(':nombre', strtolower($producto->getNombre()));
+        $statement->bindValue(':nombre', $producto->getNombre());
         $statement->bindValue(':descripcion', strtolower($producto->getDescripcion()));
         $statement->bindValue(':categoria_id', $producto->getCategoriaId());
         $statement->bindValue(':precio', $producto->getPrecio());

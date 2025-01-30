@@ -22,11 +22,13 @@ $descripcion = $_POST["descripcion"] ?? null;
 $categoria_id = $_POST["categoria_id"] ?? null;
 $precio = $_POST["precio"] ?? null;
 $imagen = $_FILES["imagen"] ?? null;
-$activo = $_POST["activo"] ?? null;
+//Ternaria que indica que si el valor es 0 será incactivo, y sino será 1 que es activo
+$activo = isset($_POST["activo"]) && $_POST["activo"] == "1" ? 1 : 0;
+
 
 
 //Compruebo que los datos obligatorios no estén vacios
-if (empty($id) || empty($nombre) || empty($descripcion) || empty($categoria_id) || empty($precio) || empty($activo)) {
+if (empty($id) || empty($nombre) || empty($descripcion) || empty($categoria_id) || empty($precio)) {
     header("Location: /vista/backoffice/producto/actualizarProducto.php?id=$id&error=CamposObligatorios");
     exit();
 }
@@ -48,14 +50,18 @@ if (!$producto_bd) {
 }
 
 //Proceso si he subido una imagen nueva
-$rutaImagen = $producto_bd->getImagen();
-  try {
-      $nombreImagen = Utilidades::subidaImagen($imagen, __DIR__ . "/../../media/img/productos/");
-      $rutaImagen = "/media/img/productos/" . $nombreImagen;
-  }catch (Exception $e) {
-      header("Location: /vista/backoffice/producto/actualizarProducto.php?id=$id&error=" . $e->getMessage());
-      exit();
-  }
+//Si la imagen viene vacía, mantengo la imagen que ya tenía
+if($imagen["name"] != null) {
+    try {
+        $nombreImagen = Utilidades::subidaImagen($imagen, __DIR__ . "/../../media/img/productos/");
+        $rutaImagen = "/media/img/productos/" . $nombreImagen;
+    } catch (Exception $e) {
+        header("Location: /vista/backoffice/producto/actualizarProducto.php?id=$id&error=" . $e->getMessage());
+        exit();
+    }
+} else {
+    $rutaImagen = $producto_bd->getImagen();
+}
 
   //Creo el producto con los datos actualizados
     $producto = new Producto($id, $nombre, $descripcion, $categoria_id, "", $precio, $rutaImagen, $activo);

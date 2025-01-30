@@ -1,9 +1,13 @@
 <?php
 
 include_once __DIR__ . '/../../../config/seguridad.php';
+include_once __DIR__ . '/../../../gestores/GestorUsuarios.php';
 
-Seguridad::usuarioPermisos(['admin']);
+Seguridad::usuarioPermisos(['admin', 'editor']);
 
+$id = $_SESSION['id'];
+$gestorUsuarios = new GestorUsuarios();
+$usuario = $gestorUsuarios->getUsuario($id);
 ?>
 <!doctype html>
 <html lang="es">
@@ -46,9 +50,9 @@ Seguridad::usuarioPermisos(['admin']);
                             <div class="col-md-5">
                                 <div class="perfil-info">
                                 <span class="status-badge">
-                                    <i class="bi bi-circle-fill"></i> Administrador
+                                    <i class="bi bi-circle-fill"></i> <?= $usuario->getRol() == "admin" ? "Administrador" : "Editor" ?>
                                 </span>
-                                    <h2 class="perfil-username"><?php echo $_SESSION['usuario'] ?></h2>
+                                    <h2 class="perfil-username"><?php echo $usuario->getUsuario() ?></h2>
                                     <div class="mb-2">
                                         <a href="./../../usuario/normal/actualizarUsuarioNormal.php" class="btn edit-perfil-btn">
                                             <i class="bi bi-pencil"></i> Editar Perfil

@@ -13,6 +13,7 @@ try {
     header("Location: tablaProducto.php?error=ProductoNoEncontrado");
     exit();
 }
+
 ?>
 <!doctype html>
 <html lang="es">
@@ -54,7 +55,7 @@ try {
                                     <select name="categoria_id" class="form-control selector-categoria"
                                             id="categoria_id" required>
                                         <option value="">Selecciona tipo de personaje</option>
-                                        <option value="5">Duelista - Alta moviliadad</option>
+                                        <option <?= ($producto->getCategoriaId() == 5) ? "selected" : "" ?> value="5">Duelista - Alta moviliadad</option>
                                         <option value="6"></option>
                                         <option value="7"></option>
                                         <option value="8"></option>
@@ -72,8 +73,8 @@ try {
                                     <label for="activo" class="form-label">Activo*</label>
                                     <select name="activo" class="form-control selector-categoria"
                                             id="activo" required>
-                                        <option value="1">Activo</option>
-                                        <option value="0">Inactivo</option>
+                                        <option <?= $producto->getActivo() == 1 ? "selected" : "" ?> value="1">Activo</option>
+                                        <option <?= $producto->getActivo() == 0 ? "selected" : "" ?> value="0">Inactivo</option>
 
                                     </select>
                                 </div>

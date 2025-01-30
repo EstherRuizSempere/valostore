@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/../../config/seguridad.php';
+include_once __DIR__ . '/../../../config/seguridad.php';
 Seguridad::usuarioPermisos(['admin', 'editor']);
 
 
@@ -20,14 +20,14 @@ Seguridad::usuarioPermisos(['admin', 'editor']);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./../../media/styles/style.css">
-    <link rel="stylesheet" href="./../../media/styles/navegadorstyle.css">
-    <link rel="stylesheet" href="./../../media/styles/zonaAdminStyle.css">
-    <link rel="stylesheet" href="./../../media/styles/footer.css">
+    <link rel="stylesheet" href="../../../media/styles/style.css">
+    <link rel="stylesheet" href="../../../media/styles/navegadorstyle.css">
+    <link rel="stylesheet" href="../../../media/styles/zonaAdminStyle.css">
+    <link rel="stylesheet" href="../../../media/styles/footer.css">
 </head>
 <body>
 
-<?php include_once __DIR__ . '/../navegador/navegadorlogueado.php'; ?>
+<?php include_once __DIR__ . '/../../navegador/navegadorlogueado.php'; ?>
 
 <main>
     <div class="container-fluid perfil-container">
@@ -89,6 +89,6 @@ Seguridad::usuarioPermisos(['admin', 'editor']);
     </div>
 </main>
 
-<?php include_once __DIR__ . '/../footer/footer.php'; ?>
+<?php include_once __DIR__ . '/../../footer/footer.php'; ?>
 </body>
 </html>

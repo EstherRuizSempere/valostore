@@ -61,7 +61,7 @@ try {
 
                 <form id="actualizarUsuarioForm" action="../../../servicios/backoffice/actualizarUsuario.php"
                       method="POST">
-                    <input type="hidden" name="id" value="<?php echo $usuario->getId(); ?>">
+                    <input type="hidden" name="id" value="<?php echo $usuario->getId()?>" >
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -101,10 +101,9 @@ try {
                             <div class="mb-3">
                                 <label for="rol" class="form-label">Rol de Usuario*</label>
                                 <select name="rol" class="form-control" id="rol" required>
-                                    <option value="">Seleccionar Rol</option>
-                                    <option value="admin">Administrador</option>
-                                    <option value="moderador">Editor</option>
-                                    <option value="usuario">Usuario</option>
+                                    <option <?= $usuario->getRol() == "admin" ? "selected" : ""  ?> value="admin">Administrador</option>
+                                    <option value="editor" <?= $usuario->getRol() == "editor" ? "selected" : "" ?> >Editor</option>
+                                    <option value="usuario" <?= $usuario-> getRol() == "usuario" ? "selected" : "" ?> >Usuario</option>
                                 </select>
                             </div>
                         </div>

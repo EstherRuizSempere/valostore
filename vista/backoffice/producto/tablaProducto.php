@@ -68,7 +68,7 @@ $productos = $gestorProducto->listarProductos();
                                 <td><?= $producto->getNombre() ?></td>
                                 <td><?= $producto->getDescripcion() ?></td>
                                 <td><?= $producto->getCategoria() ?></td>
-                                <td><?= $producto->getPrecio() ?> €</td>
+                                <td><?= $producto->getPrecio() ?> VP</td>
                                 <td>
                                     <img style="height: 60px" src="<?= $producto->getImagen() ?>" alt="">
                                 </td>

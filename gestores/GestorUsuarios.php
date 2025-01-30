@@ -49,10 +49,20 @@ class GestorUsuarios
     public function editarUsuario(Usuario $usuario)
     {
         //Preparo la consulta
-        $sql = "UPDATE usuarios SET usuario = :usuario, email = :email, nombre = :nombre, apellido1 = :apellido1, apellido2 = :apellido2, direccion = :direccion, localidad = :localidad, provincia = :provincia, telefono = :telefono, fechaNacimiento = :fechaNacimiento, activo = :activo WHERE id = :id";
+        $sql = "UPDATE usuarios SET usuario = :usuario, email = :email, nombre = :nombre, apellido1 = :apellido1, apellido2 = :apellido2, direccion = :direccion, localidad = :localidad, provincia = :provincia, telefono = :telefono, fechaNacimiento = :fechaNacimiento, rol = :rol, activo = :activo WHERE id = :id";
         try {
+            //Llamo a la función rellenarDatosUsuario para rellenar los datos del usuario
             $statement = $this->rellenarDatosUsuario($sql, $usuario);
             $statement->bindValue(':id', $usuario->getId());
+            $statement->bindValue(':rol', $usuario->getRol());
+
+            //Actualizo las variables de session coincidiendo con las de loguin
+            if ($_SESSION['id'] == $usuario->getId()) {
+                $_SESSION['nombre'] = $usuario->getNombre();
+                $_SESSION['usuario'] = $usuario->getUsuario();
+                $_SESSION['email'] = $usuario->getEmail();
+                $_SESSION['rol'] = $usuario->getRol();
+            }
 
             //Si no se ejecuta, da fallo:
             if (!$statement->execute()) {
