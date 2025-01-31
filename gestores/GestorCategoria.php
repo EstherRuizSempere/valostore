@@ -15,6 +15,24 @@ class GestorCategoria
         $this->pdo = $conexion->conectar();
     }
 
+
+    public function getCategoria(int $id): Categoria
+    {
+        $sql = "SELECT * FROM categorias WHERE id = :id";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':id', $id);
+
+        try{
+            $statement->execute();
+            $categoria_bd = $statement->fetch(PDO::FETCH_ASSOC);
+
+            return new Categoria($categoria_bd['id'], $categoria_bd['nombre'], $categoria_bd['activo'], $categoria_bd['idCategoriaPadre']);
+        }catch (PDOException $e){
+            echo "Error al obtener la categoría: " . $e->getMessage();
+            exit();
+        }
+
+    }
     //Función para comprobar si existe una categoría Padre y que no se repita
     public function comprobarCategoria($nombre)
     {

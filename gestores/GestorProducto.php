@@ -2,6 +2,7 @@
 include_once __DIR__ . '/../config/ConexionBD.php';
 include_once __DIR__ . '/../config/utilidades.php';
 include_once __DIR__ . '/../entidades/Producto.php';
+include_once __DIR__ . '/../gestores/gestorCategoria.php';
 
 class GestorProducto
 {
@@ -149,13 +150,19 @@ class GestorProducto
 
             // Convierto los resultados en objetos de tipo Producto
             $productos = [];
+            $gestorCategoria = new GestorCategoria();
+
             foreach ($productos_bd as $producto_bd) {
+
+                $categoria = $gestorCategoria->getCategoria($producto_bd['categoria_id']);
+
+
                 $productos[] = new Producto(
                     $producto_bd['id'],
                     $producto_bd['nombre'],
                     $producto_bd['descripcion'],
                     $producto_bd['categoria_id'],
-                    "",
+                    $categoria->getNombre(),
                     $producto_bd['precio'],
                     $producto_bd['imagen'],
                     $producto_bd['activo']
