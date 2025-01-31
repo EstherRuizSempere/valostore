@@ -8,6 +8,7 @@ Seguridad::usuarioPermisos(['admin', 'editor']);
 $gestorCategoria = new GestorCategoria();
 
 $categoriasPadre = $gestorCategoria->listarCategoriasPadre();
+$categoriasHija = $gestorCategoria->listarCategoriasHija();
 
 
 ?>
@@ -86,7 +87,7 @@ $categoriasPadre = $gestorCategoria->listarCategoriasPadre();
             <div class="col-lg-10">
                 <div class="card personajes-card">
                     <div class="card-header">
-                        <h3><i class="bi bi-tags"></i> Listado de Categorías</h3>
+                        <h3><i class="bi bi-tags"></i> Listado de Subcategorías</h3>
                         <a href="#" class="nav-link active">
                             <i class="bi bi-plus-circle me-2"></i> Crear categoría
                         </a>
@@ -103,28 +104,23 @@ $categoriasPadre = $gestorCategoria->listarCategoriasPadre();
                             </tr>
                             </thead>
                             <tbody>
+                            <?php foreach ($categoriasHija as $categoriaHija) { ?>
+
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><i class="bi bi-check2"></i></td>
+                                <td><?= $categoriaHija->getId() ?></td>
+                                <td><?= $categoriaHija->getNombre() ?> </td>
+                                <td><?= $categoriaHija->getIdCategoriaPadre() ?> </td>
+                                <td>
+                                    <?= $categoriaHija->getActivo() == 1 ? '<i class="bi bi-check2"></i>' : '<i class="bi bi-x-lg"></i>' ?>
+
+                                </td>
                                 <td>
                                     <a href="#" class="btn btn-sm admin-btn"><i class="bi bi-eye"></i></a>
                                     <a href="#" class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
                                     <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><i class="bi bi-check2"></i></td>
-                                <td>
-                                    <a href="#" class="btn btn-sm admin-btn"><i class="bi bi-eye"></i></a>
-                                    <a href="#" class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
-                                    <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
-                                </td>
-                            </tr>
+                            <?php } ?>
                             </tbody>
                         </table>
                         <nav>
