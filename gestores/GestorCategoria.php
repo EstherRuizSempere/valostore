@@ -38,21 +38,47 @@ class GestorCategoria
         }
     }
 
-    public function listarCategoriasPadre($nombre, $orden = "ASC")
+    public function listarCategoriasPadre($id = null, $orden = "ASC")
     {
-        //Valido que el orden sea asc
+        //Valido que el orden sea correcto
         $orden = strtoupper($orden);
-        if ($orden != "ASC") {
-            $orden = "DESC";
-        }
+        $orden = strtoupper($orden);
         if ($orden !== "ASC" && $orden !== "DESC") {
             throw new Exception("El orden especificado no es válido. Use 'ASC' o 'DESC'.");
         }
 
-       /*try {
-            //preparo la consulta para que capture las categorías padre
-            $sql = "SELECT * FROM categorias WHERE idCategoriaPadre IS NULL ORDER BY nombre $orden";
-        }*/
+        try {
+            //Valido que el nombre sea correcto y lanzo
+            if ($id !== null) {
+                //Consulta para que me ordene por nombre parcialmente escrito
+                $sql = "SELECT * FROM categorias WHERE id LIKE :id AND idCategoriaPadre IS  NULL ORDER BY id $orden";
+                $statement = $this->pdo->prepare($sql);
+                $statement->bindValue(':id', "%$id%", PDO::PARAM_STR);
+            } else {
+                $sql = "SELECT * FROM categorias WHERE idCategoriaPadre IS NULL ORDER BY id $orden";
+                $statement = $this->pdo->prepare($sql);
+            }
+
+            //Ejecuto la consulta
+            $statement->execute();
+
+            //Obtengo los datos como array asociativo
+            $categorias_bd = $statement->fetchAll(PDO::FETCH_ASSOC);
+            //Los convierto en un objeto de tipo Categoria
+            $categorias = [];
+            //Lo recorro en un bucle foreach
+            foreach ($categorias_bd as $categoria_bd) {
+                $categorias[] = new Categoria($categoria_bd['id'], $categoria_bd['nombre'], $categoria_bd['activo'], $categoria_bd['idCategoriaPadre']);
+            }
+            //Devuelvo la lista de categorías
+            return $categorias;
+
+        } catch (PDOException $e) {
+            echo "Error al listar las categorías: " . $e->getMessage();
+            exit();
+        }
+
+
     }
 
 

@@ -1,9 +1,13 @@
 <?php
 
 include_once __DIR__ . '/../../../config/seguridad.php';
+include_once __DIR__ . '/../../../gestores/GestorCategoria.php';
+
 Seguridad::usuarioPermisos(['admin', 'editor']);
 
+$gestorCategoria = new GestorCategoria();
 
+$categoriasPadre = $gestorCategoria->listarCategoriasPadre();
 
 
 ?>
@@ -32,6 +36,53 @@ Seguridad::usuarioPermisos(['admin', 'editor']);
 <main>
     <div class="container-fluid perfil-container">
         <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card personajes-card">
+                    <div class="card-header">
+                        <h3><i class="bi bi-tags"></i> Listado de Categorías Padre</h3>
+                        <a href="" class="nav-link active">
+                            <i class="bi bi-plus-circle me-2"></i> Crear categoría
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table admin-table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Activo</th>
+                                <th style="width: 130px">Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($categoriasPadre as $categoriaPadre) { ?>
+                                <tr>
+                                    <td><?= $categoriaPadre->getId() ?></td>
+                                    <td><?= $categoriaPadre->getNombre() ?> </td>
+                                    <td>
+                                        <?= $categoriaPadre->getActivo() == 1 ? '<i class="bi bi-check2"></i>' : '<i class="bi bi-x-lg"></i>' ?>
+
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm admin-btn"><i class="bi bi-eye"></i></a>
+                                        <a href="#" class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
+                                        <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center pt-4">
             <div class="col-lg-10">
                 <div class="card personajes-card">
                     <div class="card-header">

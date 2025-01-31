@@ -276,7 +276,7 @@ class GestorProducto
 
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(':nombre', $producto->getNombre());
-        $statement->bindValue(':descripcion', strtolower($producto->getDescripcion()));
+        $statement->bindValue(':descripcion', $producto->getDescripcion());
         $statement->bindValue(':categoria_id', $producto->getCategoriaId());
         $statement->bindValue(':precio', $producto->getPrecio());
         $statement->bindValue(':imagen', $producto->getImagen());

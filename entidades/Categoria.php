@@ -3,10 +3,10 @@ class Categoria{
     private int $id;
     private string $nombre;
     private int $activo;
-    private int $idCategoriaPadre;
+    private ?int $idCategoriaPadre;
 
 
-    public function __construct(int $id, string $nombre, int $activo, int $idCategoriaPadre)
+    public function __construct(int $id, string $nombre, int $activo, ?int $idCategoriaPadre) //Añado el ? para indicar que puede ser int o null
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -44,12 +44,12 @@ class Categoria{
         $this->activo = $activo;
     }
 
-    public function getIdCategoriaPadre(): int
+    public function getIdCategoriaPadre(): ?int
     {
         return $this->idCategoriaPadre;
     }
 
-    public function setIdCategoriaPadre(int $idCategoriaPadre): void
+    public function setIdCategoriaPadre(?int $idCategoriaPadre): void
     {
         $this->idCategoriaPadre = $idCategoriaPadre;
     }
