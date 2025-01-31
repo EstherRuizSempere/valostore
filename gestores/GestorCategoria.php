@@ -49,10 +49,10 @@ class GestorCategoria
             throw new Exception("El orden especificado no es válido. Use 'ASC' o 'DESC'.");
         }
 
-        try {
+       /*try {
             //preparo la consulta para que capture las categorías padre
             $sql = "SELECT * FROM categorias WHERE idCategoriaPadre IS NULL ORDER BY nombre $orden";
-        }
+        }*/
     }
 
 
