@@ -70,6 +70,11 @@
     color: var(--background-dark);
 }
 
+ a{
+    text-decoration: none;
+    color: var(--background-light);
+}
+
 .pago-resumen {
     background: var(--background-light);
     border-radius: 15px;

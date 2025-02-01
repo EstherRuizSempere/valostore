@@ -1,9 +1,10 @@
+
 <!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lol Store</title>
+    <title>Valo Store</title>
     <link rel="icon" href="../../media/img/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -13,57 +14,68 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../media/styles/style.css">
     <link rel="stylesheet" href="../../media/styles/navegadorstyle.css">
-    <link rel="stylesheet" href="../../media/styles/confirmacionstyle.css">
+    <link rel="stylesheet" href="../../media/styles/usuarioNoLogueadoStyle.css">
     <link rel="stylesheet" href="../../media/styles/footer.css">
 </head>
 <body>
-<?php include_once '../navegador/navegadorlogueado.php'; ?>
-
+<?php include_once '../navegador/navegadornologueado.php'; ?>
 
 <main>
-    <div class="container-fluid confirmacion-container">
+    <div class="container-fluid aviso-registro-container">
         <div class="container">
-            <div class="confirmacion-content">
-                <div class="confirmacion-icon">
-                    <i class="bi bi-check-circle"></i>
-                </div>
-                <h1>¡Pedido Confirmado!</h1>
-                <p class="confirmacion-mensaje">Gracias por tu compra. Tu pedido ha sido procesado correctamente.</p>
+            <div class="aviso-registro-content">
+                <i class="bi bi-person-badge aviso-icono"></i>
+                <h1 class="aviso-titulo">Registro necesario</h1>
+                <p class="aviso-mensaje">
+                    Para realizar tu pedido es necesario tener una cuenta en Valo Store.
+                    El registro es rápido y te permitirá disfrutar de múltiples ventajas.
+                </p>
 
-                <div class="confirmacion-detalles">
-                    <h2>Detalles del pedido</h2>
-                    <div class="detalles-item">
-                        <span>Número de pedido:</span>
-                        <span>#VAL12345</span>
+                <div class="ventajas-registro">
+                    <div class="ventaja-item">
+                        <i class="bi bi-clock-history ventaja-icono"></i>
+                        <p class="ventaja-texto">
+                            Historial completo de tus pedidos y seguimiento en tiempo real
+                        </p>
                     </div>
-                    <div class="detalles-productos">
-                        <div class="producto-item">
-                            <span>Jett</span>
-                            <span>1000 VP</span>
-                        </div>
-                        <div class="producto-item">
-                            <span>Sage</span>
-                            <span>950 VP</span>
-                        </div>
+                    <div class="ventaja-item">
+                        <i class="bi bi-shield-check ventaja-icono"></i>
+                        <p class="ventaja-texto">
+                            Proceso de compra más rápido y seguro
+                        </p>
                     </div>
-                    <div class="detalles-total">
-                        <span>Total</span>
-                        <span>1950 VP</span>
+                    <div class="ventaja-item">
+                        <i class="bi bi-gift ventaja-icono"></i>
+                        <p class="ventaja-texto">
+                            Acceso a ofertas exclusivas y promociones especiales
+                        </p>
+                    </div>
+                    <div class="ventaja-item">
+                        <i class="bi bi-star ventaja-icono"></i>
+                        <p class="ventaja-texto">
+                            Programa de recompensas y beneficios para usuarios registrados
+                        </p>
                     </div>
                 </div>
 
-                <div class="confirmacion-acciones">
-                    <a href="catalogo.php" class="btn-volver">
+                <div class="botones-container">
+                    <a href="/vista/usuario/registro.php" class="btn-registro">
+                        Crear cuenta
+                    </a>
+                    <a href="/index.php" class="btn-volver">
                         Volver a la tienda
                     </a>
-                    <a href="pedidos.php" class="btn-pedidos">
-                        Ver mis pedidos
-                    </a>
+                </div>
+
+                <div class="login-info">
+                    ¿Ya tienes una cuenta?
+                    <a href="/vista/login/login.php" class="login-link">Inicia sesión aquí</a>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
 
 <footer class="footer">
     <div class="container">

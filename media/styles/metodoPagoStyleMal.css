@@ -1,0 +1,122 @@
+.metodo-pago-container {
+    padding: 40px;
+    background-image: url("../img/fondo-catalogo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.metodo-pago-titulo {
+    color: var(--background-light);
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.metodo-pago-content {
+    background: var(--background-light);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 8px var(--shadow-grey);
+}
+
+.opciones-pago {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.opcion-pago {
+    background: rgba(220, 208, 190, 0.2);
+    border-radius: 10px;
+    padding: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.opcion-pago:hover {
+    background: rgba(220, 208, 190, 0.4);
+    transform: translateY(-2px);
+}
+
+.opcion-pago.seleccionado {
+    border: 2px solid var(--primary);
+    background: rgba(253, 69, 86, 0.1);
+}
+
+.opcion-pago-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.opcion-pago-titulo {
+    color: var(--background-dark);
+    margin: 0;
+    font-weight: bold;
+}
+
+.opcion-pago-icon {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.opcion-pago-descripcion {
+    color: var(--background-dark);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.detalles-pago {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(220, 208, 190, 0.2);
+    border-radius: 10px;
+}
+
+.detalles-pago-titulo {
+    color: var(--background-dark);
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.btn-continuar {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 20px;
+    font-weight: bold;
+    background-color: var(--primary);
+    color: var(--background-light);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-continuar:hover {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+}
+
+.datos-bancarios {
+    background: var(--background-light);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.datos-bancarios-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(17, 24, 35, 0.1);
+}
+
+.datos-bancarios-item:last-child {
+    border-bottom: none;
+}

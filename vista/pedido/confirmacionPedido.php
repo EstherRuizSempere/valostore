@@ -1,11 +1,8 @@
 <?php
+include_once __DIR__ . '/../../config/seguridad.php';
+Seguridad::usuarioPermisos(['usuario']);
 
-    include_once __DIR__ . '/../../gestores/GestorCarrito.php';
 
-    $gestorCarrito = new GestorCarrito();
-
-    $carrito = $gestorCarrito->getCarrito();
-    $total = $gestorCarrito->getTotal();
 
 ?>
 
@@ -24,74 +21,63 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../media/styles/style.css">
     <link rel="stylesheet" href="../../media/styles/navegadorstyle.css">
-    <link rel="stylesheet" href="../../media/styles/carritostyle.css">
+    <link rel="stylesheet" href="../../media/styles/confirmacionstyle.css">
     <link rel="stylesheet" href="../../media/styles/footer.css">
 </head>
 <body>
-<?php
-
-if (isset($_SESSION['usuario'])) {
-    include_once __DIR__ . '/../navegador/navegadorlogueado.php';
-} else {
-    include_once __DIR__ . '/../navegador/navegadornologueado.php';
-}
-?>
+<?php include_once '../navegador/navegadorlogueado.php'; ?>
 
 
 <main>
-    <div class="container-fluid carrito-container">
+    <div class="container-fluid confirmacion-container">
         <div class="container">
-            <h1 class="carrito-titulo">Tu Carrito</h1>
+            <div class="confirmacion-content">
+                <div class="confirmacion-icon">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+                <h1>¡Pedido Confirmado!</h1>
+                <p class="confirmacion-mensaje">Gracias por tu compra. Tu pedido ha sido procesado correctamente.</p>
 
-            <div class="carrito-content">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="carrito-items">
-                            <?php foreach($carrito as $carritoItem): ?>
-                            <div class="carrito-item">
-                                <img src="<?= $carritoItem->getProducto()->getImagen() ?>" alt="imagen-producto" class="item-imagen">
-                                <div class="item-detalles">
-                                    <h3><?= $carritoItem->getProducto()->getNombre() ?></h3>
-                                    <span class="item-rol"><?= $carritoItem->getProducto()->getCategoria() ?></span>
-                                </div>
-                                <div class="item-precio"><?= $carritoItem->getProducto()->getPrecio() ?> VP</div>
-                                <form action="../../servicios/carrito/eliminarProductoDeCarrito.php" method="POST">
-                                    <input type="hidden" name="id" value="<?= $carritoItem->getId() ?>">
-                                    <button class="btn-eliminar">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-                                <?php endforeach; ?>
-
+                <div class="confirmacion-detalles">
+                    <h2>Detalles del pedido</h2>
+                    <div class="detalles-item">
+                        <span>Número de pedido:</span>
+                        <span>#VAL12345</span>
+                    </div>
+                    <div class="detalles-productos">
+                        <div class="producto-item">
+                            <span>Jett</span>
+                            <span>1000 VP</span>
+                        </div>
+                        <div class="producto-item">
+                            <span>Sage</span>
+                            <span>950 VP</span>
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
-                        <div class="carrito-resumen">
-                            <h2>Resumen del pedido</h2>
-                            <div class="resumen-item">
-                                <span>Subtotal</span>
-                                <span><?= $total ?> VP</span>
-                            </div>
-                            <div class="resumen-item total">
-                                <span>Total</span>
-                                <span><?= $total ?> VP</span>
-                            </div>
-                            <a href="../pedido/datosPedido.php" class="btn-pagar">
-                                Proceder al pago
-                            </a>
-                            <a href="/index.php" class="btn-seguir-comprando">
-                                Seguir comprando
-                            </a>
-                        </div>
+                    <div class="detalles-item">
+                        <span>Método de pago:</span>
+                        <span>Visa</span>
                     </div>
+
+                    <div class="detalles-total">
+                        <span>Total</span>
+                        <span>1950 VP</span>
+                    </div>
+                </div>
+
+                <div class="confirmacion-acciones">
+                    <a href="./../../index.php" class="btn-volver">
+                        Volver a la tienda
+                    </a>
+                    <a href="" class="btn-pedidos">
+                        Ver mis pedidos
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </main>
-
 
 <footer class="footer">
     <div class="container">

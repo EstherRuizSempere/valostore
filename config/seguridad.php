@@ -13,7 +13,7 @@ class Seguridad{
 
         $rolUsuario = $_SESSION['rol'];
         if (!in_array($rolUsuario, $rolesPermitidos)){
-            header("Location: /vista/producto/catalogo.php");
+            header("Location: /index.php");
             exit();
         }
     }

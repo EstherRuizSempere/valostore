@@ -1,0 +1,125 @@
+.aviso-registro-container {
+    padding: 40px;
+    background-image: url("../img/fondo-catalogo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.aviso-registro-content {
+    background: var(--background-light);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 4px 8px var(--shadow-grey);
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.aviso-icono {
+    color: var(--primary);
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.aviso-titulo {
+    color: var(--background-dark);
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.aviso-mensaje {
+    color: var(--background-dark);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.ventajas-registro {
+    background: rgba(220, 208, 190, 0.2);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+    text-align: left;
+}
+
+.ventaja-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(17, 24, 35, 0.1);
+}
+
+.ventaja-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.ventaja-icono {
+    color: var(--primary);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.ventaja-texto {
+    color: var(--background-dark);
+    margin: 0;
+}
+
+.botones-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.btn-registro, .btn-volver {
+    padding: 15px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    flex: 1;
+    max-width: 250px;
+}
+
+.btn-registro {
+    background-color: var(--primary);
+    color: var(--background-light);
+}
+
+.btn-registro:hover {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+}
+
+.btn-volver {
+    background-color: var(--background-dark);
+    color: var(--background-light);
+}
+
+.btn-volver:hover {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+}
+
+.login-info {
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: var(--background-dark);
+}
+
+.login-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link:hover {
+    color: var(--complementary);
+}

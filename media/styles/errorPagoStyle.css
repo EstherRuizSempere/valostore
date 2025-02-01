@@ -1,0 +1,120 @@
+.error-pago-container {
+    padding: 40px;
+    background-image: url("../img/fondo-catalogo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.error-pago-content {
+    background: var(--background-light);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 4px 8px var(--shadow-grey);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.error-icon {
+    color: var(--primary);
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.error-titulo {
+    color: var(--background-dark);
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.error-mensaje {
+    color: var(--background-dark);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.error-detalles {
+    background: rgba(220, 208, 190, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.error-detalles-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(17, 24, 35, 0.1);
+}
+
+.error-detalles-item:last-child {
+    border-bottom: none;
+}
+
+.error-detalles-label {
+    font-weight: bold;
+    color: var(--background-dark);
+}
+
+.botones-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.btn-reintentar, .btn-volver {
+    padding: 15px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    flex: 1;
+    max-width: 250px;
+}
+
+.btn-reintentar {
+    background-color: var(--primary);
+    color: var(--background-light);
+    border: none;
+}
+
+.btn-reintentar:hover {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+}
+
+.btn-volver {
+    background-color: var(--background-dark);
+    color: var(--background-light);
+    border: none;
+}
+
+.btn-volver:hover {
+    background-color: var(--complementary);
+    color: var(--background-dark);
+}
+
+.soporte-info {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(17, 24, 35, 0.1);
+    font-size: 0.9rem;
+    color: var(--background-dark);
+}
+
+.soporte-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.soporte-link:hover {
+    color: var(--complementary);
+}
