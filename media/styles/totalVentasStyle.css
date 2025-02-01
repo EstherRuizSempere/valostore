@@ -43,7 +43,6 @@
     font-weight: bold;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .resumen-ventas {
         grid-template-columns: 1fr;

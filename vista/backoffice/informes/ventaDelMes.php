@@ -34,7 +34,6 @@ Seguridad::usuarioPermisos(['admin', 'editor']);
             <h1 class="pedidos-titulo">Informe de Ventas Mensual</h1>
 
             <div class="pedidos-content">
-                <!-- Resumen de ventas -->
                 <div class="resumen-ventas">
                     <div class="resumen-card">
                         <h3>Ventas Totales</h3>
@@ -50,7 +49,6 @@ Seguridad::usuarioPermisos(['admin', 'editor']);
                     </div>
                 </div>
 
-                <!-- Filtros -->
                 <div class="filtros-container">
                     <div class="filtro-grupo">
                         <label class="filtro-label">Mes:</label>
@@ -78,7 +76,6 @@ Seguridad::usuarioPermisos(['admin', 'editor']);
                     </div>
                 </div>
 
-                <!-- Tabla de ventas -->
                 <div class="tabla-responsive">
                     <table class="tabla-pedidos">
                         <thead>
