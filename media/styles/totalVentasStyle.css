@@ -1,0 +1,55 @@
+.resumen-ventas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.resumen-card {
+    background: var(--background-dark);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.resumen-card:hover {
+    transform: translateY(-5px);
+}
+
+.resumen-card h3 {
+    color: var(--background-light);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.valor-resumen {
+    color: var(--primary);
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.producto-nombre {
+    font-weight: bold;
+    color: var(--background-dark);
+}
+
+.porcentaje {
+    background-color: rgba(253, 69, 86, 0.1);
+    color: var(--primary);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .resumen-ventas {
+        grid-template-columns: 1fr;
+    }
+
+    .resumen-card {
+        margin-bottom: 15px;
+    }
+}

@@ -1,0 +1,175 @@
+.pedidos-container {
+    padding: 40px;
+    background-image: url("../img/fondo-catalogo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.pedidos-titulo {
+    color: var(--background-light);
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.pedidos-content {
+    background: var(--background-light);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 8px var(--shadow-grey);
+}
+
+.tabla-pedidos {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+}
+
+.tabla-pedidos th {
+    background: rgba(220, 208, 190, 0.2);
+    color: var(--background-dark);
+    font-weight: bold;
+    padding: 15px;
+    text-align: left;
+    border-bottom: 2px solid var(--primary);
+}
+
+.tabla-pedidos td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(17, 24, 35, 0.1);
+    color: var(--background-dark);
+}
+
+.tabla-pedidos tr:hover {
+    background-color: rgba(220, 208, 190, 0.1);
+}
+
+.tabla-pedidos tr:last-child td {
+    border-bottom: none;
+}
+
+/* Estados de pedidos */
+.estado {
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+}
+
+.estado-pendiente {
+    background-color: #FFF3CD;
+    color: #856404;
+}
+
+.estado-procesando {
+    background-color: #CCE5FF;
+    color: #004085;
+}
+
+.estado-enviado {
+    background-color: #D4EDDA;
+    color: #155724;
+}
+
+.estado-entregado {
+    background-color: #C3E6CB;
+    color: #1E7E34;
+}
+
+.estado-cancelado {
+    background-color: #F8D7DA;
+    color: #721C24;
+}
+
+/* ID de pedido con estilo */
+.id-pedido {
+    font-family: monospace;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+/* Precio con estilo */
+.precio-pedido {
+    font-weight: bold;
+    color: var(--background-dark);
+}
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.pagina-link {
+    padding: 8px 15px;
+    border-radius: 5px;
+    background: var(--background-dark);
+    color: var(--background-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.pagina-link:hover {
+    background: var(--primary);
+}
+
+.pagina-link.activa {
+    background: var(--primary);
+}
+
+/* Filtros y búsqueda */
+.filtros-container {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filtro-grupo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filtro-label {
+    color: var(--background-dark);
+    font-weight: bold;
+}
+
+.filtro-select {
+    padding: 8px 15px;
+    border: 2px solid rgba(220, 208, 190, 0.4);
+    border-radius: 8px;
+    background-color: var(--background-light);
+    color: var(--background-dark);
+    cursor: pointer;
+}
+
+.busqueda-input {
+    padding: 8px 15px;
+    border: 2px solid rgba(220, 208, 190, 0.4);
+    border-radius: 8px;
+    width: 200px;
+}
+
+@media (max-width: 768px) {
+    .tabla-responsive {
+        overflow-x: auto;
+    }
+
+    .filtros-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filtro-grupo {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
