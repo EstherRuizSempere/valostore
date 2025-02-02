@@ -1,7 +1,16 @@
 <?php
 include_once __DIR__ . '/../../config/seguridad.php';
+include_once __DIR__ . '/../../gestores/GestorPedido.php';
 
 Seguridad::usuarioPermisos(['usuario']);
+
+$idPedido = $_GET['idPedido'];
+
+$gestorPedido = new GestorPedido();
+$pedido = $gestorPedido->getPedido($idPedido);
+
+
+
 ?>
 <!doctype html>
 <html lang="es">
@@ -33,15 +42,7 @@ Seguridad::usuarioPermisos(['usuario']);
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="opciones-pago">
-                            <div class="opcion-pago">
-                                <div class="opcion-pago-header">
-                                    <i class="bi bi-credit-card opcion-pago-icon"></i>
-                                    <h3 class="opcion-pago-titulo">Pago con PayPal o Tarjeta</h3>
-                                </div>
-                                <p class="opcion-pago-descripcion">
-                                    Paga de forma segura utilizando tu cuenta de PayPal o tarjeta de crédito/débito
-                                </p>
-                            </div>
+
 
                             <div class="opcion-pago">
                                 <div class="opcion-pago-header">
@@ -62,7 +63,7 @@ Seguridad::usuarioPermisos(['usuario']);
                                     </div>
                                     <div class="datos-bancarios-item">
                                         <span>Concepto:</span>
-                                        <strong>Pedido #12345</strong>
+                                        <strong>Pedido #<?= $pedido->getId() ?></strong>
                                     </div>
                                 </div>
                             </div>
@@ -74,11 +75,11 @@ Seguridad::usuarioPermisos(['usuario']);
                             <h2 class="detalles-pago-titulo">Resumen del pago</h2>
                             <div class="resumen-item">
                                 <span>Total a pagar</span>
-                                <span>1000 VP</span>
+                                <span><?= $pedido->getTotal() ?> VP</span>
                             </div>
-                            <button class="btn-continuar">
-                                Continuar con el pago
-                            </button>
+                            <a href="/vista/usuario/normal/zonaUsuarioNormal.php" class="btn-continuar">
+                                Ya he hecho la transferencia
+                            </a>
                         </div>
                     </div>
                 </div>

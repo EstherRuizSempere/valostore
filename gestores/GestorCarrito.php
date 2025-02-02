@@ -8,6 +8,7 @@ class GestorCarrito {
 
     public function __construct()
     {
+        //Comprueba que la sesión esté iniciada, sino, la inicia
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }

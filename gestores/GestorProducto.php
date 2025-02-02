@@ -209,56 +209,6 @@ class GestorProducto
         }
     }
 
-    public function listarProductosCategoria($categoria_id = null, $orden = "ASC")
-    {
-        //Valido que orden sea ascendente o descendente
-        $orden = strtoupper($orden);
-        if ($orden != "ASC") {
-            $orden = "DESC";
-        }
-        if ($orden !== "ASC" && $orden !== "DESC") {
-            throw new Exception("El orden especificado no es válido. Use 'ASC' o 'DESC'.");
-        }
-
-        try {
-            //Si especifico una categoría filtro por categoría y ordeno por el nombre
-            if ($categoria_id !== null) {
-                $sql = "SELECT * FROM productos WHERE categoria_id = :categoria_id ORDER BY nombre $orden";
-                $statement = $this->pdo->prepare($sql);
-                $statement->bindValue(':categoria_id', $categoria_id, PDO::PARAM_INT);
-            } else {
-                //Sino, se especifica sólo ordeno por el nombre
-                $sql = "SELECT * FROM productos ORDER BY nombre $orden";
-                $statement = $this->pdo->prepare($sql);
-            }
-
-            //Ejecuto la consulta
-            $statement->execute();
-            //Obtengo los datos como un array asociativo
-            $productos_bd = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-            //Convierto los resultados en objetos de tipo Producto
-            $productos = [];
-            foreach ($productos_bd as $producto_bd) {
-                $productos[] = new Producto(
-                    $producto_bd['id'],
-                    $producto_bd['nombre'],
-                    $producto_bd['descripcion'],
-                    $producto_bd['categoria_id'],
-                    "",
-                    $producto_bd['precio'],
-                    $producto_bd['imagen'],
-                    $producto_bd['activo']
-                );
-            }
-            //Devuelvo la lista de productos
-            return $productos;
-
-        } catch (PDOException $e) {
-            throw new Exception("Error al listar los productos por categoría: " . $e->getMessage());
-        }
-    }
-
 
     public function getProducto(int $id): Producto
     {

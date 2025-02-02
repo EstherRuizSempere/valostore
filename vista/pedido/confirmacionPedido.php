@@ -1,7 +1,17 @@
 <?php
 include_once __DIR__ . '/../../config/seguridad.php';
+include_once __DIR__ . '/../../gestores/GestorPedido.php';
+include_once __DIR__ . '/../../gestores/GestorLineaPedido.php';
+
 Seguridad::usuarioPermisos(['usuario']);
 
+$gestorPedido = new GestorPedido();
+$gestorLineaPedido = new GestorLineaPedido();
+
+$idPedido = $_GET['idPedido'];
+
+$pedido = $gestorPedido->getPedido($idPedido);
+$lineasPedido = $gestorLineaPedido->getLineasDePedido($idPedido);
 
 
 ?>
@@ -42,27 +52,25 @@ Seguridad::usuarioPermisos(['usuario']);
                     <h2>Detalles del pedido</h2>
                     <div class="detalles-item">
                         <span>Número de pedido:</span>
-                        <span>#VAL12345</span>
+                        <span><?= $pedido->getId() ?></span>
                     </div>
                     <div class="detalles-productos">
-                        <div class="producto-item">
-                            <span>Jett</span>
-                            <span>1000 VP</span>
-                        </div>
-                        <div class="producto-item">
-                            <span>Sage</span>
-                            <span>950 VP</span>
-                        </div>
+                        <?php foreach ($lineasPedido as $lineaPedido) { ?>
+                            <div class="producto-item">
+                                <span><?= $lineaPedido->getNombre() ?></span>
+                                <span><?= $lineaPedido->getPrecio() ?> VP</span>
+                            </div>
+                       <?php } ?>
                     </div>
 
                     <div class="detalles-item">
                         <span>Método de pago:</span>
-                        <span>Visa</span>
+                        <span><?= $pedido->getMetodoPago() ?></span>
                     </div>
 
                     <div class="detalles-total">
                         <span>Total</span>
-                        <span>1950 VP</span>
+                        <span><?= $pedido->getTotal() ?> VP</span>
                     </div>
                 </div>
 
@@ -70,7 +78,7 @@ Seguridad::usuarioPermisos(['usuario']);
                     <a href="./../../index.php" class="btn-volver">
                         Volver a la tienda
                     </a>
-                    <a href="" class="btn-pedidos">
+                    <a href="/vista/usuario/normal/zonaUsuarioNormal.php" class="btn-pedidos">
                         Ver mis pedidos
                     </a>
                 </div>

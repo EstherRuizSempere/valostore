@@ -1,7 +1,14 @@
 <?php
 include_once __DIR__ . '/../../config/seguridad.php';
+include_once __DIR__ . '/../../constantes/clavesStripe.php';
+include_once __DIR__ . '/../../gestores/GestorCarrito.php';
 
 Seguridad::usuarioPermisos(['usuario']);
+
+$clavePublica = Stripe::$clavePublica;
+$gestorCarrito = new GestorCarrito();
+$total = $gestorCarrito->getTotal();
+$id = $_GET['idPedido'];
 ?>
 <!doctype html>
 <html lang="es">
@@ -30,12 +37,13 @@ Seguridad::usuarioPermisos(['usuario']);
             <h1 class="metodo-pago-titulo">Método de Pago</h1>
 
             <div class="metodo-pago-content">
-                <form id="formPago" method="POST" action="#">
+
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="opciones-pago">
                                 <div class="opcion-pago">
-                                    <input type="radio" name="metodoPago" id="paypal" value="paypal" class="opcion-pago-radio">
+                                    <input type="radio" name="metodoPago" id="paypal" value="paypal"
+                                           class="opcion-pago-radio">
                                     <label for="paypal" class="opcion-pago-label">
                                         <div class="opcion-pago-header">
                                             <i class="bi bi-paypal opcion-pago-icon"></i>
@@ -48,7 +56,8 @@ Seguridad::usuarioPermisos(['usuario']);
                                 </div>
 
                                 <div class="opcion-pago">
-                                    <input type="radio" name="metodoPago" id="tarjeta" value="tarjeta" class="opcion-pago-radio">
+                                    <input type="radio" name="metodoPago" id="tarjeta" value="tarjeta"
+                                           class="opcion-pago-radio">
                                     <label for="tarjeta" class="opcion-pago-label">
                                         <div class="opcion-pago-header">
                                             <i class="bi bi-credit-card opcion-pago-icon"></i>
@@ -59,14 +68,17 @@ Seguridad::usuarioPermisos(['usuario']);
                                         </p>
                                         <div class="tarjetas-aceptadas">
                                             <img src="./../../media/img/visa.png" alt="Visa" class="tarjeta-imagen">
-                                            <img src="./../../media/img/mc_symbol_opt_73_3x.png" alt="Mastercard" class="tarjeta-imagen">
-                                            <img src="./../../media/img/american-express.png" alt="American Express" class="tarjeta-imagen">
+                                            <img src="./../../media/img/mc_symbol_opt_73_3x.png" alt="Mastercard"
+                                                 class="tarjeta-imagen">
+                                            <img src="./../../media/img/american-express.png" alt="American Express"
+                                                 class="tarjeta-imagen">
                                         </div>
                                     </label>
                                 </div>
 
                                 <div class="opcion-pago">
-                                    <input type="radio" name="metodoPago" id="transferencia" value="transferencia" class="opcion-pago-radio">
+                                    <input type="radio" name="metodoPago" id="transferencia" value="transferencia"
+                                           class="opcion-pago-radio">
                                     <label for="transferencia" class="opcion-pago-label">
                                         <div class="opcion-pago-header">
                                             <i class="bi bi-bank opcion-pago-icon"></i>
@@ -75,20 +87,7 @@ Seguridad::usuarioPermisos(['usuario']);
                                         <p class="opcion-pago-descripcion">
                                             Realiza una transferencia directa a nuestra cuenta bancaria
                                         </p>
-                                        <div class="datos-bancarios">
-                                            <div class="datos-bancarios-item">
-                                                <label>Titular:</label>
-                                                <input type="text" name="nombre" id="nombre">
-                                            </div>
-                                            <div class="datos-bancarios-item">
-                                                <span>IBAN:</span>
-                                                <input type="text" name="iban" id="iban">
-                                            </div>
-                                            <div class="datos-bancarios-item">
-                                                <span>Concepto:</span>
-                                                <strong>Pedido #12345</strong>
-                                            </div>
-                                        </div>
+
                                     </label>
                                 </div>
                             </div>
@@ -99,15 +98,26 @@ Seguridad::usuarioPermisos(['usuario']);
                                 <h2 class="detalles-pago-titulo">Resumen del pago</h2>
                                 <div class="resumen-item">
                                     <span>Total a pagar</span>
-                                    <span>1000 VP</span>
+                                    <span><?= $total ?> VP</span>
                                 </div>
-                                <button type="submit" class="btn-continuar">
-                                    Continuar con el pago
-                                </button>
+                                <div class="boton-transferencia">
+                                    <a href="/servicios/pedidos/transferencia_exito.php?idPedido=<?= $id ?>" class="btn-continuar">
+                                        Continuar con el pago
+                                    </a>
+                                </div>
+                                <div class="boton-stripe">
+                                    <form action="/servicios/pedidos/procesar_stripe.php" method="POST">
+                                        <input type="hidden" name="idPedido" value="<?= $id ?>">
+                                        <button type="submit" class="btn-continuar">
+                                            Continuar con el pago
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="boton-paypal"></div>
                             </div>
                         </div>
                     </div>
-                </form>
+
             </div>
         </div>
     </div>

@@ -3,7 +3,6 @@
 include_once __DIR__ . '/../../gestores/GestorProducto.php';
 include_once __DIR__ . '/../../config/utilidades.php';
 include_once __DIR__ . '/../../entidades/Producto.php';
-include_once __DIR__ . '/../../gestores/GestorProducto.php';
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     return;

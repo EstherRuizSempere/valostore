@@ -38,7 +38,7 @@ $total = $gestorCarrito->getTotal();
             <div class="row">
                 <div class="col-lg-8">
                     <div class="pago-form">
-                        <form action="" method="POST">
+                        <form action="/servicios/pedidos/crearPedido.php" method="POST">
                             <div class="form-section">
                                 <h2>Información Personal</h2>
                                 <div class="row">
@@ -99,8 +99,7 @@ $total = $gestorCarrito->getTotal();
                             </div>
 
                             <button type="submit" class="btn-finalizar">
-                                <a href="../carrito/metodoDePago.php"> Continuar al método de pago
-                                </a>
+                                Continuar al método de pago
                             </button>
                         </form>
                     </div>
@@ -112,8 +111,8 @@ $total = $gestorCarrito->getTotal();
                         <div class="resumen-items">
                             <?php foreach ($carrito as $carrritoItem): ?>
                                 <div class="resumen-item">
-                                    <span> <?= $carrritoItem->getProducto()->getNombre() ?></span>
-                                    <span><?= $carrritoItem->getProducto()->getPrecio() ?></span>
+                                    <span> <?= $carrritoItem->getProducto()->getNombre() ?> VP</span>
+                                    <span><?= $carrritoItem->getProducto()->getPrecio() ?> VP</span>
                                 </div>
                             <?php endforeach; ?>
                         </div>

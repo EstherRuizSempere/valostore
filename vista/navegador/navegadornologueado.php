@@ -1,5 +1,5 @@
 <?php
-
+//Me comprueba si la sesión está iniciada, si no lo está, la inicia y me incluye el archivo GestorCarrito.php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }

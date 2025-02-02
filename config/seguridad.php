@@ -1,11 +1,17 @@
 <?php
-session_start();
+
+//Comprueba que la sesión esté iniciada, sino, la inicia
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 
 class Seguridad{
     public static function usuarioPermisos(array $rolesPermitidos){
+
         //Si no existe la sesión voy al login
         if(!isset($_SESSION['id'])){
-            header("Location: /vista/login/login.php");
+            header("Location: /vista/pedido/usuarioNoRegistrado.php");
             exit();
         }
 
