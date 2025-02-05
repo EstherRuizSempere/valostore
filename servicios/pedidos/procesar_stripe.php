@@ -30,7 +30,7 @@ foreach ($lineasPedido as $lineaPedido) {
 $checkout_session = \Stripe\Checkout\Session::create([
     "mode" => "payment",
     "payment_method_types" => ["card"],
-    "success_url" => "http://lolstore.test/servicios/pedidos/stripe_exito.php?idPedido=" . $idPedido,
+    "success_url" => Stripe::$baseUrl . "/servicios/pedidos/stripe_exito.php?idPedido=" . $idPedido,
     "line_items" => $lineasPedidoStrype
 ]);
 

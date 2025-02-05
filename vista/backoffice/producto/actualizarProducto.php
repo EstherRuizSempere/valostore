@@ -2,10 +2,14 @@
 
 include_once __DIR__ . '/../../../config/seguridad.php';
 include_once __DIR__ . '/../../../gestores/GestorProducto.php';
+include_once __DIR__ . '/../../../gestores/GestorCategoria.php';
 
 Seguridad::usuarioPermisos(['admin', 'editor']);
 
 $gestorProducto = new GestorProducto();
+$gestorCategoria = new GestorCategoria();
+
+$subcategorias = $gestorCategoria->listarCategoriasHija();
 
 try {
     $producto = $gestorProducto->listarProductoUnico($_GET['id']);
@@ -13,6 +17,7 @@ try {
     header("Location: tablaProducto.php?error=ProductoNoEncontrado");
     exit();
 }
+
 
 ?>
 <!doctype html>
@@ -55,16 +60,10 @@ try {
                                     <select name="categoria_id" class="form-control selector-categoria"
                                             id="categoria_id" required>
                                         <option value="">Selecciona tipo de personaje</option>
-                                        <option <?= ($producto->getCategoriaId() == 5) ? "selected" : "" ?> value="5">Duelista - Alta moviliadad</option>
-                                        <option value="6"></option>
-                                        <option value="7"></option>
-                                        <option value="8"></option>
-                                        <option value="9"></option>
-                                        <option value="10"></option>
-                                        <option value="11"></option>
-                                        <option value="12"></option>
-                                        <option value="13"></option>
-                                        <option value="14"></option>
+                                        <?php foreach ($subcategorias as $subcategoria) { ?>
+                                            <option <?= $producto->getCategoriaId() == $subcategoria->getId() ? "selected" : "" ?>
+                                                    value="<?php echo $subcategoria->getId() ?>"><?php echo $subcategoria->getNombre() ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>
@@ -73,8 +72,11 @@ try {
                                     <label for="activo" class="form-label">Activo*</label>
                                     <select name="activo" class="form-control selector-categoria"
                                             id="activo" required>
-                                        <option <?= $producto->getActivo() == 1 ? "selected" : "" ?> value="1">Activo</option>
-                                        <option <?= $producto->getActivo() == 0 ? "selected" : "" ?> value="0">Inactivo</option>
+                                        <option <?= $producto->getActivo() == 1 ? "selected" : "" ?> value="1">Activo
+                                        </option>
+                                        <option <?= $producto->getActivo() == 0 ? "selected" : "" ?> value="0">
+                                            Inactivo
+                                        </option>
 
                                     </select>
                                 </div>
@@ -102,7 +104,7 @@ try {
                                 <div class="mb-3">
                                     <label for="imagen" class="form-label">Imagen del Producto*</label>
                                     <input type="file" name="imagen" class="form-control imagen-form" id="imagen"
-                                            value="<?php echo $producto->getImagen() ?>">
+                                           value="<?php echo $producto->getImagen() ?>">
                                 </div>
                             </div>
                         </div>
@@ -110,7 +112,7 @@ try {
                         <div class="mb-3">
                             <label for="descripcion" class="form-label">Descripción</label>
                             <textarea name="descripcion" class="form-control" id="descripcion"
-                                      rows="3"><?php  echo $producto->getDescripcion(); ?></textarea>
+                                      rows="3"><?php echo $producto->getDescripcion(); ?></textarea>
                         </div>
 
                         <div class="text-center">

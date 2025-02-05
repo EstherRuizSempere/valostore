@@ -1,8 +1,13 @@
 <?php
 
 include_once __DIR__ . '/../../../config/seguridad.php';
+include_once __DIR__ . '/../../../gestores/GestorProducto.php';
 
 Seguridad::usuarioPermisos(['usuario']);
+
+$gestorProducto = new GestorProducto();
+
+$productosDeUsuario = $gestorProducto->getProductosDeUsuario($_SESSION['id']);
 
 ?>
 <!doctype html>
@@ -69,7 +74,7 @@ Seguridad::usuarioPermisos(['usuario']);
                                 <div class="perfil-status">
                                     <div class="status-item">
                                         <i class="bi bi-person-badge"></i>
-                                        <span class="status-valor">10</span>
+                                        <span class="status-valor"><?= count($productosDeUsuario) ?></span>
                                         <span class="status-label">Personajes</span>
                                     </div>
                                     <div class="status-item">
@@ -96,97 +101,23 @@ Seguridad::usuarioPermisos(['usuario']);
                     </div>
                     <div class="card-body">
                         <div class="row">
+                            <?php foreach ($productosDeUsuario as $producto){ ?>
                             <div class="col-md-2 mb-4">
                                 <div class="personaje-item">
                                     <div class="personaje-imagen">
-                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                        <img src="<?= $producto->getImagen() ?>" alt="Personaje 1"
                                              class="img-fluid">
                                         <div class="personaje-detalles">
                                             <button class="btn btn-light btn-sm">Ver Detalles</button>
                                         </div>
                                     </div>
                                     <div class="personaje-info">
-                                        <h4>Astra</h4>
-                                        <span class="personaje-rol">Humos</span>
+                                        <h4><?= $producto->getNombre() ?></h4>
+                                        <span class="personaje-rol"><?= $producto->getCategoria() ?></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2 mb-4">
-                                <div class="personaje-item">
-                                    <div class="personaje-imagen">
-                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
-                                             class="img-fluid">
-                                        <div class="personaje-detalles">
-                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
-                                        </div>
-                                    </div>
-                                    <div class="personaje-info">
-                                        <h4>Astra</h4>
-                                        <span class="personaje-rol">Humos</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-4">
-                                <div class="personaje-item">
-                                    <div class="personaje-imagen">
-                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
-                                             class="img-fluid">
-                                        <div class="personaje-detalles">
-                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
-                                        </div>
-                                    </div>
-                                    <div class="personaje-info">
-                                        <h4>Astra</h4>
-                                        <span class="personaje-rol">Humos</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-4">
-                                <div class="personaje-item">
-                                    <div class="personaje-imagen">
-                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
-                                             class="img-fluid">
-                                        <div class="personaje-detalles">
-                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
-                                        </div>
-                                    </div>
-                                    <div class="personaje-info">
-                                        <h4>Astra</h4>
-                                        <span class="personaje-rol">Humos</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-md-2 mb-4">
-                                <div class="personaje-item">
-                                    <div class="personaje-imagen">
-                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
-                                             class="img-fluid">
-                                        <div class="personaje-detalles">
-                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
-                                        </div>
-                                    </div>
-                                    <div class="personaje-info">
-                                        <h4>Astra</h4>
-                                        <span class="personaje-rol">Humos</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-4">
-                                <div class="personaje-item">
-                                    <div class="personaje-imagen">
-                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
-                                             class="img-fluid">
-                                        <div class="personaje-detalles">
-                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
-                                        </div>
-                                    </div>
-                                    <div class="personaje-info">
-                                        <h4>Astra</h4>
-                                        <span class="personaje-rol">Humos</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php }; ?>
                         </div>
                     </div>
                 </div>

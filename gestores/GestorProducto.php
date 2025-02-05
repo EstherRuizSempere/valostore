@@ -216,14 +216,54 @@ class GestorProducto
         $sql = "SELECT * FROM productos WHERE id = :id";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(':id', $id);
+        $gestorCategoria = new GestorCategoria();
 
         try {
             $statement->execute();
             $producto_bd = $statement->fetch(PDO::FETCH_ASSOC);
 
-            return new Producto($producto_bd['id'], $producto_bd['nombre'], $producto_bd['descripcion'], $producto_bd['categoria_id'], "", $producto_bd['precio'], $producto_bd['imagen'], $producto_bd['activo']);
+            return new Producto($producto_bd['id'], $producto_bd['nombre'], $producto_bd['descripcion'], $producto_bd['categoria_id'], $gestorCategoria->getCategoria($producto_bd['categoria_id'])->getNombre(), $producto_bd['precio'], $producto_bd['imagen'], $producto_bd['activo']);
         } catch (PDOException $e) {
             echo "Error al obtener el producto: " . $e->getMessage();
+            exit();
+        }
+    }
+
+    public function getProductosDeUsuario(int $idUsuario)
+    {
+        $sql = "
+        SELECT productos.* 
+        FROM productos
+        INNER JOIN usuario_producto ON usuario_producto.idProducto = productos.id
+        INNER JOIN usuarios ON usuario_producto.idUsuario = usuarios.id
+        WHERE usuarios.id = $idUsuario;
+        ";
+
+        $statement = $this->pdo->prepare($sql);
+        $productos = [];
+        $gestorCategoria = new GestorCategoria();
+
+        try {
+            $statement->execute();
+
+            $productos_bd = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($productos_bd as $producto_bd) {
+                $productos[] = new Producto(
+                    $producto_bd['id'],
+                    $producto_bd['nombre'],
+                    $producto_bd['descripcion'],
+                    $producto_bd['categoria_id'],
+                    $gestorCategoria->getCategoria($producto_bd['categoria_id'])->getNombre(),
+                    $producto_bd['precio'],
+                    $producto_bd['imagen'],
+                    $producto_bd['activo']
+                );
+            }
+
+            return $productos;
+        }catch (PDOException $e) {
+            echo "Error al obtener los productos del usuario: " . $e->getMessage();
             exit();
         }
     }

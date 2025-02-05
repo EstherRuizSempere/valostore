@@ -41,8 +41,14 @@ body{
 .form-select:focus{
     border: 2px solid var(--primary);
 }
-.search-container {
-    position: relative;
+
+.search-container{
+    display: flex;
+
+}
+
+.search-container button{
+    color: var(--background-light);
 }
 
 .search-input {

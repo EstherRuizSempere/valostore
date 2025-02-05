@@ -1,9 +1,11 @@
 <?php
-    session_start();
-    include_once __DIR__ . '/gestores/GestorProducto.php';
+session_start();
+include_once __DIR__ . '/gestores/GestorProducto.php';
+$nombre = $_GET['nombre'] ?? null;
 
-    $gestorProducto = new GestorProducto();
-    $productos = $gestorProducto->listarProductos();
+$gestorProducto = new GestorProducto();
+$productos = $gestorProducto->listarProductos($nombre);
+
 ?>
 <!doctype html>
 <html lang="es">
@@ -26,11 +28,11 @@
 <body>
 
 <?php
-    if (isset($_SESSION['usuario'])) {
-        include_once __DIR__ . '/vista/navegador/navegadorlogueado.php';
-    } else {
-        include_once __DIR__ . '/vista/navegador/navegadornologueado.php';
-    }
+if (isset($_SESSION['usuario'])) {
+    include_once __DIR__ . '/vista/navegador/navegadorlogueado.php';
+} else {
+    include_once __DIR__ . '/vista/navegador/navegadornologueado.php';
+}
 ?>
 <main>
     <div class="container-fluid catalogo-container">
@@ -51,9 +53,13 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <div class="search-container">
-                            <input type="text" class="form-control search-input" placeholder="Buscar personaje...">
-                        </div>
+                        <form class="search-container" method="GET" action="index.php">
+                            <input type="text" class="form-control search-input" placeholder="Buscar personaje..."
+                                   name="nombre" value="<?= $nombre?>">
+                            <button type="submit" class="btn search-button">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -61,7 +67,7 @@
 
         <div class="contenedor-cards">
             <div class="row">
-                <?php foreach ($productos as $producto){ ?>
+                <?php foreach ($productos as $producto) { ?>
                     <div class="col-md-3 mb-4">
                         <a href="/vista/producto/producto-detalle.php?id=<?= $producto->getId() ?>">
                             <div class="personaje-card">
@@ -83,55 +89,7 @@
     </div>
 </main>
 
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 footer-info">
-                <img src="../../media/img/logo-valostore.png" alt="Logo Valo Store" class="footer-logo">
-                <p class="mt-3">Tu tienda de confianza para conseguir los mejores personajes de Valorant.</p>
-                <div class="social-links mt-3">
-                    <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="discord"><i class="bi bi-discord"></i></a>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 footer-links">
-                <h4>Enlaces Útiles</h4>
-                <ul>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Inicio</a></li>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Tienda</a></li>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Sobre Nosotros</a></li>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Términos y Condiciones</a></li>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Política de Privacidad</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-4 col-md-6 footer-contacto">
-                <h4>Contáctanos</h4>
-                <p>
-                    <i class="bi bi-geo-alt"></i> Calle Principal, 123 <br>
-                    03201 Elche, España<br><br>
-                    <i class="bi bi-phone"></i> +34 999 999 999<br>
-                    <i class="bi bi-envelope"></i> info@valostore.com<br>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="copyright">
-                        © 2025 <strong>Esther Ruiz Sempere</strong>. Todos los derechos reservados.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+<?php include_once __DIR__ . '/vista/footer/footer.php'; ?>
 
 </body>
 </html>
