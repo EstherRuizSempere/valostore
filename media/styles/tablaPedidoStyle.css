@@ -50,7 +50,6 @@
     border-bottom: none;
 }
 
-/* Estados de pedidos */
 .estado {
     padding: 8px 15px;
     border-radius: 20px;
@@ -64,6 +63,11 @@
     background-color: #FFF3CD;
     color: #856404;
 }
+.estado-recibido {
+    background-color: #ffe3cc;
+    color: #853300;
+}
+
 
 .estado-procesando {
     background-color: #CCE5FF;
@@ -75,7 +79,7 @@
     color: #155724;
 }
 
-.estado-entregado {
+.estado-aprobado {
     background-color: #C3E6CB;
     color: #1E7E34;
 }
@@ -84,15 +88,17 @@
     background-color: #F8D7DA;
     color: #721C24;
 }
+.estado-reembolsado {
+    background-color: #efd7f8;
+    color: #391c72;
+}
 
-/* ID de pedido con estilo */
 .id-pedido {
     font-family: monospace;
     font-weight: bold;
     color: var(--primary);
 }
 
-/* Precio con estilo */
 .precio-pedido {
     font-weight: bold;
     color: var(--background-dark);

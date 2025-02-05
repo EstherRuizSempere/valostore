@@ -82,38 +82,6 @@
                                 <input type="text" name="apellido1" class="form-control" id="apellido1" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="apellido2" class="form-label">Segundo Apellido</label>
-                                <input type="text" name="apellido2" class="form-control" id="apellido2">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="direccion" class="form-label">Dirección*</label>
-                        <input type="text"  name="direccion" class="form-control" id="direccion">
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="localidad" class="form-label">Localidad*</label>
-                                <input type="text" name="localidad" class="form-control" id="localidad" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="provincia" class="form-label">Provincia*</label>
-                                <input type="text" name="provincia" class="form-control" id="provincia" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="telefono" class="form-label">Teléfono*</label>
-                                <input type="tel" name="telefono" class="form-control" id="telefono" required>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="row">
@@ -131,10 +99,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-4">
-                        <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento*</label>
-                        <input type="date" name="fechaNacimiento" class="form-control" id="fechaNacimiento" required>
-                    </div>
+
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Crear Cuenta</button>

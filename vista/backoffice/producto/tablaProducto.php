@@ -2,10 +2,13 @@
 
 include_once __DIR__ . '/../../../config/seguridad.php';
 include_once __DIR__ . '/../../../gestores/GestorProducto.php';
+include_once __DIR__ . '/../../../gestores/GestorCategoria.php';
+
 
 Seguridad::usuarioPermisos(['admin', 'editor']);
 
 $gestorProducto = new GestorProducto();
+$gestorCategoria = new GestorCategoria();
 
 $productos = $gestorProducto->listarProductos();
 
@@ -54,6 +57,7 @@ $productos = $gestorProducto->listarProductos();
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
+                                <th>Categoria Padre</th>
                                 <th>Categoría</th>
                                 <th>Precio</th>
                                 <th>Imagen</th>
@@ -67,6 +71,7 @@ $productos = $gestorProducto->listarProductos();
                                 <td><?= $producto->getId() ?></td>
                                 <td><?= $producto->getNombre() ?></td>
                                 <td><?= $producto->getDescripcion() ?></td>
+                                <td><?= $gestorCategoria->getCategoria($gestorCategoria->getCategoria($producto->getCategoriaId())->getIdCategoriaPadre())->getNombre() ?></td>
                                 <td><?= $producto->getCategoria() ?></td>
                                 <td><?= $producto->getPrecio() ?> VP</td>
                                 <td>

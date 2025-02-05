@@ -116,7 +116,7 @@ $redirigirZona = ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'editor') ?
                     <div class="mb-4">
                         <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento*</label>
                         <input type="date" name="fechaNacimiento" class="form-control" id="fechaNacimiento" required
-                               value="<?= $usuario->getFechaNacimiento()->format('Y-m-d') ?>">
+                               value="<?= $usuario->getFechaNacimiento()?->format('Y-m-d') ?>">
                     </div>
 
                     <div class="text-center">

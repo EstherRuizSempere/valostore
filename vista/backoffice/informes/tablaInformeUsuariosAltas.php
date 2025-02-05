@@ -1,9 +1,9 @@
 <?php
 include_once __DIR__ . '/../../../config/seguridad.php';
-include_once __DIR__ . '/../../../gestores/GestorUsuarios.php';
+include_once __DIR__ . '/../../../gestores/GestorInformes.php';
 
 Seguridad::usuarioPermisos(['admin']);
-$gestorUSuarios = new GestorUsuarios();
+$gestorInformes = new GestorInformes();
 $usuario_bd = $_SESSION['id'];
 
 
@@ -12,7 +12,8 @@ try {
     $email = (isset($_POST['email']) && !empty($_POST['email'])) ? $_POST['email'] : null;
 
     //Listamos usuarios:
-    $listadoUsuarios = $gestorUSuarios->listarUsuarios($email);
+    $listadoUsuariosDormidos = $gestorInformes->getUsuariosDormidos();
+    $listadoUsuariosDespiertos = $gestorInformes->getUsuariosDespiertos();
 } catch (Throwable $e) {
     $mensaje = $e->getMessage();
 }
@@ -47,7 +48,7 @@ try {
 
                 <div class="card personajes-card mb-4">
                     <div class="card-header">
-                        <h3><i class="bi bi-people"></i> Listado de Usuarios <strong>Registrados</strong></h3>
+                        <h3><i class="bi bi-people"></i> Listado de Usuarios <strong>Activos</strong></h3>
                     </div>
                     <div class="card-body">
                         <table class="table admin-table">
@@ -66,12 +67,11 @@ try {
                                 <th>Fecha de nacimiento</th>
                                 <th>Rol</th>
                                 <th>Activo</th>
-                                <th>Acciones</th>
 
                             </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($listadoUsuarios as $usuario) { ?>
+                            <?php foreach ($listadoUsuariosDespiertos as $usuario) { ?>
                                 <tr>
                                     <td><?= $usuario->getId() ?></td>
                                     <td><?= $usuario->getUsuario() ?></td>
@@ -86,18 +86,8 @@ try {
                                     <td><?= $usuario->getFechaNacimiento()->format('Y-m-d') ?></td>
                                     <td><?= $usuario->getRol() ?></td>
                                     <td><?= $usuario->getActivo() ?></td>
-                                    <?php if ($usuario_bd != $usuario->getId()) { ?>
-                                        <td>
-                                            <a href="./../usuario/borrarUsuario.php?id=<?= $usuario->getId() ?>"
-                                               class="btn btn-sm admin-btn"><i class="bi bi-trash"></i></a>
-                                            <a href="./../usuario/actualizarUsuario.php?id=<?= $usuario->getId() ?>"
-                                               class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
-                                        </td>
-                                    <?php } ?>
                                 </tr>
-
                             <?php } ?>
-
                             </tbody>
                         </table>
                         <nav>
@@ -111,7 +101,7 @@ try {
 
                 <div class="card personajes-card mb-4">
                     <div class="card-header">
-                        <h3><i class="bi bi-people"></i> Listado de Usuarios <strong>No Registrados</strong></h3>
+                        <h3><i class="bi bi-people"></i> Listado de Usuarios <strong>No Activos</strong></h3>
                     </div>
                     <div class="card-body">
                         <table class="table admin-table">
@@ -130,12 +120,10 @@ try {
                                 <th>Fecha de nacimiento</th>
                                 <th>Rol</th>
                                 <th>Activo</th>
-                                <th>Acciones</th>
-
                             </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($listadoUsuarios as $usuario) { ?>
+                            <?php foreach ($listadoUsuariosDormidos as $usuario) { ?>
                                 <tr>
                                     <td><?= $usuario->getId() ?></td>
                                     <td><?= $usuario->getUsuario() ?></td>
@@ -150,14 +138,6 @@ try {
                                     <td><?= $usuario->getFechaNacimiento()->format('Y-m-d') ?></td>
                                     <td><?= $usuario->getRol() ?></td>
                                     <td><?= $usuario->getActivo() ?></td>
-                                    <?php if ($usuario_bd != $usuario->getId()) { ?>
-                                        <td>
-                                            <a href="./../usuario/borrarUsuario.php?id=<?= $usuario->getId() ?>"
-                                               class="btn btn-sm admin-btn"><i class="bi bi-trash"></i></a>
-                                            <a href="./../usuario/actualizarUsuario.php?id=<?= $usuario->getId() ?>"
-                                               class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
-                                        </td>
-                                    <?php } ?>
                                 </tr>
 
                             <?php } ?>

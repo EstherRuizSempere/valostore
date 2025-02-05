@@ -48,6 +48,9 @@ try {
                 <div class="card personajes-card mb-4">
                     <div class="card-header">
                         <h3><i class="bi bi-people"></i> Listado de Usuarios</h3>
+                        <a href="/vista/backoffice/usuario/crearUsuario.php" class="nav-link active">
+                            <i class="bi bi-person me-2"></i> Crear usuario
+                        </a>
                     </div>
                     <div class="card-body">
                         <table class="table admin-table">

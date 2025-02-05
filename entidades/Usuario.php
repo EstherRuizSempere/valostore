@@ -6,33 +6,17 @@ class Usuario{
     private string $email;
     private string $nombre;
     private string $apellido1;
-    private string $apellido2;
-    private string $direccion;
-    private string $localidad;
-    private string $provincia;
-    private string $telefono;
+    private ?string $apellido2;
+    private ?string $direccion;
+    private ?string $localidad;
+    private ?string $provincia;
+    private ? string $telefono;
     private string $contrasenya;
-    private Date $fechaNacimiento;
+    private ?Date $fechaNacimiento;
     private string $rol;
     private int $activo;
 
-    /**
-     * @param int $id
-     * @param string $usuario
-     * @param string $email
-     * @param string $nombre
-     * @param string $apellido1
-     * @param string $apellido2
-     * @param string $direccion
-     * @param string $localidad
-     * @param string $provincia
-     * @param string $telefono
-     * @param string $contrasenya
-     * @param DateTime $fechaNacimiento
-     * @param string $rol
-     * @param int $activo
-     */
-    public function __construct(int $id, string $usuario, string $email, string $nombre, string $apellido1, string $apellido2, string $direccion, string $localidad, string $provincia, string $telefono, string $contrasenya, DateTime $fechaNacimiento, string $rol, int $activo)
+    public function __construct(int $id, string $usuario, string $email, string $nombre, string $apellido1, ?string $apellido2, ?string $direccion, ?string $localidad, ?string $provincia, ?string $telefono, string $contrasenya, ?DateTime $fechaNacimiento, string $rol, int $activo)
     {
         $this->id = $id;
         $this->usuario = strtolower($usuario);
@@ -101,52 +85,52 @@ class Usuario{
         $this->apellido1 = $apellido1;
     }
 
-    public function getApellido2(): string
+    public function getApellido2(): ?string
     {
         return $this->apellido2;
     }
 
-    public function setApellido2(string $apellido2): void
+    public function setApellido2(?string $apellido2): void
     {
         $this->apellido2 = $apellido2;
     }
 
-    public function getDireccion(): string
+    public function getDireccion(): ?string
     {
         return $this->direccion;
     }
 
-    public function setDireccion(string $direccion): void
+    public function setDireccion(?string $direccion): void
     {
         $this->direccion = $direccion;
     }
 
-    public function getLocalidad(): string
+    public function getLocalidad(): ?string
     {
         return $this->localidad;
     }
 
-    public function setLocalidad(string $localidad): void
+    public function setLocalidad(?string $localidad): void
     {
         $this->localidad = $localidad;
     }
 
-    public function getProvincia(): string
+    public function getProvincia(): ?string
     {
         return $this->provincia;
     }
 
-    public function setProvincia(string $provincia): void
+    public function setProvincia(?string $provincia): void
     {
         $this->provincia = $provincia;
     }
 
-    public function getTelefono(): string
+    public function getTelefono(): ?string
     {
         return $this->telefono;
     }
 
-    public function setTelefono(string $telefono): void
+    public function setTelefono(?string $telefono): void
     {
         $this->telefono = $telefono;
     }
@@ -161,12 +145,12 @@ class Usuario{
         $this->contrasenya = $contrasenya;
     }
 
-    public function getFechaNacimiento(): Date
+    public function getFechaNacimiento(): ?Date
     {
         return $this->fechaNacimiento;
     }
 
-    public function setFechaNacimiento(Date $fecha_nacimiento): void
+    public function setFechaNacimiento(?Date $fecha_nacimiento): void
     {
         $this->fechaNacimiento = $fecha_nacimiento;
     }

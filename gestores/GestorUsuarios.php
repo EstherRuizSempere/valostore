@@ -15,7 +15,8 @@ class GestorUsuarios
 
     public function nuevoUsuario(Usuario $usuario)
     {
-        $sql = "INSERT INTO usuarios (usuario, email, nombre, apellido1, apellido2, direccion, localidad, provincia, telefono, contrasenya, fechaNacimiento, rol, activo) VALUES (:usuario, :email, :nombre, :apellido1, :apellido2, :direccion, :localidad, :provincia, :telefono, :contrasenya, :fechaNacimiento, :rol, :activo)";
+        $sql = "INSERT INTO usuarios (usuario, email, nombre, apellido1, contrasenya, rol, activo) 
+        VALUES (:usuario, :email, :nombre, :apellido1, :contrasenya, :rol, :activo)";
 
         try {
 
@@ -26,15 +27,13 @@ class GestorUsuarios
             if (!Utilidades::validarEmail($usuario->getEmail())) {
                 throw new Exception("El email no es válido");
             }
-            if (!Utilidades::validarTelefono($usuario->getTelefono())) {
-                throw new Exception("El teléfono no es válido");
-            }
+
 
             //Antes de almacenar la contraseña hay que "hasearla"
             $contrasenyaHash = Utilidades::hashContrasenya($usuario->getContrasenya());
 
             //Preparamos la consulta
-            $statement = $this->rellenarDatosUsuario($sql, $usuario);
+            $statement = $this->rellenarDatosUsuarioRegistro($sql, $usuario);
             $statement->bindValue(':contrasenya', $contrasenyaHash);
             $statement->bindValue(':rol', $usuario->getRol());
 
@@ -140,7 +139,7 @@ class GestorUsuarios
             $statement->execute();
             $usuario_bd = $statement->fetch(PDO::FETCH_ASSOC);
             //Cambio el formato de fecha de nacimiento
-            $fechaNacimiento = new DateTime($usuario_bd['fechaNacimiento']);
+            $fechaNacimiento = $usuario_bd['fechaNacimiento'] ? new DateTime($usuario_bd['fechaNacimiento']) : null;
 
             $usuario = new Usuario($usuario_bd['id'], $usuario_bd['usuario'], $usuario_bd['email'], $usuario_bd['nombre'], $usuario_bd['apellido1'], $usuario_bd['apellido2'], $usuario_bd['direccion'], $usuario_bd['localidad'], $usuario_bd['provincia'], $usuario_bd['telefono'], $usuario_bd['contrasenya'], $fechaNacimiento, $usuario_bd['rol'], $usuario_bd['activo']);
             return $usuario;
@@ -148,7 +147,6 @@ class GestorUsuarios
             throw new Exception($error->getMessage());
         }
     }
-
 
 
     public function verificarLogin($email, $contrasenya)
@@ -170,7 +168,8 @@ class GestorUsuarios
 
         //Verifico que el usuario existe
         $usuario_bd = $statement->fetch(PDO::FETCH_ASSOC);
-        $fechaNacimiento = new DateTime($usuario_bd['fechaNacimiento']);
+        $fechaNacimiento = $usuario_bd['fechaNacimiento'] ? new DateTime($usuario_bd['fechaNacimiento']) : null;
+
 
 
         if ($usuario_bd) {
@@ -213,7 +212,7 @@ class GestorUsuarios
             $usuario['provincia'],
             $usuario['telefono'],
             $usuario['contrasenya'],
-            new DateTime($usuario['fechaNacimiento']),
+            $usuario['fechaNacimiento'] ? new DateTime($usuario['fechaNacimiento']) : null,
             $usuario['rol'],
             $usuario['activo']
         );
@@ -261,7 +260,7 @@ class GestorUsuarios
                     $usuario['provincia'],
                     $usuario['telefono'],
                     $usuario['contrasenya'],
-                    new DateTime($usuario['fechaNacimiento']),
+                    $usuario['fechaNacimiento'] ? new DateTime($usuario['fechaNacimiento']) : null,
                     $usuario['rol'],
                     $usuario['activo']
                 );
@@ -340,4 +339,15 @@ class GestorUsuarios
         return $statement;
     }
 
+    public function rellenarDatosUsuarioRegistro(string $sql, Usuario $usuario)
+    {
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':usuario', strtolower($usuario->getUsuario()));
+        $statement->bindValue(':email', strtolower($usuario->getEmail()));
+        $statement->bindValue(':nombre', $usuario->getNombre());
+        $statement->bindValue(':apellido1', $usuario->getApellido1());
+        $statement->bindValue(':contrasenya', $usuario->getContrasenya());
+        $statement->bindValue(':activo', $usuario->getActivo());
+        return $statement;
+    }
 }

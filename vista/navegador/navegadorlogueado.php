@@ -44,7 +44,7 @@ $gestorCarrito = new GestorCarrito();
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="./../usuario/normal/zonaUsuarioNormal.php"><i
                                                 class="bi bi-person me-2"></i> Mi Perfil</a></li>
-                                <li><a class="dropdown-item" href=""><i class="bi bi-box me-2"></i> Mis Pedidos</a></li>
+                                <li><a class="dropdown-item" href="/vista/usuario/normal/misPedidos.php"><i class="bi bi-box me-2"></i> Mis Pedidos</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>

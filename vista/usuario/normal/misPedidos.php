@@ -3,10 +3,10 @@
 include_once __DIR__ . '/../../../config/seguridad.php';
 include_once __DIR__ . '/../../../gestores/GestorPedido.php';
 
-Seguridad::usuarioPermisos(['admin', 'editor']);
+Seguridad::usuarioPermisos(['usuario']);
 
 $gestorPedido = new GestorPedido();
-$pedidos = $gestorPedido->listarPedidos();
+$pedidos = $gestorPedido-> listarPedidosUsuario($_SESSION['id']);
 
 ?>
 <!doctype html>
@@ -74,13 +74,13 @@ $pedidos = $gestorPedido->listarPedidos();
                         </thead>
                         <tbody>
                         <?php foreach ($pedidos as $pedido) { ?>
-                        <tr>
-                            <td><span class="id-pedido"><?= $pedido->getId() ?></span></td>
-                            <td><span><?= $pedido->getFecha()->format('Y-m-d') ?> - <?= $pedido->getFecha()->format('H:i') ?></span></td>
-                            <td><span class="precio-pedido"><?= $pedido->getTotal() ?>P</span></td>
-                            <td>
+                            <tr>
+                                <td><span class="id-pedido"><?= $pedido->getId() ?></span></td>
+                                <td><span><?= $pedido->getFecha()->format('Y-m-d') ?> - <?= $pedido->getFecha()->format('H:i') ?></span></td>
+                                <td><span class="precio-pedido"><?= $pedido->getTotal() ?>P</span></td>
+                                <td>
 
-                                <?php
+                                    <?php
 
                                     switch ($pedido->getEstado()) {
                                         case 'recibido':
@@ -105,15 +105,15 @@ $pedidos = $gestorPedido->listarPedidos();
                                             echo '<span class="estado estado-cancelado">Error</span>';
                                             break;
                                     }
-                                ?>
+                                    ?>
 
-                            </td>
-                            <td><?= $pedido->getIdUsuario() ?></td>
-                            <td>
-                                <a href="detallePedidoAdmin.php?id=<?=$pedido->getId()?>" class="btn btn-sm admin-btn"><i class="bi bi-eye"></i></a>
+                                </td>
+                                <td><?= $pedido->getIdUsuario() ?></td>
+                                <td>
+                                    <a href="./../../pedido/detallePedidoUsuario.php?id=<?=$pedido->getId()?>" class="btn btn-sm admin-btn"><i class="bi bi-eye"></i></a>
 
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         <?php } ?>
                         </tbody>
                     </table>

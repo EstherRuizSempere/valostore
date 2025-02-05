@@ -1,8 +1,18 @@
 <?php
 
 include_once __DIR__ . '/../../../config/seguridad.php';
+include_once __DIR__ . '/../../../gestores/GestorCategoria.php';
+include_once __DIR__ . '/../../../gestores/GestorProducto.php';
 
-Seguridad::usuarioPermisos(['admin']);
+Seguridad::usuarioPermisos(['admin', 'editor']);
+
+
+$gestorCategoria = new GestorCategoria();
+$gestorProducto = new GestorProducto();
+
+$categoriasPadre = $gestorCategoria->listarCategoriasPadre();
+$subcategorias = $gestorCategoria->listarCategoriasHija();
+
 
 ?>
 
@@ -45,19 +55,14 @@ Seguridad::usuarioPermisos(['admin']);
                                     <select name="categoria_id" class="form-control selector-categoria"
                                             id="categoria_id" required>
                                         <option value="">Selecciona tipo de personaje</option>
-                                        <option value="5">Duelista - Alta moviliadad</option>
-                                        <option value="6"></option>
-                                        <option value="7"></option>
-                                        <option value="8"></option>
-                                        <option value="9"></option>
-                                        <option value="10"></option>
-                                        <option value="11"></option>
-                                        <option value="12"></option>
-                                        <option value="13"></option>
-                                        <option value="14"></option>
+                                        <?php foreach ($subcategorias as $subcategoria) { ?>
+                                            <option
+                                                    value="<?php echo $subcategoria->getId() ?>"><?php echo $subcategoria->getNombre() ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="activo" class="form-label">Activo*</label>

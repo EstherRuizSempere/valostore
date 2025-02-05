@@ -48,7 +48,7 @@ Seguridad::usuarioPermisos(['admin']);
                                                placeholder="Introduce tu contraseña para confirmar" required>
                                     </div>
                                     <div class="d-flex justify-content-center gap-3">
-                                        <a href="" class="borrar-perfil-btn">
+                                        <a href="tablaProducto.php" class="borrar-perfil-btn">
                                             Cancelar
                                         </a>
                                         <button type="submit" class="borrar-perfil-btn">

@@ -1,12 +1,9 @@
 <?php
 
 include_once __DIR__ . '/../../../config/seguridad.php';
-include_once __DIR__ . '/../../../gestores/GestorPedido.php';
 
 Seguridad::usuarioPermisos(['admin', 'editor']);
 
-$gestorPedido = new GestorPedido();
-$pedidos = $gestorPedido->listarPedidos();
 
 ?>
 <!doctype html>
@@ -68,53 +65,44 @@ $pedidos = $gestorPedido->listarPedidos();
                             <th>Total</th>
                             <th>Estado</th>
                             <th>ID Usuario</th>
-                            <th style="width: 140px">Acciones</th>
-
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($pedidos as $pedido) { ?>
                         <tr>
-                            <td><span class="id-pedido"><?= $pedido->getId() ?></span></td>
-                            <td><span><?= $pedido->getFecha()->format('Y-m-d') ?> - <?= $pedido->getFecha()->format('H:i') ?></span></td>
-                            <td><span class="precio-pedido"><?= $pedido->getTotal() ?>P</span></td>
-                            <td>
-
-                                <?php
-
-                                    switch ($pedido->getEstado()) {
-                                        case 'recibido':
-                                            echo '<span class="estado estado-recibido">Recibido</span>';
-                                            break;
-                                        case 'pendiente':
-                                            echo '<span class="estado estado-pendiente">Pendiente</span>';
-                                            break;
-                                        case 'aprobado':
-                                            echo '<span class="estado estado-aprobado">Aprobado</span>';
-                                            break;
-                                        case 'enviado':
-                                            echo '<span class="estado estado-enviado">Enviado</span>';
-                                            break;
-                                        case 'cancelado':
-                                            echo '<span class="estado estado-cancelado">Cancelado</span>';
-                                            break;
-                                        case 'reembolsado':
-                                            echo '<span class="estado estado-reembolsado">Reembolsado</span>';
-                                            break;
-                                        case 'error':
-                                            echo '<span class="estado estado-cancelado">Error</span>';
-                                            break;
-                                    }
-                                ?>
-
-                            </td>
-                            <td><?= $pedido->getIdUsuario() ?></td>
-                            <td>
-                                <a href="detallePedidoAdmin.php?id=<?=$pedido->getId()?>" class="btn btn-sm admin-btn"><i class="bi bi-eye"></i></a>
-
-                            </td>
+                            <td><span class="id-pedido">#PED001</span></td>
+                            <td>01/02/2025</td>
+                            <td><span class="precio-pedido">1000 VP</span></td>
+                            <td><span class="estado estado-pendiente">Pendiente</span></td>
+                            <td>USR123</td>
                         </tr>
-                        <?php } ?>
+                        <tr>
+                            <td><span class="id-pedido">#PED002</span></td>
+                            <td>01/02/2025</td>
+                            <td><span class="precio-pedido">2500 VP</span></td>
+                            <td><span class="estado estado-procesando">Procesando</span></td>
+                            <td>USR456</td>
+                        </tr>
+                        <tr>
+                            <td><span class="id-pedido">#PED003</span></td>
+                            <td>31/01/2025</td>
+                            <td><span class="precio-pedido">1500 VP</span></td>
+                            <td><span class="estado estado-enviado">Enviado</span></td>
+                            <td>USR789</td>
+                        </tr>
+                        <tr>
+                            <td><span class="id-pedido">#PED004</span></td>
+                            <td>30/01/2025</td>
+                            <td><span class="precio-pedido">3000 VP</span></td>
+                            <td><span class="estado estado-entregado">Entregado</span></td>
+                            <td>USR012</td>
+                        </tr>
+                        <tr>
+                            <td><span class="id-pedido">#PED005</span></td>
+                            <td>30/01/2025</td>
+                            <td><span class="precio-pedido">750 VP</span></td>
+                            <td><span class="estado estado-cancelado">Cancelado</span></td>
+                            <td>USR345</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -132,6 +120,5 @@ $pedidos = $gestorPedido->listarPedidos();
 </main>
 
 <?php include_once __DIR__ . '/../../footer/footer.php'; ?>
-
 </body>
 </html>

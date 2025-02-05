@@ -23,4 +23,18 @@ class GestorUsuarioProducto {
             exit();
         }
     }
+
+    public function borrarUsuarioProducto(int $idUsuario, int $idProducto)
+    {
+        $sql = "DELETE FROM usuario_producto WHERE idUsuario = :idUsuario AND idProducto = :idProducto";
+        try {
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(':idUsuario', $idUsuario);
+            $statement->bindValue(':idProducto', $idProducto);
+            $statement->execute();
+        } catch (PDOException $e) {
+            echo "Error al borrar el usuario_producto: " . $e->getMessage();
+            exit();
+        }
+    }
 }

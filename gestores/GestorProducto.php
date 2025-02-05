@@ -103,15 +103,19 @@ class GestorProducto
             $statement->execute();
 
             $productos_bd = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $gestorCategoria = new GestorCategoria();
+
 
             $productos = [];
             foreach ($productos_bd as $producto_bd) {
+                $categoria = $gestorCategoria->getCategoria($producto_bd['categoria_id']);
+
                 $productos[] = new Producto(
                     $producto_bd['id'],
                     $producto_bd['nombre'],
                     $producto_bd['descripcion'],
                     $producto_bd['categoria_id'],
-                    "",
+                    $categoria->getNombre(),
                     $producto_bd['precio'],
                     $producto_bd['imagen'],
                     $producto_bd['activo']
@@ -262,11 +266,12 @@ class GestorProducto
             }
 
             return $productos;
-        }catch (PDOException $e) {
+        } catch (PDOException $e) {
             echo "Error al obtener los productos del usuario: " . $e->getMessage();
             exit();
         }
     }
+
 
     private function rellenarDatosProducto($sql, Producto $producto)
     {

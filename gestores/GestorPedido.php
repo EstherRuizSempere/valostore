@@ -46,6 +46,25 @@ class GestorPedido
         }
     }
 
+    public function listarPedidos()
+    {
+        $sql = "SELECT * FROM pedidos";
+        $statement = $this->pdo->prepare($sql);
+        try {
+            $statement->execute();
+            $pedidos_bd = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $pedidos = [];
+            foreach ($pedidos_bd as $pedido_bd) {
+                $pedido = new Pedido($pedido_bd['id'], new DateTime($pedido_bd['fecha']), $pedido_bd['total'], $pedido_bd['estado'], $pedido_bd['idUsuario'], $pedido_bd['nombre'], $pedido_bd['apellido1'], $pedido_bd['apellido2'], $pedido_bd['email'], $pedido_bd['direccion'], $pedido_bd['localidad'], $pedido_bd['provincia'], $pedido_bd['telefono'], $pedido_bd['metodoPago']);
+                $pedidos[] = $pedido;
+            }
+            return $pedidos;
+        } catch (PDOException $e) {
+            echo "Error al listar los pedidos: " . $e->getMessage();
+            exit();
+        }
+    }
+
     public function cambiarEstadoPedido(int $id, string $estado)
     {
         $sql = "UPDATE pedidos SET estado = :estado WHERE id = :id";
@@ -69,6 +88,17 @@ class GestorPedido
                 $gestorUsuarioProducto->nuevoUsuarioProducto($pedido->getIdUsuario(), $lineaPedido->getIdProducto());
             }
         }
+
+        if($estado == "reembolsado") {
+            $gestorUsuarioProducto = new GestorUsuarioProducto();
+            $gestorLineaPedido = new GestorLineaPedido();
+            $pedido = $this->getPedido($id);
+            $lineasPedido = $gestorLineaPedido->getLineasDePedido($id);
+
+            foreach ($lineasPedido as $lineaPedido) {
+                $gestorUsuarioProducto->borrarUsuarioProducto($pedido->getIdUsuario(), $lineaPedido->getIdProducto());
+            }
+        }
     }
 
     public function cambiarMetodoPagoPedido(int $id, string $metodoPago)
@@ -84,6 +114,27 @@ class GestorPedido
             exit();
         }
     }
+
+    public function listarPedidosUsuario(int $idUsuario)
+    {
+        $sql = "SELECT * FROM pedidos WHERE idUsuario = :idUsuario";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':idUsuario', $idUsuario);
+        try {
+            $statement->execute();
+            $pedidos_bd = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $pedidos = [];
+            foreach ($pedidos_bd as $pedido_bd) {
+                $pedido = new Pedido($pedido_bd['id'], new DateTime($pedido_bd['fecha']), $pedido_bd['total'], $pedido_bd['estado'], $pedido_bd['idUsuario'], $pedido_bd['nombre'], $pedido_bd['apellido1'], $pedido_bd['apellido2'], $pedido_bd['email'], $pedido_bd['direccion'], $pedido_bd['localidad'], $pedido_bd['provincia'], $pedido_bd['telefono'], $pedido_bd['metodoPago']);
+                $pedidos[] = $pedido;
+            }
+            return $pedidos;
+        } catch (Exception $e) {
+            echo "Error al listar los pedidos del usuario: " . $e->getMessage();
+            exit();
+        }
+    }
+
 
     public function rellenarDatosPedido($sql, Pedido $pedido)
     {
