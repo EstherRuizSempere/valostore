@@ -32,7 +32,7 @@ class GestorProducto
             } else {
                 return false;
             }
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             echo "Error al comprobar si existe el producto: " . $e->getMessage();
             exit();
         }
@@ -123,19 +123,13 @@ class GestorProducto
             }
 
             return $productos;
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             throw new Exception("Error al listar los productos por precio: " . $e->getMessage());
         }
     }
 
     public function listarProductos($nombre = null, $orden = "ASC")
     {
-        //Válido que el orden sea válido
-        $orden = strtoupper($orden);
-        if ($orden !== "ASC" && $orden !== "DESC") {
-            throw new Exception("El orden especificado no es válido. Use 'ASC' o 'DESC'.");
-        }
-
         try {
             if ($nombre !== null) {
                 $sql = "SELECT * FROM productos WHERE nombre LIKE :nombre ORDER BY nombre $orden";
@@ -175,12 +169,47 @@ class GestorProducto
 
             // Devuelvo la lista de productos
             return $productos;
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             throw new Exception("Error al listar los productos: " . $e->getMessage());
         }
     }
 
-    public function listarProductoUnico($id)
+    public function listarProductosPorCategoria($categoria = null, $orden = "ASC")
+    {
+        //Validar que el orden sea válido
+        if ($orden !== "ASC" && $orden !== "DESC") {
+            throw new Exception("El orden especificado no es válido. Use 'ASC' o 'DESC'.");
+        }
+
+        try {
+            //Obtengo el nombre de la categoria:
+            $gestorCategoria = new GestorCategoria();
+            $categoria_bd = $gestorCategoria->getCategoria($categoria);
+
+
+            //Construyo la consulta SQL para obtener el listado de productos por categoría
+            $sql = "SELECT * FROM productos WHERE categoria_id = :categoria_id ORDER BY nombre $orden";
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(':categoria_id', $categoria_bd->getId());
+            $statement->execute();
+
+            //Obtengo los resultados como un array asociativo
+            $productos_bd = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            //Convierto los resultados en objetos de tipo Producto
+            $productos = [];
+            foreach ($productos_bd as $producto_bd) {
+                $productos[] = new Producto($producto_bd['id'], $producto_bd['nombre'], $producto_bd['descripcion'], $producto_bd['categoria_id'], $categoria_bd->getNombre(), $producto_bd['precio'], $producto_bd['imagen'], $producto_bd['activo']);
+            }
+            //Devuelvo la lista de productos
+            return $productos;
+        } catch (Exception $e) {
+            throw new Exception("Error al listar los productos por categoría: " . $e->getMessage());
+        }
+    }
+
+    public
+    function listarProductoUnico($id)
     {
         //valido que el id sea correcto, que no esté vacío, que sea un número y además mayor que 0
         if (empty($id) || !is_numeric($id) || $id <= 0) {
@@ -214,7 +243,8 @@ class GestorProducto
     }
 
 
-    public function getProducto(int $id): Producto
+    public
+    function getProducto(int $id): Producto
     {
         //Preparo la consulta
         $sql = "SELECT * FROM productos WHERE id = :id";
@@ -233,7 +263,8 @@ class GestorProducto
         }
     }
 
-    public function getProductosDeUsuario(int $idUsuario)
+    public
+    function getProductosDeUsuario(int $idUsuario)
     {
         $sql = "
         SELECT productos.* 
@@ -273,7 +304,8 @@ class GestorProducto
     }
 
 
-    private function rellenarDatosProducto($sql, Producto $producto)
+    private
+    function rellenarDatosProducto($sql, Producto $producto)
     {
 
         $statement = $this->pdo->prepare($sql);
