@@ -1,17 +1,15 @@
 {
-    "name": "esther/lolstore",
+    "name": "esthe/valostore",
     "autoload": {
         "psr-4": {
-            "Esther\\Lolstore\\": "src/"
+            "Esthe\\Valostore\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "EstherRuizSempere",
-            "email": "estruisem@alu.edu.gva.es"
+            "name": "TherRuizSempere",
+            "email": "EstherBeep@gmail.com"
         }
     ],
-    "require": {
-        "stripe/stripe-php": "^16.5"
-    }
+    "require": {}
 }

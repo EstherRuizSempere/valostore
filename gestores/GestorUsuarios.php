@@ -218,10 +218,8 @@ class GestorUsuarios
         );
     }
 
-    public function listarUsuarios($email)
+    public function listarUsuarios($email = null)
     {
-        //Inicializo la consulta sql:
-        $sql = "";
 
         if (empty($email)) {
             // Consulta sin filtro por email
@@ -334,7 +332,7 @@ class GestorUsuarios
         $statement->bindValue(':localidad', $usuario->getLocalidad());
         $statement->bindValue(':provincia', $usuario->getProvincia());
         $statement->bindValue(':telefono', $usuario->getTelefono());
-        $statement->bindValue(':fechaNacimiento', $usuario->getFechaNacimiento()->format('Y-m-d'));
+        $statement->bindValue(':fechaNacimiento', $usuario->getFechaNacimiento() ? $usuario->getFechaNacimiento()->format('Y-m-d') : null);
         $statement->bindValue(':activo', $usuario->getActivo());
         return $statement;
     }

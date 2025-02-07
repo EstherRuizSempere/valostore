@@ -3,17 +3,21 @@
 include_once __DIR__ . '/../../../config/seguridad.php';
 include_once __DIR__ . '/../../../gestores/GestorProducto.php';
 include_once __DIR__ . '/../../../gestores/GestorPedido.php';
+include_once __DIR__ . '/../../../gestores/GestorUsuarioProducto.php';
 
 
 Seguridad::usuarioPermisos(['usuario']);
 
 $gestorProducto = new GestorProducto();
 $gestorPedido = new GestorPedido();
+$gestorUsuarioProducto = new GestorUsuarioProducto();
 
 $productosDeUsuario = $gestorProducto->getProductosDeUsuario($_SESSION['id']);
 $pedidos = $gestorPedido->listarPedidosUsuario($_SESSION['id']);
 
 $personajesNoPosesion = count($gestorProducto->listarProductos()) - count($productosDeUsuario);
+$listadoPersonajesNoEnPosesion = $gestorUsuarioProducto->productoNoEnPosesion($_SESSION['id'], count($productosDeUsuario));
+
 
 ?>
 <!doctype html>
@@ -107,22 +111,22 @@ $personajesNoPosesion = count($gestorProducto->listarProductos()) - count($produ
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <?php foreach ($productosDeUsuario as $producto){ ?>
-                            <div class="col-md-2 mb-4">
-                                <div class="personaje-item">
-                                    <div class="personaje-imagen">
-                                        <img src="<?= $producto->getImagen() ?>" alt="Personaje 1"
-                                             class="img-fluid">
-                                        <div class="personaje-detalles">
-                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
+                            <?php foreach ($productosDeUsuario as $producto) { ?>
+                                <div class="col-md-2 mb-4">
+                                    <div class="personaje-item">
+                                        <div class="personaje-imagen">
+                                            <img src="<?= $producto->getImagen() ?>" alt="Personaje 1"
+                                                 class="img-fluid">
+                                            <div class="personaje-detalles">
+                                                <button class="btn btn-light btn-sm">Ver Detalles</button>
+                                            </div>
+                                        </div>
+                                        <div class="personaje-info">
+                                            <h4><?= $producto->getNombre() ?></h4>
+                                            <span class="personaje-rol"><?= $producto->getCategoria() ?></span>
                                         </div>
                                     </div>
-                                    <div class="personaje-info">
-                                        <h4><?= $producto->getNombre() ?></h4>
-                                        <span class="personaje-rol"><?= $producto->getCategoria() ?></span>
-                                    </div>
                                 </div>
-                            </div>
                             <?php }; ?>
                         </div>
                     </div>
@@ -133,102 +137,27 @@ $personajesNoPosesion = count($gestorProducto->listarProductos()) - count($produ
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-2 mb-4">
-                                <div class="personaje-item">
-                                    <div class="personaje-imagen">
-                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
-                                             class="img-fluid">
-                                        <div class="personaje-detalles">
-                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
-                                        </div>
-                                    </div>
-                                    <div class="personaje-info">
-                                        <h4>Astra</h4>
-                                        <span class="personaje-rol">Humos</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-4">
-                                <div class="personaje-item">
-                                    <div class="personaje-imagen">
-                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
-                                             class="img-fluid">
-                                        <div class="personaje-detalles">
-                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
-                                        </div>
-                                    </div>
-                                    <div class="personaje-info">
-                                        <h4>Astra</h4>
-                                        <span class="personaje-rol">Humos</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-4">
-                                <div class="personaje-item">
-                                    <div class="personaje-imagen">
-                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
-                                             class="img-fluid">
-                                        <div class="personaje-detalles">
-                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
-                                        </div>
-                                    </div>
-                                    <div class="personaje-info">
-                                        <h4>Astra</h4>
-                                        <span class="personaje-rol">Humos</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-4">
-                                <div class="personaje-item">
-                                    <div class="personaje-imagen">
-                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
-                                             class="img-fluid">
-                                        <div class="personaje-detalles">
-                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
-                                        </div>
-                                    </div>
-                                    <div class="personaje-info">
-                                        <h4>Astra</h4>
-                                        <span class="personaje-rol">Humos</span>
-                                    </div>
-                                </div>
+                            <?php foreach ($listadoPersonajesNoEnPosesion as $productoNoPosesion){ ?>
 
-                            </div>
                             <div class="col-md-2 mb-4">
                                 <div class="personaje-item">
                                     <div class="personaje-imagen">
-                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
+                                        <img src="<?= $productoNoPosesion->getImagen() ?>" alt="Personaje 1"
                                              class="img-fluid">
                                         <div class="personaje-detalles">
-                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
+                                            <a href="/vista/producto/producto-detalle.php?id=<?= $productoNoPosesion->getId() ?>" class="btn btn-light btn-sm">Ver Detalles</a>
                                         </div>
                                     </div>
                                     <div class="personaje-info">
-                                        <h4>Astra</h4>
-                                        <span class="personaje-rol">Humos</span>
+                                        <h4><?= $productoNoPosesion->getNombre() ?></h4>
+                                        <span class="personaje-rol"><?= $productoNoPosesion->getCategoria() ?></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2 mb-4">
-                                <div class="personaje-item">
-                                    <div class="personaje-imagen">
-                                        <img src="../../../media/img/astra-product.png" alt="Personaje 1"
-                                             class="img-fluid">
-                                        <div class="personaje-detalles">
-                                            <button class="btn btn-light btn-sm">Ver Detalles</button>
-                                        </div>
-                                    </div>
-                                    <div class="personaje-info">
-                                        <h4>Astra</h4>
-                                        <span class="personaje-rol">Humos</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php }; ?>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>

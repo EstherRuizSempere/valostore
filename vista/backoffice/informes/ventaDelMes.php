@@ -2,8 +2,16 @@
 <?php
 
 include_once __DIR__ . '/../../../config/seguridad.php';
+include_once __DIR__ . '/../../../gestores/GestorInformes.php';
 Seguridad::usuarioPermisos(['admin', 'editor']);
 
+
+$gestorInformes = new GestorInformes();
+$totalVentas = $gestorInformes->getTotalVentas();
+$totalPedidosCompletados = $gestorInformes->getTotalPedidosCompletados();
+$cestaMedia = $gestorInformes->getCestaMedia();
+
+$totalVentasProductoUnidad = $gestorInformes->totalVentasPersoajes();
 ?>
 <!doctype html>
 <html lang="es">
@@ -37,15 +45,15 @@ Seguridad::usuarioPermisos(['admin', 'editor']);
                 <div class="resumen-ventas">
                     <div class="resumen-card">
                         <h3>Ventas Totales</h3>
-                        <p class="valor-resumen">125,000 VP</p>
+                        <p class="valor-resumen"><?= $totalVentas ?> €</p>
                     </div>
                     <div class="resumen-card">
                         <h3>Pedidos Completados</h3>
-                        <p class="valor-resumen">284</p>
+                        <p class="valor-resumen"><?= $totalPedidosCompletados ?></p>
                     </div>
                     <div class="resumen-card">
                         <h3>Ticket Promedio</h3>
-                        <p class="valor-resumen">440 VP</p>
+                        <p class="valor-resumen"><?= $cestaMedia ?>€</p>
                     </div>
                 </div>
 
@@ -80,42 +88,24 @@ Seguridad::usuarioPermisos(['admin', 'editor']);
                     <table class="tabla-pedidos">
                         <thead>
                         <tr>
-                            <th>Producto</th>
-                            <th>Categoría</th>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Categoria</th>
                             <th>Unidades Vendidas</th>
-                            <th>Ingresos</th>
-                            <th>% del Total</th>
+                            <th>Total</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <?php foreach ($totalVentasProductoUnidad as $producto) { ?>
                         <tr>
-                            <td><span class="producto-nombre">Bundle Omega</span></td>
-                            <td>Skins</td>
-                            <td>150</td>
-                            <td><span class="precio-pedido">45,000 VP</span></td>
-                            <td><span class="porcentaje">36%</span></td>
+                            <td><span class="producto-nombre"><?= $producto["id"] ?></span></td>
+                            <td><?= $producto["nombreProducto"] ?></td>
+                            <td><?= $producto["nombreCategoriaPadre"] ?></td>
+                            <td><span class="precio-pedido"><?= $producto["unidadesVendidas"] ?></span></td>
+                            <td><span class="porcentaje"><?= $producto["total"] ?> €</span></td>
                         </tr>
-                        <tr>
-                            <td><span class="producto-nombre">Pase de Batalla S1</span></td>
-                            <td>Pases</td>
-                            <td>200</td>
-                            <td><span class="precio-pedido">20,000 VP</span></td>
-                            <td><span class="porcentaje">16%</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="producto-nombre">Pack 1000 VP</span></td>
-                            <td>Puntos</td>
-                            <td>300</td>
-                            <td><span class="precio-pedido">30,000 VP</span></td>
-                            <td><span class="porcentaje">24%</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="producto-nombre">Skin Premium Delta</span></td>
-                            <td>Skins</td>
-                            <td>100</td>
-                            <td><span class="precio-pedido">30,000 VP</span></td>
-                            <td><span class="porcentaje">24%</span></td>
-                        </tr>
+
+                        <?php } ?>
                         </tbody>
                     </table>
                 </div>

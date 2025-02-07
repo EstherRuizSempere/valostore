@@ -2,12 +2,22 @@
 
 include_once __DIR__ . '/../../../config/seguridad.php';
 include_once __DIR__ . '/../../../gestores/GestorUsuarios.php';
+include_once __DIR__ . '/../../../gestores/GestorProducto.php';
 
+//Doy permisos a quien puede ver la zona
 Seguridad::usuarioPermisos(['admin', 'editor']);
 
+//Capturo el id de la sesion actual y creo un objeto gestor de usuarios
 $id = $_SESSION['id'];
 $gestorUsuarios = new GestorUsuarios();
+$gestorProducto = new GestorProducto();
+//Obtengo el usuario con el id de la sesion actual
 $usuario = $gestorUsuarios->getUsuario($id);
+
+//Obtengo el numero de productos que existe en la base de datos
+$totalProductos = count($gestorProducto->listarProductos());
+//Obtengo el numero de usuarios que existe en la base de datos
+$totalUsuarios = count($gestorUsuarios->listarUsuarios());
 ?>
 <!doctype html>
 <html lang="es">
@@ -71,12 +81,12 @@ $usuario = $gestorUsuarios->getUsuario($id);
                                 <div class="perfil-status">
                                     <div class="status-item">
                                         <i class="bi bi-people"></i>
-                                        <span class="status-valor">10</span>
+                                        <span class="status-valor"><?= $totalUsuarios ?></span>
                                         <span class="status-label">Usuarios</span>
                                     </div>
                                     <div class="status-item">
                                         <i class="bi bi-box-seam"></i>
-                                        <span class="status-valor">20</span>
+                                        <span class="status-valor"><?= $totalProductos ?></span>
                                         <span class="status-label">Productos</span>
                                     </div>
                                 </div>

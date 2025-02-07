@@ -28,6 +28,10 @@ body{
     box-shadow: 0 4px 8px var(--background-dark);
 }
 
+.filtros-section form > div{
+    width: 100%;
+}
+
 
 .form-select {
     border: 2px solid var(--primary);
@@ -40,11 +44,6 @@ body{
 
 .form-select:focus{
     border: 2px solid var(--primary);
-}
-
-.search-container{
-    display: flex;
-
 }
 
 .search-container button{

@@ -71,7 +71,12 @@ try {
                             </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($listadoUsuariosDespiertos as $usuario) { ?>
+                            <?php foreach ($listadoUsuariosDespiertos as $usuario) {
+                                //Capturo la fecha de nacimiento
+                                $fechaNacimiento = $usuario->getFechaNacimiento();
+                                //En caso de que no haya nada dentro de la fecha de nacimiento, se le asigna un valor vacío
+                                $fechaNacimientoFormateada = $fechaNacimiento ? $fechaNacimiento->format('Y-m-d') : '';
+                                ?>
                                 <tr>
                                     <td><?= $usuario->getId() ?></td>
                                     <td><?= $usuario->getUsuario() ?></td>
@@ -83,7 +88,7 @@ try {
                                     <td><?= $usuario->getLocalidad() ?></td>
                                     <td><?= $usuario->getProvincia() ?></td>
                                     <td><?= $usuario->getTelefono() ?></td>
-                                    <td><?= $usuario->getFechaNacimiento()->format('Y-m-d') ?></td>
+                                    <td><?= $fechaNacimientoFormateada ?></td>
                                     <td><?= $usuario->getRol() ?></td>
                                     <td><?= $usuario->getActivo() ?></td>
                                 </tr>

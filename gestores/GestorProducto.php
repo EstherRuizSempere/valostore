@@ -188,9 +188,9 @@ class GestorProducto
 
 
             //Construyo la consulta SQL para obtener el listado de productos por categoría
-            $sql = "SELECT * FROM productos WHERE categoria_id = :categoria_id ORDER BY nombre $orden";
+            $sql = "SELECT * FROM productos WHERE categoria = :categoria ORDER BY nombre $orden";
             $statement = $this->pdo->prepare($sql);
-            $statement->bindValue(':categoria_id', $categoria_bd->getId());
+            $statement->bindValue(':categoria', $categoria_bd->getId());
             $statement->execute();
 
             //Obtengo los resultados como un array asociativo
@@ -205,6 +205,38 @@ class GestorProducto
             return $productos;
         } catch (Exception $e) {
             throw new Exception("Error al listar los productos por categoría: " . $e->getMessage());
+        }
+    }
+
+    public function filtrarProductos(?string $orden = null, ?string $nombre = null): array
+    {
+        $sqlOrden = $orden ?? "nombre asc";
+        $sqlNombre = $nombre ? "WHERE nombre LIKE :nombre" : "";
+
+        $sql = "SELECT * FROM productos $sqlNombre ORDER BY $sqlOrden";
+
+        $gestorCategoria = new GestorCategoria();
+
+        try {
+            $statement = $this->pdo->prepare($sql);
+
+            if ($nombre) {
+                $statement->bindValue(':nombre', "%$nombre%");
+            }
+
+            $statement->execute();
+            $productos_bd = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            $productos = [];
+            foreach ($productos_bd as $producto_bd) {
+                $categoria_bd = $gestorCategoria->getCategoria($producto_bd['categoria_id']);
+                $productos[] = new Producto($producto_bd['id'], $producto_bd['nombre'], $producto_bd['descripcion'], $producto_bd['categoria_id'], $categoria_bd->getNombre(), $producto_bd['precio'], $producto_bd['imagen'], $producto_bd['activo']);
+            }
+
+            return $productos;
+        }catch (PDOException $e) {
+            echo "Error al filtrar los productos: " . $e->getMessage();
+            exit();
         }
     }
 

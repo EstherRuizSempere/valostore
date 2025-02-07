@@ -1,17 +1,23 @@
 <?php
 
 include_once __DIR__ . '/../../../config/seguridad.php';
-include_once __DIR__ . '/../../../gestores/GestorProducto.php';
+include_once __DIR__ . '/../../../gestores/GestorInformes.php';
 
 Seguridad::usuarioPermisos(['admin', 'editor']);
 
-$gestorProducto = new GestorProducto();
+$gestorInformes = new GestorInformes();
 
-$productos = $gestorProducto->listarProductos();
+try {
+    //Listamos los productos
+    $listaProductosActivos = $gestorInformes->getProductosActivos();
 
+    $listarProductosDormidos = $gestorInformes->getProductosDormidos();
+} catch (Exception $e) {
+    $mensaje = $e->getMessage();
 
-
+}
 ?>
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -38,11 +44,9 @@ $productos = $gestorProducto->listarProductos();
     <div class="container-fluid perfil-container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-
-
                 <div class="card personajes-card">
                     <div class="card-header">
-                        <h3><i class="bi bi-box-seam"></i> Listado de Productos</h3>
+                        <h3><i class="bi bi-box-seam"></i>Listado de Productos <strong>Activos</strong></h3>
                         <a href="/vista/backoffice/producto/crearProducto.php" class="nav-link active">
                             <i class="bi bi-person me-2"></i> ¿Botón para ordenar por más vendidos y menos vendidos?
                         </a>
@@ -58,11 +62,10 @@ $productos = $gestorProducto->listarProductos();
                                 <th>Precio</th>
                                 <th>Imagen</th>
                                 <th>Activo</th>
-                                <th style="width: 130px">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($productos as $producto){ ?>
+                            <?php foreach ($listaProductosActivos as $producto) { ?>
                                 <tr>
                                     <td><?= $producto->getId() ?></td>
                                     <td><?= $producto->getNombre() ?></td>
@@ -76,11 +79,7 @@ $productos = $gestorProducto->listarProductos();
                                         <?= $producto->getActivo() == 1 ? '<i class="bi bi-check2"></i>' : '<i class="bi bi-x-lg"></i>' ?>
 
                                     </td>
-                                    <td>
-                                        <a href="./../../producto/producto-detalle.php" class="btn btn-sm admin-btn"><i class="bi bi-eye"></i></a>
-                                        <a href="./../producto/actualizarProducto.php?id=<?= $producto->getId()?>" class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
-                                        <a href="./../producto/borrarProducto.php?id=<?=$producto->getId() ?>" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
-                                    </td>
+
                                 </tr>
                             <?php } ?>
 
@@ -94,11 +93,62 @@ $productos = $gestorProducto->listarProductos();
                         </nav>
                     </div>
                 </div>
+            </div>
 
+            <div class="col-lg-10 my-5">
+                <div class="card personajes-card">
+                    <div class="card-header">
+                        <h3><i class="bi bi-box-seam"></i>Listado de Productos <strong>Inactivos</strong></h3>
+                        <a href="/vista/backoffice/producto/crearProducto.php" class="nav-link active">
+                            <i class="bi bi-person me-2"></i> ¿Botón para ordenar por más vendidos y menos vendidos?
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table admin-table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Categoría</th>
+                                <th>Precio</th>
+                                <th>Imagen</th>
+                                <th>Activo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($listarProductosDormidos as $producto) { ?>
+                                <tr>
+                                    <td><?= $producto->getId() ?></td>
+                                    <td><?= $producto->getNombre() ?></td>
+                                    <td><?= $producto->getDescripcion() ?></td>
+                                    <td><?= $producto->getCategoria() ?></td>
+                                    <td><?= $producto->getPrecio() ?> VP</td>
+                                    <td>
+                                        <img style="height: 60px" src="<?= $producto->getImagen() ?>" alt="">
+                                    </td>
+                                    <td>
+                                        <?= $producto->getActivo() == 1 ? '<i class="bi bi-check2"></i>' : '<i class="bi bi-x-lg"></i>' ?>
 
+                                    </td>
+
+                                </tr>
+                            <?php } ?>
+
+                            </tbody>
+                        </table>
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 
 </main>
 

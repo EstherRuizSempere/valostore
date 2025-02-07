@@ -46,7 +46,7 @@ if (isset($_SESSION['usuario'])) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="producto-imagen-container">
-                        <img src="<?= $producto->getImagen() ?>" alt="Jett" class="producto-imagen">
+                        <img src="<?= $producto->getImagen() ?>" alt="Foto personaje" class="producto-imagen">
                     </div>
                 </div>
                 <div class="col-md-6">
