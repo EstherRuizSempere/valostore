@@ -44,12 +44,14 @@ $productos = $gestorLineaPedido->getLineasDePedido($id);
             <div class="pedidos-content">
                 <div class="detalle-item">
                     <span class="id-pedido">Pedido #<?= $pedido->getId() ?></span>
-                    <form action="./../../servicios/pedidos/solicitarReembolso.php" method="post">
-                        <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
-                        <button class="borrar-perfil-btn" type="submit">
-                            Solicitar reembolso
-                        </button>
-                    </form>
+                    <?php if($pedido->getEstado() == "aprobado"): ?>
+                        <form action="./../../servicios/pedidos/solicitarReembolso.php" method="post">
+                            <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
+                            <button class="borrar-perfil-btn" type="submit">
+                                Solicitar reembolso
+                            </button>
+                        </form>
+                    <?php endif; ?>
 
                 </div>
 

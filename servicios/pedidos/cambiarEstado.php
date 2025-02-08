@@ -10,7 +10,7 @@ $estadoPedido = $_POST['estado'] ?? null;
 
 //Compruebo que id pedido y estado pedido no sea nulo:
 if ($idPedido === null || $estadoPedido === null) {
-    header('Location: /vista/backoffice/pedidos/detallePedido.php?error=ErrorAlCambiarElEstado&id=' . $idPedido);
+    header('Location: /vista/backoffice/pedidos/detallePedidoAdmin.php?error=ErrorAlCambiarElEstado&id=' . $idPedido);
     exit();
 }
 try {
@@ -19,11 +19,11 @@ try {
 //Cambio el estado que he seleccionado
     $gestorPedido->cambiarEstadoPedido($idPedido, $estadoPedido);
 }catch (Exception $e) {
-    header('Location: /vista/backoffice/pedidos/detallePedido.php?error=ErrorAlCambiarElEstado&id=' . $idPedido);
+    header('Location: /vista/backoffice/pedidos/detallePedidoAdmin.php?error=ErrorAlCambiarElEstado&id=' . $idPedido);
     exit();
 }
 
-header('Location: /vista/backoffice/pedidos/detallePedido.php?id=' . $idPedido);
+header('Location: /vista/backoffice/pedidos/detallePedidoAdmin.php?id=' . $idPedido);
 exit();
 
 
