@@ -8,7 +8,7 @@ Seguridad::usuarioPermisos(['admin']);
 
 //Compruebo la sesión activa, que sea admin
 if (!isset($_SESSION['id'])) {
-    header('Location: ./../login/login.php');
+    header('Location: /vista/login/login.php?error=NoHasIniciadoSesion');
     exit();
 }
 
@@ -39,11 +39,11 @@ try{
     $gestorUsuarios->desactivarUsuario($usuario_id);
 
     // Redireccionar con mensaje de éxito
-    header('Location: ./../../vista/backoffice/usuario/tablaUsuarios.php?mensaje=' . urlencode('Usuario desactivado correctamente'));
+    header('Location: ./../../../vista/backoffice/usuario/tablaUsuarios.php?mensaje=' . urlencode('Usuario desactivado correctamente'));
     exit();
 
 } catch (Throwable $e) {
-    header('Location: ./../../vista/backoffice/usuario/borrarUsuario.php?id=' . $usuario_id . '&error=' . urlencode($e->getMessage()));
+    header('Location: ./../../../vista/backoffice/usuario/borrarUsuario.php?id=' . $usuario_id . '&error=' . urlencode($e->getMessage()));
     exit();
 }
 

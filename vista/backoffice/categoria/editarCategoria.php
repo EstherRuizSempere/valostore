@@ -1,8 +1,16 @@
 <?php
 
 include_once __DIR__ . '/../../../config/seguridad.php';
+include_once __DIR__ . '/../../../gestores/GestorCategoria.php';
 
-Seguridad::usuarioPermisos(['admin']);
+Seguridad::usuarioPermisos(['admin', 'editor']);
+
+
+//Creo un objeto de la clase GestorCategoria
+$gestorCategoria = new GestorCategoria();
+$idCategoria = $_GET['id'] ?? null;
+$categoria = $gestorCategoria->getCategoria($idCategoria);
+$categoriasPadre = $gestorCategoria->listarCategoriasPadre();
 
 ?>
 <!doctype html>
@@ -24,10 +32,10 @@ Seguridad::usuarioPermisos(['admin']);
     <link rel="stylesheet" href="../../../media/styles/footer.css">
 </head>
 <body>
-<?php include_once './../navegador/navegadorlogueado.php'; ?>
+<?php include_once __DIR__ . '/../../navegador/navegadorlogueado.php'; ?>
 
 <main>
-<div class="container">
+<div class="container p-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="formulario-categoria">
@@ -36,39 +44,40 @@ Seguridad::usuarioPermisos(['admin']);
                     <p>Modifica los detalles de la categoría</p>
                 </div>
 
-                <form id="editarCategoriaForm" action="" method="POST">
-                    <input type="hidden" name="id" value="">
+                <form id="editarCategoriaForm" action="/servicios/backoffice/categorias/editarCategoria.php" method="POST">
+                    <input type="hidden" name="id" value="<?= $categoria->getId() ?>">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre de la categoría*</label>
-                                <input type="text" name="nombre" class="form-control" id="nombre" required>
+                                <input type="text" name="nombre" class="form-control" id="nombre" value="<?= $categoria->getNombre() ?>" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="activo" class="form-label">Activo*</label>
-                                <select name="activo" class="form-control selector-categoria" id="activo" required>
-                                    <option value="1">Activo</option>
-                                    <option value="0">Inactivo</option>
+                                <select name="activo" class="form-control selector-categoria" id="activo"  required>
+                                    <option value="1" <?= $categoria->getActivo() == 1 ? "selected" : "" ?> >Activo</option>
+                                    <option value="0" <?= $categoria->getActivo() == 0 ? "selected" : ""?> >Inactivo</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
+                    <?php if($categoria->getIdCategoriaPadre() !== null) { ?>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="categoria_padre" class="form-label">Categoría Padre</label>
-                                <select name="categoria_padre" class="form-control selector-categoria"
-                                        id="categoria_padre">
-                                    <option value="">Sin categoría padre</option>
-                                    <option value="1">Categoría 1</option>
-                                    <option value="2">Categoría 2</option>
+                                <select name="categoria_padre" class="form-control selector-categoria" id="categoria_padre">
+                                    <?php foreach ($categoriasPadre as $categoriaPadre) { ?>
+                                        <option value="<?= $categoriaPadre->getId() ?>" <?= $categoria->getIdCategoriaPadre() == $categoriaPadre->getId() ? "selected" : "" ?>><?= $categoriaPadre->getNombre() ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Actualizar Categoría</button>
@@ -85,5 +94,7 @@ Seguridad::usuarioPermisos(['admin']);
 
 
 <?php
-include_once './../footer/footer.php'; ?>
+include_once __DIR__ . '/../../footer/footer.php';
+?>
+
 </html>

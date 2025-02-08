@@ -48,7 +48,7 @@ class GestorPedido
 
     public function listarPedidos()
     {
-        $sql = "SELECT * FROM pedidos";
+        $sql = "SELECT * FROM pedidos order by fecha desc";
         $statement = $this->pdo->prepare($sql);
         try {
             $statement->execute();

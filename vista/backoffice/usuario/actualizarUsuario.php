@@ -59,9 +59,9 @@ try {
                     <p>Modifica los datos del usuario <?php echo $usuario->getUsuario() ?></p>
                 </div>
 
-                <form id="actualizarUsuarioForm" action="../../../servicios/backoffice/actualizarUsuario.php"
+                <form id="actualizarUsuarioForm" action="../../../servicios/backoffice/usuarios/actualizarUsuario.php"
                       method="POST">
-                    <input type="hidden" name="id" value="<?php echo $usuario->getId()?>" >
+                    <input type="hidden" name="id" value="<?php echo $usuario->getId() ?>">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -101,12 +101,30 @@ try {
                             <div class="mb-3">
                                 <label for="rol" class="form-label">Rol de Usuario*</label>
                                 <select name="rol" class="form-control" id="rol" required>
-                                    <option <?= $usuario->getRol() == "admin" ? "selected" : ""  ?> value="admin">Administrador</option>
-                                    <option value="editor" <?= $usuario->getRol() == "editor" ? "selected" : "" ?> >Editor</option>
-                                    <option value="usuario" <?= $usuario-> getRol() == "usuario" ? "selected" : "" ?> >Usuario</option>
+                                    <option <?= $usuario->getRol() == "admin" ? "selected" : "" ?> value="admin">
+                                        Administrador
+                                    </option>
+                                    <option value="editor" <?= $usuario->getRol() == "editor" ? "selected" : "" ?> >
+                                        Editor
+                                    </option>
+                                    <option value="usuario" <?= $usuario->getRol() == "usuario" ? "selected" : "" ?> >
+                                        Usuario
+                                    </option>
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="mb-3 pb-3">
+                        <label for="activo" class="form-label">Activo*</label>
+                        <select name="activo" class="form-control selector-categoria"
+                                id="activo" required>
+                            <option <?= $usuario->getActivo() == 1 ? "selected" : "" ?> value="1">Activo
+                            </option>
+                            <option <?= $usuario->getActivo() == 0 ? "selected" : "" ?> value="0">
+                                Inactivo
+                            </option>
+
+                        </select>
                     </div>
 
                     <div class="text-center">

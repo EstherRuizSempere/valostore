@@ -41,7 +41,7 @@ $categoriasHija = $gestorCategoria->listarCategoriasHija();
                 <div class="card personajes-card">
                     <div class="card-header">
                         <h3><i class="bi bi-tags"></i> Listado de Categorías Padre</h3>
-                        <a href="" class="nav-link active">
+                        <a href="/vista/backoffice/categoria/nuevaCategoriaPadre.php" class="nav-link active">
                             <i class="bi bi-plus-circle me-2"></i> Crear categoría
                         </a>
                     </div>
@@ -65,9 +65,7 @@ $categoriasHija = $gestorCategoria->listarCategoriasHija();
 
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-sm admin-btn"><i class="bi bi-eye"></i></a>
-                                        <a href="#" class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
-                                        <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                        <a href="/vista/backoffice/categoria/editarCategoria.php?id=<?= $categoriaPadre->getId() ?>" class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -88,7 +86,7 @@ $categoriasHija = $gestorCategoria->listarCategoriasHija();
                 <div class="card personajes-card">
                     <div class="card-header">
                         <h3><i class="bi bi-tags"></i> Listado de Subcategorías</h3>
-                        <a href="#" class="nav-link active">
+                        <a href="nuevaCategoriaHija.php" class="nav-link active">
                             <i class="bi bi-plus-circle me-2"></i> Crear categoría
                         </a>
                     </div>
@@ -115,9 +113,7 @@ $categoriasHija = $gestorCategoria->listarCategoriasHija();
 
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-sm admin-btn"><i class="bi bi-eye"></i></a>
-                                    <a href="#" class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
-                                    <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                    <a href="/vista/backoffice/categoria/editarCategoria.php?id=<?= $categoriaHija->getId() ?>" class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
                                 </td>
                             </tr>
                             <?php } ?>

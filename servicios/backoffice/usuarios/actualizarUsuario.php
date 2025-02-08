@@ -18,24 +18,24 @@ $email = $_POST['email'] ?? null;
 $nombre = $_POST['nombre'] ?? null;
 $apellido1 = $_POST['apellido1'] ?? null;
 $rol = $_POST['rol'] ?? null;
-$activo = 1;
+$activo = $_POST['activo'] ?? null;
 
 //Compruebo que los datos no estén vacíos
-if ($id == null || $usuario == null || $email == null || $nombre == null || $apellido1 == null || $rol == null) {
-    header('Location: ../../vista/backoffice/usuario/actualizarUsuario.php?error=CamposVacios');
+if ($id == null || $usuario == null || $email == null || $nombre == null || $apellido1 == null || $rol == null || $activo == null) {
+    header('Location: ../../../vista/backoffice/usuario/actualizarUsuario.php?error=CamposVacios');
     exit();
 }
 
 //Compruebo que no exista el nombre de usuario
 $gestorUsuarios = new GestorUsuarios();
 if ($gestorUsuarios->comprobarUserNameExiste($usuario, $id)) {
-    header('Location: ../../vista/backoffice/usuario/actualizarUsuario.php?error=ElNombreDeUsuarioYaExiste');
+    header('Location: ../../../vista/backoffice/usuario/actualizarUsuario.php?error=ElNombreDeUsuarioYaExiste');
     exit();
 }
 
 //Compruebo que no exista el email de usuario
 if ($gestorUsuarios->comprobarEmailExiste($email, $id)) {
-    header('Location: ../../vista/backoffice/usuario/actualizarUsuario.php?error=ElEmailYaExiste');
+    header('Location: ../../../vista/backoffice/usuario/actualizarUsuario.php?error=ElEmailYaExiste');
     exit();
 }
 
@@ -50,9 +50,9 @@ try {
 
     $gestorUsuarios->editarUsuario($usuario_bd);
 
-    header("Location: ../../vista/backoffice/usuario/tablaUsuarios.php?mensaje=UsuarioActualizado");
+    header("Location: ../../../vista/backoffice/usuario/tablaUsuarios.php?mensaje=UsuarioActualizado");
     exit();
 } catch (Exception $e) {
-    header("Location: ../../vista/backoffice/usuario/actualizarUsuario.php?error=ErrorActualizarUsuario");
+    header("Location: ../../../vista/backoffice/usuario/actualizarUsuario.php?error=ErrorActualizarUsuario");
     exit();
 }

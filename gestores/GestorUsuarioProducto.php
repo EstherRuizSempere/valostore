@@ -73,4 +73,22 @@ class GestorUsuarioProducto {
             exit();
         }
     }
+
+    public function productoEnPosesion(int $idUsuario, int $idProducto)
+    {
+        $sql = "SELECT * FROM usuario_producto WHERE idUsuario = :idUsuario AND idProducto = :idProducto";
+        try {
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(':idUsuario', $idUsuario);
+            $statement->bindValue(':idProducto', $idProducto);
+            $statement->execute();
+
+            $usuario_producto = $statement->fetch(PDO::FETCH_ASSOC);
+
+            return $usuario_producto !== false;
+        } catch (PDOException $e) {
+            echo "Error al obtener el usuario_producto: " . $e->getMessage();
+            exit();
+        }
+    }
 }

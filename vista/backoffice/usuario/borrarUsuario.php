@@ -66,7 +66,7 @@ try {
                                 <p class="mb-4">Esta acción no se puede deshacer.
                                     Se eliminarán todos sus datos.</p>
 
-                                <form action="./../../../servicios/backoffice/desactivarUsuario.php" method="POST"
+                                <form action="../../../servicios/backoffice/usuarios/desactivarUsuario.php" method="POST"
                                       class="mb-4">
                                     <input type="hidden" name="usuario_id" value="<?php echo $usuario->getId() ?>">
                                     <div class="mb-3">

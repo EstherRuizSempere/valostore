@@ -1,8 +1,14 @@
 <?php
 
 include_once __DIR__ . '/../../../config/seguridad.php';
+include_once __DIR__ . '/../../../gestores/GestorCategoria.php';
 
-Seguridad::usuarioPermisos(['admin']);
+Seguridad::usuarioPermisos(['admin', 'editor']);
+
+//Capturo para listar las categiroas padre
+$gestorCategoria = new GestorCategoria();
+$categoriasPadre = $gestorCategoria->listarCategoriasPadre();
+
 
 ?>
 <!doctype html>
@@ -24,7 +30,7 @@ Seguridad::usuarioPermisos(['admin']);
     <link rel="stylesheet" href="../../../media/styles/footer.css">
 </head>
 <body>
-<?php include_once './../navegador/navegadorlogueado.php'; ?>
+<?php include_once __DIR__ . '/../../navegador/navegadorlogueado.php'; ?>
 
 <main>
     <div class="container">
@@ -32,15 +38,16 @@ Seguridad::usuarioPermisos(['admin']);
             <div class="col-lg-8">
                 <div class="formulario-categoria">
                     <div class="header-text">
-                        <h4><span>Crear</span> Nueva Categoría</h4>
-                        <p>Añade una nueva categoría a la tienda</p>
+                        <h4><span>Crear</span> Nueva Categoría Hija</h4>
+                        <p>Añade una nueva categoría padre a la tienda</p>
                     </div>
 
-                    <form id="crearCategoriaForm" action="/servicios/categorias/crearCategoria.php" method="POST">
+                    <form id="crearCategoriaForm" action="/servicios/backoffice/categorias/crearCategoriaHija.php"
+                          method="POST">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label">Nombre de la categoría*</label>
+                                    <label for="nombre" class="form-label">Nombre de la categoría Hija*</label>
                                     <input type="text" name="nombre" class="form-control" id="nombre" required>
                                 </div>
                             </div>
@@ -59,10 +66,16 @@ Seguridad::usuarioPermisos(['admin']);
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="categoria_padre" class="form-label">Categoría Padre</label>
-                                    <select name="categoria_padre" class="form-control selector-categoria" id="categoria_padre">
-                                        <option value="">Sin categoría padre</option>
-                                        <option value="1">Categoría 1</option>
-                                        <option value="2">Categoría 2</option>
+                                    <select name="categoria_padre" class="form-control selector-categoria"
+                                            id="categoria_padre">
+                                        <?php foreach ($categoriasPadre as $categoriaPadre) {
+                                                if($categoriaPadre->getActivo() == 1){
+                                            ?>
+
+                                        <option value="<?php echo $categoriaPadre->getId() ?>"><?php echo $categoriaPadre->getNombre() ?></option>
+                                        <?php
+                                                }
+                                                } ?>
                                     </select>
                                 </div>
                             </div>
@@ -82,6 +95,5 @@ Seguridad::usuarioPermisos(['admin']);
 </body>
 
 
-<?php
-include_once './../footer/footer.php'; ?>
+<?php include_once __DIR__ . '/../../footer/footer.php'; ?>
 </html>

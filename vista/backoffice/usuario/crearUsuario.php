@@ -48,7 +48,7 @@ try {
                     <p>Configura un nuevo usuario para el sistema</p>
                 </div>
 
-                <form id="crearUsuarioForm" action="../../servicios/usuarios/crearUsuario.php" method="POST">
+                <form id="crearUsuarioForm" action="/servicios/backoffice/usuarios/crearUsuario.php" method="POST">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -83,8 +83,8 @@ try {
                                 <select name="rol" class="form-control" id="rol" required>
                                     <option value="">Seleccionar Rol</option>
                                     <option value="admin">Administrador</option>
-                                    <option value="usuario">Usuario Regular</option>
-                                    <option value="moderador">Moderador</option>
+                                    <option value="usuario">Usuario</option>
+                                    <option value="editor">Editor</option>
                                 </select>
                             </div>
                         </div>
@@ -109,7 +109,7 @@ try {
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Crear Usuario</button>
-                        <a class="btn btn-primary ms-4" href="">Cancelar</a>
+                        <a class="btn btn-primary ms-4" href="/vista/backoffice/usuario/tablaUsuarios.php">Cancelar</a>
                     </div>
                 </form>
             </div>

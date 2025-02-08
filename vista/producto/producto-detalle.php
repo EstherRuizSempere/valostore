@@ -1,6 +1,7 @@
 <?php
-
+session_start();
 include_once __DIR__ . '/../../gestores/GestorProducto.php';
+include_once __DIR__ . '/../../gestores/GestorUsuarioProducto.php';
 
 $idProducto = $_GET['id'] ?? null;
 
@@ -10,7 +11,15 @@ if (!$idProducto) {
 }
 
 $gestorProducto = new GestorProducto();
+$gestorUsuarioProducto = new GestorUsuarioProducto();
+
 $producto = $gestorProducto->getProducto($idProducto);
+
+$tengoProducto = false;
+
+if (isset($_SESSION['id'])) {
+    $tengoProducto = $gestorUsuarioProducto->productoEnPosesion($_SESSION['id'], $idProducto);
+}
 
 ?>
 <!doctype html>
@@ -63,11 +72,21 @@ if (isset($_SESSION['usuario'])) {
                             </div>
                         </div>
                         <div class="producto-acciones">
+
+
                             <form action="../../servicios/carrito/crearProductoEnCarrito.php" method="POST">
                                 <input type="hidden" name="id" value="<?= $producto->getId() ?>">
-                            <button class="btn-comprar">
-                                <i class="bi bi-cart-plus"></i> Añadir al carrito
-                            </button>
+
+                                <?php if($tengoProducto): ?>
+                                    <button class="btn-comprar" disabled="disabled">
+                                        <i class="bi bi-check"></i> Ya tienes este personaje
+                                    </button>
+                                <?php else: ?>
+                                    <button class="btn-comprar" >
+                                        <i class="bi bi-cart-plus"></i> Añadir al carrito
+                                    </button>
+                                <?php endif; ?>
+
                             </form>
                         </div>
                     </div>
