@@ -89,44 +89,6 @@ class GestorProducto
         }
     }
 
-    public function listarProductosPrecio($precio = null, $orden = "ASC")
-    {
-        // Validar que el orden sea válido
-        $orden = strtoupper($orden);
-        if ($orden !== "ASC" && $orden !== "DESC") {
-            throw new Exception("El orden especificado no es válido. Use 'ASC' o 'DESC'.");
-        }
-
-        try {
-            $sql = "SELECT * FROM productos ORDER BY precio $orden";
-            $statement = $this->pdo->prepare($sql);
-            $statement->execute();
-
-            $productos_bd = $statement->fetchAll(PDO::FETCH_ASSOC);
-            $gestorCategoria = new GestorCategoria();
-
-
-            $productos = [];
-            foreach ($productos_bd as $producto_bd) {
-                $categoria = $gestorCategoria->getCategoria($producto_bd['categoria_id']);
-
-                $productos[] = new Producto(
-                    $producto_bd['id'],
-                    $producto_bd['nombre'],
-                    $producto_bd['descripcion'],
-                    $producto_bd['categoria_id'],
-                    $categoria->getNombre(),
-                    $producto_bd['precio'],
-                    $producto_bd['imagen'],
-                    $producto_bd['activo']
-                );
-            }
-
-            return $productos;
-        } catch (Exception $e) {
-            throw new Exception("Error al listar los productos por precio: " . $e->getMessage());
-        }
-    }
 
     public function listarProductos($nombre = null, $orden = "ASC")
     {
@@ -174,58 +136,34 @@ class GestorProducto
         }
     }
 
-    public function listarProductosPorCategoria($categoria = null, $orden = "ASC")
-    {
-        //Validar que el orden sea válido
-        if ($orden !== "ASC" && $orden !== "DESC") {
-            throw new Exception("El orden especificado no es válido. Use 'ASC' o 'DESC'.");
-        }
 
-        try {
-            //Obtengo el nombre de la categoria:
-            $gestorCategoria = new GestorCategoria();
-            $categoria_bd = $gestorCategoria->getCategoria($categoria);
-
-
-            //Construyo la consulta SQL para obtener el listado de productos por categoría
-            $sql = "SELECT * FROM productos WHERE categoria = :categoria ORDER BY nombre $orden";
-            $statement = $this->pdo->prepare($sql);
-            $statement->bindValue(':categoria', $categoria_bd->getId());
-            $statement->execute();
-
-            //Obtengo los resultados como un array asociativo
-            $productos_bd = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-            //Convierto los resultados en objetos de tipo Producto
-            $productos = [];
-            foreach ($productos_bd as $producto_bd) {
-                $productos[] = new Producto($producto_bd['id'], $producto_bd['nombre'], $producto_bd['descripcion'], $producto_bd['categoria_id'], $categoria_bd->getNombre(), $producto_bd['precio'], $producto_bd['imagen'], $producto_bd['activo']);
-            }
-            //Devuelvo la lista de productos
-            return $productos;
-        } catch (Exception $e) {
-            throw new Exception("Error al listar los productos por categoría: " . $e->getMessage());
-        }
-    }
-
-    public function filtrarProductos(?string $orden = null, ?string $nombre = null): array
+    public function filtrarProductos(?string $orden = null, ?string $nombre = null, int $inicio = 0, int $limite = 8): array
     {
         $sqlOrden = $orden ?? "nombre asc";
         $sqlNombre = $nombre ? "WHERE nombre LIKE :nombre" : "";
 
-        $sql = "SELECT * FROM productos $sqlNombre ORDER BY $sqlOrden";
+        $sqlProductos = "SELECT * FROM productos $sqlNombre ORDER BY $sqlOrden LIMIT :offset, :limit";
+        $sqlTotalProductos = "SELECT * FROM productos $sqlNombre ORDER BY $sqlOrden";
 
         $gestorCategoria = new GestorCategoria();
 
         try {
-            $statement = $this->pdo->prepare($sql);
+            $statementProductos = $this->pdo->prepare($sqlProductos);
+            $statementTotalProductos = $this->pdo->prepare($sqlTotalProductos);
 
             if ($nombre) {
-                $statement->bindValue(':nombre', "%$nombre%");
+                $statementProductos->bindValue(':nombre', "%$nombre%");
             }
 
-            $statement->execute();
-            $productos_bd = $statement->fetchAll(PDO::FETCH_ASSOC);
+            //Paginacion
+            $statementProductos->bindValue(':offset', $inicio, PDO::PARAM_INT);
+            $statementProductos->bindValue(':limit', $limite, PDO::PARAM_INT);
+
+            $statementProductos->execute();
+            $statementTotalProductos->execute();
+
+            $productos_bd = $statementProductos->fetchAll(PDO::FETCH_ASSOC);
+            $totalProductos_bd = count($statementTotalProductos->fetchAll(PDO::FETCH_ASSOC));
 
             $productos = [];
             foreach ($productos_bd as $producto_bd) {
@@ -233,12 +171,14 @@ class GestorProducto
                 $productos[] = new Producto($producto_bd['id'], $producto_bd['nombre'], $producto_bd['descripcion'], $producto_bd['categoria_id'], $categoria_bd->getNombre(), $producto_bd['precio'], $producto_bd['imagen'], $producto_bd['activo']);
             }
 
-            return $productos;
+            return ["productos" => $productos, "totalProductos" => $totalProductos_bd];
         }catch (PDOException $e) {
             echo "Error al filtrar los productos: " . $e->getMessage();
             exit();
         }
     }
+
+
 
     public
     function listarProductoUnico($id)

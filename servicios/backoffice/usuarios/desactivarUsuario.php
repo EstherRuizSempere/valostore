@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../../gestores/GestorUsuarios.php';
-require_once __DIR__ . '/../../config/seguridad.php';
-require_once __DIR__ . '/../../config/utilidades.php';
+require_once __DIR__ . '/../../../gestores/GestorUsuarios.php';
+require_once __DIR__ . '/../../../config/seguridad.php';
+require_once __DIR__ . '/../../../config/utilidades.php';
 
 
 Seguridad::usuarioPermisos(['admin']);

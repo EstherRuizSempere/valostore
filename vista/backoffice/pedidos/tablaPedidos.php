@@ -5,8 +5,22 @@ include_once __DIR__ . '/../../../gestores/GestorPedido.php';
 
 Seguridad::usuarioPermisos(['admin', 'editor']);
 
+$filtroEstado = $_GET['estado'] ?? null;
+$filtroFecha = $_GET['fecha'] ?? null;
+$filtroIdPedido = $_GET['idPedido'] ?? null;
+$pagina = $_GET['pagina'] ?? 1;
+$limite = 10;
+$inicio = ($pagina - 1) * $limite;
+
 $gestorPedido = new GestorPedido();
-$pedidos = $gestorPedido->listarPedidos();
+$resultadoPedidos = $gestorPedido->listarPedidos($filtroEstado, $filtroFecha, $filtroIdPedido, $inicio, $limite);
+
+$pedidos = $resultadoPedidos['pedidos'];
+$totalPedidos = $resultadoPedidos['totalPedidos'];
+
+
+$totalPaginas = ceil($totalPedidos / $limite); //uso ceil para redondear el número de páginas
+
 
 ?>
 <!doctype html>
@@ -38,27 +52,34 @@ $pedidos = $gestorPedido->listarPedidos();
             <h1 class="pedidos-titulo">Gestión de Pedidos</h1>
 
             <div class="pedidos-content">
-                <div class="filtros-container">
-                    <div class="filtro-grupo">
-                        <label class="filtro-label">Estado:</label>
-                        <select class="filtro-select">
-                            <option value="">Todos</option>
-                            <option value="pendiente">Pendiente</option>
-                            <option value="procesando">Procesando</option>
-                            <option value="enviado">Enviado</option>
-                            <option value="entregado">Entregado</option>
-                            <option value="cancelado">Cancelado</option>
-                        </select>
+                <form action="tablaPedidos.php" method="get">
+                    <div class="filtros-container">
+                        <div class="filtro-grupo">
+                            <label class="filtro-label">Estado:</label>
+                            <select class="filtro-select" name="estado">
+                                <option value="" <?= ($filtroEstado == null ? "selected" : "") ?>>Todos</option>
+                                <option value="recibido" <?= ($filtroEstado == "recibido" ? "selected" : "") ?>>Recibido</option>
+                                <option value="pendiente" <?= ($filtroEstado == "pendiente" ? "selected" : "") ?>>Pendiente</option>
+                                <option value="aprobado" <?= ($filtroEstado == "aprobado" ? "selected" : "") ?>>Aprobado</option>
+                                <option value="enviado" <?= ($filtroEstado == "enviado" ? "selected" : "") ?>>Enviado</option>
+                                <option value="cancelado" <?= ($filtroEstado == "cancelado" ? "selected" : "") ?>>Cancelado</option>
+                                <option value="reembolsado" <?= ($filtroEstado == "reembolsado" ? "selected" : "") ?>>Reembolsado</option>
+                                <option value="error" <?= ($filtroEstado == "error" ? "selected" : "") ?>>Error</option>
+                            </select>
+                        </div>
+                        <div class="filtro-grupo">
+                            <label class="filtro-label">Fecha:</label>
+                            <input type="date" class="filtro-select" name="fecha" value="<?= $filtroFecha ?>">
+                        </div>
+                        <div class="filtro-grupo">
+                            <input type="text" class="busqueda-input" placeholder="Buscar por ID..." name="idPedido" value="<?= $filtroIdPedido ?>">
+                        </div>
+                        <div class="filtro-grupo">
+                            <input type="submit" value="Buscar">
+                        </div>
                     </div>
-                    <div class="filtro-grupo">
-                        <label class="filtro-label">Fecha:</label>
-                        <input type="date" class="filtro-select">
-                    </div>
-                    <div class="filtro-grupo">
-                        <input type="text" class="busqueda-input" placeholder="Buscar por ID...">
-                    </div>
-                </div>
 
+                </form>
                 <div class="tabla-responsive">
                     <table class="tabla-pedidos">
                         <thead>
@@ -120,11 +141,17 @@ $pedidos = $gestorPedido->listarPedidos();
                 </div>
 
                 <div class="paginacion">
-                    <a href="#" class="pagina-link">Anterior</a>
-                    <a href="#" class="pagina-link activa">1</a>
-                    <a href="#" class="pagina-link">2</a>
-                    <a href="#" class="pagina-link">3</a>
-                    <a href="#" class="pagina-link">Siguiente</a>
+                    <?php if ($pagina > 1): ?>
+                        <a href="?pagina=<?= $pagina - 1 ?>" class="pagina-link">Anterior</a>
+                    <?php endif; ?>
+
+                    <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                        <a href="?pagina=<?= $i ?>" class="pagina-link <?= ($i == $pagina) ? 'activa' : '' ?>"><?= $i ?></a>
+                    <?php endfor; ?>
+
+                    <?php if ($pagina < $totalPaginas): ?>
+                        <a href="?pagina=<?= $pagina + 1 ?>" class="pagina-link">Siguiente</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

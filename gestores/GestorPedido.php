@@ -46,19 +46,52 @@ class GestorPedido
         }
     }
 
-    public function listarPedidos()
+    public function listarPedidos(?string $filtroEstado, ?string $filtroFecha, ?string $filtroIdPedido, int $inicio = 0, int $limite = 10)
     {
-        $sql = "SELECT * FROM pedidos order by fecha desc";
-        $statement = $this->pdo->prepare($sql);
+        $filtroEstadoQuery = ($filtroEstado != null) ? "AND estado = :estado" : "";
+        $filtroFechaQuery = ($filtroFecha != null) ? "AND DATE(fecha) = :fecha" : "";
+        $filtroIdPedidoQuery = ($filtroIdPedido != null) ? "AND id LIKE :id" : "";
+
+        // Ponemos 1=1 para que no de error si no hay ningún filtro
+        $sqlPedidos = "SELECT * FROM pedidos  WHERE 1=1 $filtroEstadoQuery $filtroFechaQuery $filtroIdPedidoQuery order by fecha desc LIMIT :offset, :limit";
+        $sqlTotalPedidos = "SELECT * FROM pedidos  WHERE 1=1 $filtroEstadoQuery $filtroFechaQuery $filtroIdPedidoQuery";
+
+
+
+        $statementPedidos = $this->pdo->prepare($sqlPedidos);
+        $statementTotalPedidos = $this->pdo->prepare($sqlTotalPedidos);
         try {
-            $statement->execute();
-            $pedidos_bd = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            if ($filtroEstado != null) {
+                $statementPedidos->bindValue(':estado', $filtroEstado);
+                $statementTotalPedidos->bindValue(':estado', $filtroEstado);
+            }
+
+            if ($filtroFecha != null) {
+                $statementPedidos->bindValue(':fecha', $filtroFecha);
+                $statementTotalPedidos->bindValue(':fecha', $filtroFecha);
+            }
+
+            if ($filtroIdPedido != null) {
+                $statementPedidos->bindValue(':id', "%$filtroIdPedido%");
+                $statementTotalPedidos->bindValue(':id', "%$filtroIdPedido%");
+            }
+
+            //Paginación
+            $statementPedidos->bindValue(':offset', $inicio, PDO::PARAM_INT);
+            $statementPedidos->bindValue(':limit', $limite, PDO::PARAM_INT);
+
+            $statementPedidos->execute();
+            $statementTotalPedidos->execute();
+
+            $pedidos_bd = $statementPedidos->fetchAll(PDO::FETCH_ASSOC);
+            $totalPedidos_bd = count($statementTotalPedidos->fetchAll(PDO::FETCH_ASSOC));
             $pedidos = [];
             foreach ($pedidos_bd as $pedido_bd) {
                 $pedido = new Pedido($pedido_bd['id'], new DateTime($pedido_bd['fecha']), $pedido_bd['total'], $pedido_bd['estado'], $pedido_bd['idUsuario'], $pedido_bd['nombre'], $pedido_bd['apellido1'], $pedido_bd['apellido2'], $pedido_bd['email'], $pedido_bd['direccion'], $pedido_bd['localidad'], $pedido_bd['provincia'], $pedido_bd['telefono'], $pedido_bd['metodoPago']);
                 $pedidos[] = $pedido;
             }
-            return $pedidos;
+            return ["pedidos" => $pedidos, "totalPedidos" => $totalPedidos_bd];
         } catch (PDOException $e) {
             echo "Error al listar los pedidos: " . $e->getMessage();
             exit();

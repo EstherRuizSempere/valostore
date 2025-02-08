@@ -4,10 +4,18 @@ include_once __DIR__ . '/gestores/GestorProducto.php';
 //Capturo las variables de la url
 $nombre = $_GET['nombre'] ?? null;
 $orden = $_GET['orden'] ?? null;
+$pagina = $_GET['pagina'] ?? 1;
+$limite = 8;
+$inicio = ($pagina - 1) * $limite;
 
 
 $gestorProducto = new GestorProducto();
-$productos = $gestorProducto->filtrarProductos($orden, $nombre);
+$resultadoProductos = $gestorProducto->filtrarProductos($orden, $nombre, $inicio, $limite);
+
+$productos = $resultadoProductos['productos'];
+$totalProductos = $resultadoProductos['totalProductos'];
+
+$totalPaginas = ceil($totalProductos / $limite); //uso ceil para redondear el número de páginas
 
 ?>
 <!doctype html>
@@ -100,6 +108,19 @@ if (isset($_SESSION['usuario'])) {
                         </a>
                     </div>
                 <?php } ?>
+            </div>
+            <div class="paginacion">
+                <?php if ($pagina > 1): ?>
+                    <a href="?pagina=<?= $pagina - 1 ?>" class="pagina-link">Anterior</a>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                    <a href="?pagina=<?= $i ?>" class="pagina-link <?= ($i == $pagina) ? 'activa' : '' ?>"><?= $i ?></a>
+                <?php endfor; ?>
+
+                <?php if ($pagina < $totalPaginas): ?>
+                    <a href="?pagina=<?= $pagina + 1 ?>" class="pagina-link">Siguiente</a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

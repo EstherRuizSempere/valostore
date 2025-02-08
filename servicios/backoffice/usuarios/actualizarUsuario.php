@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../config/seguridad.php';
-require_once __DIR__ . '/../../gestores/GestorUsuarios.php';
+require_once __DIR__ . '/../../../config/seguridad.php';
+require_once __DIR__ . '/../../../gestores/GestorUsuarios.php';
 
 //Verifico que el usuario esté logueado y tenga permisos de administrador
 Seguridad::usuarioPermisos(['admin']);
