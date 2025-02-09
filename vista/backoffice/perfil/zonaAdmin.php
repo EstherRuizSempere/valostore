@@ -16,7 +16,6 @@ $usuario = $gestorUsuarios->getUsuario($id);
 
 //Obtengo el numero de productos que existe en la base de datos
 $totalProductos = count($gestorProducto->listarProductos());
-//Obtengo el numero de usuarios que existe en la base de datos
 $totalUsuarios = count($gestorUsuarios->listarUsuarios());
 ?>
 <!doctype html>
@@ -47,7 +46,7 @@ $totalUsuarios = count($gestorUsuarios->listarUsuarios());
             <div class="col-lg-10">
                 <div class="card perfil-card mb-4">
                     <div class="card-header">
-                        <h2 class="p-1"><i class="bi bi-person-badge"></i> Perfil de Administrador</h2>
+                        <h2 class="p-1"><i class="bi bi-person-badge"></i> Perfil de <?= $usuario->getRol() == "admin" ? "Administrador" : "Editor" ?></h2>
                     </div>
                     <div class="card-body">
                         <div class="row">

@@ -31,10 +31,45 @@ class Utilidades
         if (preg_match('/^[0-9]{9}$/', $telefono)) {
             return true;
         } else {
-            throw new Exception("El número de teléfono no es válido");
+            return false;
         }
     }
 
+    //Validar nombre del usuario
+    public static function validarNombreUsuario($usuario)
+    {
+        if (preg_match('/^[a-zA-Z0-9_]+$/', $usuario)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function validarNombre($nombre)
+    {
+        if (preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/', $nombre)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public static function validarFechaNacimiento($fechaNacimiento)
+    {
+        $fechaActual = new DateTime();
+        $fechaNacimiento = DateTime::createFromFormat('Y-m-d', $fechaNacimiento);
+
+        if (!$fechaNacimiento) {
+            header("Location: ../../vista/usuario/normal/actualizarUsuarioNormal.php?error=FechaNacimientoInvalida");
+            exit();
+        }
+
+        if ($fechaNacimiento > $fechaActual) {
+            header("Location: ../../vista/usuario/normal/actualizarUsuarioNormal.php?error=FechaNacimientoInvalida");
+            exit();
+        }
+    }
 
     //Comprobar imagenes:
     public static function subidaImagen($files, $directorio)

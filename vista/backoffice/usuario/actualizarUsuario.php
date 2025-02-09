@@ -59,7 +59,7 @@ try {
                     <p>Modifica los datos del usuario <?php echo $usuario->getUsuario() ?></p>
                 </div>
 
-                <form id="actualizarUsuarioForm" action="../../../servicios/backoffice/usuarios/actualizarUsuario.php"
+                <form id="actualizarUsuarioForm"  action="../../../servicios/backoffice/usuarios/actualizarUsuario.php"
                       method="POST">
                     <input type="hidden" name="id" value="<?php echo $usuario->getId() ?>">
                     <div class="row">
@@ -74,7 +74,7 @@ try {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control" id="email" required
+                                <input type="email" name="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" id="email" required
                                        value="<?= $usuario->getEmail() ?>">>
                             </div>
                         </div>

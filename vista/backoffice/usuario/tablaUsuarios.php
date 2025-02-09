@@ -3,19 +3,23 @@ include_once __DIR__ . '/../../../config/seguridad.php';
 include_once __DIR__ . '/../../../gestores/GestorUsuarios.php';
 
 Seguridad::usuarioPermisos(['admin']);
-$gestorUSuarios = new GestorUsuarios();
+
+$filtroNombre = $_GET['nombre'] ?? null;
+$filtroFecha = $_GET['fecha'] ?? null;
+$filtroOrden = $_GET['orden'] ?? null;
+$pagina = $_GET['pagina'] ?? 1;
 $usuario_bd = $_SESSION['id'];
+$limite = 10;
+$inicio = ($pagina - 1) * $limite;
 
+$gestorUSuarios = new GestorUsuarios();
+$resultadoUsuarios = $gestorUSuarios->listarUsuariosFiltro($filtroNombre, $filtroFecha, $filtroOrden, $inicio, $limite);
 
-try {
-    //Ternaria para que nos devuelva el valor de la variable si existe y no sea null
-    $email = (isset($_POST['email']) && !empty($_POST['email'])) ? $_POST['email'] : null;
+$listadoUsuarios = $resultadoUsuarios['usuarios'];
+$totalUsuarios = $resultadoUsuarios['totalUsuarios'];
 
-    //Listamos usuarios:
-    $listadoUsuarios = $gestorUSuarios->listarUsuarios($email);
-} catch (Throwable $e) {
-    $mensaje = $e->getMessage();
-}
+$totalPaginas = ceil($totalUsuarios / $limite); //uso ceil para redondear el número de páginas
+
 ?>
 <!doctype html>
 <html lang="es">
@@ -51,6 +55,37 @@ try {
                         <a href="/vista/backoffice/usuario/crearUsuario.php" class="nav-link active">
                             <i class="bi bi-person me-2"></i> Crear usuario
                         </a>
+
+                        <form action="tablaUsuarios.php" method="get" class="filtros-form">
+                            <div class="filtros-container">
+                                <div class="filtro-grupo">
+                                    <label class="filtro-label">Fecha:</label>
+                                    <input type="date" class="filtro-select" name="fecha" value="<?= $filtroFecha ?>">
+                                </div>
+                                <div class="filtro-grupo">
+                                    <input type="text" class="busqueda-input" placeholder="Buscar por nombre"
+                                           name="nombre" value="<?= $filtroNombre ?>">
+                                </div>
+
+                                <div class="filtro-grupo">
+
+                                    <select class="form-select" name="orden">
+                                        <option value="nombre asc" <?= ($filtroOrden == 'nombre asc') ? 'selected' : '' ?>>Nombre:
+                                            A-Z
+                                        </option>
+                                        <option value="nombre desc" <?= ($filtroOrden == 'nombre desc') ? 'selected' : '' ?>>Nombre:
+                                            Z-A
+                                        </option>
+                                    </select>
+
+
+                                </div>
+
+                                <div class="filtro-grupo">
+                                    <input type="submit" value="Buscar">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="card-body">
                         <table class="table admin-table">
@@ -109,10 +144,20 @@ try {
                             </tbody>
                         </table>
                         <nav>
-                            <ul class="pagination">
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            </ul>
+                            <div class="paginacion">
+                                <?php if ($pagina > 1): ?>
+                                    <a href="?pagina=<?= $pagina - 1 ?>" class="pagina-link">Anterior</a>
+                                <?php endif; ?>
+
+                                <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                                    <a href="?pagina=<?= $i ?>"
+                                       class="pagina-link <?= ($i == $pagina) ? 'activa' : '' ?>"><?= $i ?></a>
+                                <?php endfor; ?>
+
+                                <?php if ($pagina < $totalPaginas): ?>
+                                    <a href="?pagina=<?= $pagina + 1 ?>" class="pagina-link">Siguiente</a>
+                                <?php endif; ?>
+                            </div>
                         </nav>
                     </div>
                 </div>

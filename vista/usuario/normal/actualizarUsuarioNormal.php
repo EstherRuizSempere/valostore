@@ -53,7 +53,7 @@ $redirigirZona = ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'editor') ?
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email*</label>
-                                <input type="email" name="email" class="form-control" id="email" required
+                                <input type="email" name="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" id="email" required
                                        value="<?= $usuario->getEmail() ?>">
                             </div>
                         </div>
@@ -76,7 +76,7 @@ $redirigirZona = ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'editor') ?
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
-                                <label for="apellido2" class="form-label">Segundo Apellido</label>
+                                <label for="apellido2" class="form-label">Segundo Apellido *</label>
                                 <input type="text" name="apellido2" class="form-control" id="apellido2"
                                        value="<?= $usuario->getApellido2() ?>">
                             </div>
@@ -107,7 +107,7 @@ $redirigirZona = ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'editor') ?
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="telefono" class="form-label">Teléfono*</label>
-                                <input type="tel" name="telefono" class="form-control" id="telefono" required
+                                <input type="tel" name="telefono" class="form-control" pattern="\d{9}" maxlength="9" id="telefono" required
                                        value="<?= $usuario->getTelefono() ?>">
                             </div>
                         </div>

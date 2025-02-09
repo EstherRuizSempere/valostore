@@ -1,3 +1,5 @@
+@import url('formulariosFiltro.css');
+
 .pedidos-container {
     padding: 40px;
     background-image: url("../img/fondo-catalogo.jpg");
@@ -12,7 +14,9 @@
     margin-bottom: 30px;
     font-weight: bold;
 }
-
+.filtro-label {
+    color: var(--background-dark);
+}
 .pedidos-content {
     background: var(--background-light);
     border-radius: 15px;
@@ -128,40 +132,6 @@
     background: var(--primary);
 }
 
-.filtros-container {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.filtro-grupo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.filtro-label {
-    color: var(--background-dark);
-    font-weight: bold;
-}
-
-.filtro-select {
-    padding: 8px 15px;
-    border: 2px solid rgba(220, 208, 190, 0.4);
-    border-radius: 8px;
-    background-color: var(--background-light);
-    color: var(--background-dark);
-    cursor: pointer;
-}
-
-.busqueda-input {
-    padding: 8px 15px;
-    border: 2px solid rgba(220, 208, 190, 0.4);
-    border-radius: 8px;
-    width: 200px;
-}
 
 @media (max-width: 768px) {
     .tabla-responsive {

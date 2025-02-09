@@ -172,12 +172,11 @@ class GestorProducto
             }
 
             return ["productos" => $productos, "totalProductos" => $totalProductos_bd];
-        }catch (PDOException $e) {
+        } catch (PDOException $e) {
             echo "Error al filtrar los productos: " . $e->getMessage();
             exit();
         }
     }
-
 
 
     public
@@ -290,6 +289,49 @@ class GestorProducto
 
         return $statement;
 
+    }
+
+    public function listarProductosFiltro(?string $nombre, ?string $filtroOrden,  int $inicio = 0, int $limite = 5)
+    {
+        $filtroNombreQuery = ($nombre != null) ? "AND nombre LIKE :nombre" : "";
+        $filtroOrdenQuery = ($filtroOrden != null) ? "ORDER BY $filtroOrden" : "";
+
+        //Ponemos 1=! para que no de error si no hay ningún filtro
+        $sqlProductos = "SELECT * FROM productos WHERE 1=1 $filtroNombreQuery $filtroOrdenQuery LIMIT :inicio, :limite";
+        $sqlTotalProductos = "SELECT * FROM productos WHERE 1=1 $filtroNombreQuery";
+
+        $gestorCategoria = new GestorCategoria();
+
+        try {
+            $statementProductos = $this->pdo->prepare($sqlProductos);
+            $statementTotalProductos = $this->pdo->prepare($sqlTotalProductos);
+
+            if ($nombre != null) {
+                $statementProductos->bindValue(':nombre', "%$nombre%");
+                $statementTotalProductos->bindValue(':nombre', "%$nombre%");
+            }
+
+
+            $statementProductos->bindValue(':inicio', $inicio, PDO::PARAM_INT);
+            $statementProductos->bindValue(':limite', $limite, PDO::PARAM_INT);
+
+            $statementProductos->execute();
+            $statementTotalProductos->execute();
+
+            $productos_bd = $statementProductos->fetchAll(PDO::FETCH_ASSOC);
+            $totalProductos_bd = count($statementTotalProductos->fetchAll(PDO::FETCH_ASSOC));
+
+            $productos = [];
+            foreach ($productos_bd as $producto_bd) {
+                $categoria_bd = $gestorCategoria->getCategoria($producto_bd['categoria_id']);
+                $productos[] = new Producto($producto_bd['id'], $producto_bd['nombre'], $producto_bd['descripcion'], $producto_bd['categoria_id'], $categoria_bd->getNombre(), $producto_bd['precio'], $producto_bd['imagen'], $producto_bd['activo']);
+            }
+
+            return ["productos" => $productos, "totalProductos" => $totalProductos_bd];
+        } catch (PDOException $e) {
+            echo "Error al listar los productos: " . $e->getMessage();
+            exit();
+        }
     }
 
 }

@@ -28,6 +28,21 @@ if($gestorUsuarios->comprobarUsuarioExiste($usuario, $email)){
     header("Location: ../../vista/usuario/registro.php?error=UsuarioYaExiste");
     exit();
 }
+//Valido que la contrasenya tenga al menos 4 caracteres
+if(!Utilidades::validarContrasenya($contrasenya)){
+    header("Location: ../../vista/usuario/registro.php?error=ContrasenyaInvalida");
+    exit();
+}
+//Valido que el nombre de usuario sea correcto
+if(!Utilidades::validarNombreUsuario($usuario)){
+    header("Location:  ../../vista/usuario/registro.php?error=UsuarioInvalido");
+    exit();
+}
+//Valido que el nombre sea correcto
+if(!Utilidades::validarNombre($nombre)){
+    header("Location:  ../../vista/usuario/registro.php?error=NombreInvalido");
+    exit();
+}
 
 
 //Valido que la contrasenya sea igual

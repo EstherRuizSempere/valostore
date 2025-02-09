@@ -14,6 +14,9 @@ try {
     //Listamos usuarios:
     $listadoUsuariosDormidos = $gestorInformes->getUsuariosDormidos();
     $listadoUsuariosDespiertos = $gestorInformes->getUsuariosDespiertos();
+
+    $cuentaUsuariosDormidos = count($listadoUsuariosDormidos);
+    $cuentaUsuariosDespiertos = count($listadoUsuariosDespiertos);
 } catch (Throwable $e) {
     $mensaje = $e->getMessage();
 }
@@ -48,7 +51,7 @@ try {
 
                 <div class="card personajes-card mb-4">
                     <div class="card-header">
-                        <h3><i class="bi bi-people"></i> Listado de Usuarios <strong>Activos</strong></h3>
+                        <h3><i class="bi bi-people"></i> Listado de Usuarios <strong>Activos ( <?= $cuentaUsuariosDespiertos ?> )</strong></h3>
                     </div>
                     <div class="card-body">
                         <table class="table admin-table">
@@ -95,18 +98,13 @@ try {
                             <?php } ?>
                             </tbody>
                         </table>
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            </ul>
-                        </nav>
+
                     </div>
                 </div>
 
                 <div class="card personajes-card mb-4">
                     <div class="card-header">
-                        <h3><i class="bi bi-people"></i> Listado de Usuarios <strong>No Activos</strong></h3>
+                        <h3><i class="bi bi-people"></i> Listado de Usuarios <strong>No Activos ( <?= $cuentaUsuariosDormidos ?> )</strong></h3>
                     </div>
                     <div class="card-body">
                         <table class="table admin-table">
@@ -149,12 +147,7 @@ try {
 
                             </tbody>
                         </table>
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            </ul>
-                        </nav>
+
                     </div>
                 </div>
 

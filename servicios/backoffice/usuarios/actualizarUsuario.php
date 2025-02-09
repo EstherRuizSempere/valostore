@@ -38,6 +38,16 @@ if ($gestorUsuarios->comprobarEmailExiste($email, $id)) {
     header('Location: ../../../vista/backoffice/usuario/actualizarUsuario.php?error=ElEmailYaExiste');
     exit();
 }
+//Valido que el nombre de usuario sea correcto
+if (!Utilidades::validarNombreUsuario($usuario)) {
+    header("Location:  ../../../vista/backoffice/usuario/actualizarUsuario.php?error=UsuarioInvalido");
+    exit();
+}
+//Valido que el nombre sea correcto
+if (!Utilidades::validarNombre($nombre)) {
+    header("Location:  ../../../vista/backoffice/usuario/actualizarUsuario.php?error=NombreInvalido");
+    exit();
+}
 
 try {
     $usuario_bd = $gestorUsuarios->getUsuario($id);

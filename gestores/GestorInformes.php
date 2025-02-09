@@ -238,25 +238,66 @@ class   GestorInformes
         return $resultado['ROUND(SUM(total) / COUNT(id), 2)'] ?? 0; //El cero es para en caso de que no hayan pedidos
     }
 
-    public function totalVentasPersoajes()
+    public function totalVentasPersoajes(?string $filtroOrden, ?string $filtroCategoria, int $inicio = 0, int $limite = 5 )
     {
-        $sql = "
+        if ($filtroOrden == null) {
+            $filtroOrden = 'total desc';
+        }
+
+        if ($filtroCategoria) {
+            $filtroCategoria = "WHERE categoriasPadre.id = $filtroCategoria";
+        }
+
+        $sqlTotalVentas = "
             SELECT 
                 productos.id,
                 productos.nombre as nombreProducto,
                 categoriasHija.nombre as nombreCategoriaHija,
                 categoriasPadre.nombre as nombreCategoriaPadre,
+                categoriasPadre.id as idCategoriaPadre,
                 (SELECT COUNT(*) FROM linea_pedido WHERE linea_pedido.idProducto = productos.id) as unidadesVendidas,
                 (SELECT SUM(precio) FROM linea_pedido WHERE linea_pedido.idProducto = productos.id) as total
             FROM productos
             JOIN categorias categoriasHija ON productos.categoria_id = categoriasHija.id
             JOIN categorias categoriasPadre ON categoriasHija.idCategoriaPadre = categoriasPadre.id
-                
+                 $filtroCategoria ORDER BY $filtroOrden
+               ";
+        $sqlVentas = "
+            SELECT 
+                productos.id,
+                productos.nombre as nombreProducto,
+                categoriasHija.nombre as nombreCategoriaHija,
+                categoriasPadre.nombre as nombreCategoriaPadre,
+                categoriasPadre.id as idCategoriaPadre,
+                (SELECT COUNT(*) FROM linea_pedido WHERE linea_pedido.idProducto = productos.id) as unidadesVendidas,
+                (SELECT SUM(precio) FROM linea_pedido WHERE linea_pedido.idProducto = productos.id) as total
+            FROM productos
+            JOIN categorias categoriasHija ON productos.categoria_id = categoriasHija.id
+            JOIN categorias categoriasPadre ON categoriasHija.idCategoriaPadre = categoriasPadre.id
+                 $filtroCategoria ORDER BY $filtroOrden
+            LIMIT :offset, :limit
         ";
 
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        try {
+            $statementVentas = $this->pdo->prepare($sqlVentas);
+            $statementTotalVentas = $this->pdo->prepare($sqlTotalVentas);
+
+            $statementVentas->bindValue(':offset', $inicio, PDO::PARAM_INT);
+            $statementVentas->bindValue(':limit', $limite, PDO::PARAM_INT);
+
+            $statementVentas->execute();
+            $statementTotalVentas->execute();
+
+            $totalVentasProductoUnidad = $statementVentas->fetchAll(PDO::FETCH_ASSOC);
+            $totalVentas = count($statementTotalVentas->fetchAll(PDO::FETCH_ASSOC));
+
+            return [
+                'totalVentasProductoUnidad' => $totalVentasProductoUnidad,
+                'totalVentas' => $totalVentas
+            ];
+        }catch (Exception $error) {
+            throw new Exception("Error al procesar la consulta: " . $error->getMessage());
+        }
 
 
     }

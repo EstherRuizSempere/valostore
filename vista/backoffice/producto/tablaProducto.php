@@ -7,12 +7,22 @@ include_once __DIR__ . '/../../../gestores/GestorCategoria.php';
 
 Seguridad::usuarioPermisos(['admin', 'editor']);
 
+$filtroNombre = $_GET['nombre'] ?? null;
+$filtroOrden = $_GET['orden'] ?? null;
+$pagina = $_GET['pagina'] ?? 1;
+$usuario_bd = $_SESSION['id'];
+$limite = 5;
+$inicio = ($pagina - 1) * $limite;
+
 $gestorProducto = new GestorProducto();
 $gestorCategoria = new GestorCategoria();
 
-$productos = $gestorProducto->listarProductos();
+$resultadoProductos = $gestorProducto->listarProductosFiltro($filtroNombre, $filtroOrden, $inicio, $limite);
 
+$listadoProductos = $resultadoProductos['productos'];
+$totalProductos = $resultadoProductos['totalProductos'];
 
+$totalPaginas = ceil($totalProductos / $limite); //uso ceil para redondear el número de páginas
 
 ?>
 <!doctype html>
@@ -43,12 +53,46 @@ $productos = $gestorProducto->listarProductos();
             <div class="col-lg-10">
 
 
-                <div class="card personajes-card">
+                <div class="card personajes-card mb-4">
                     <div class="card-header">
                         <h3><i class="bi bi-box-seam"></i> Listado de Productos</h3>
                         <a href="/vista/backoffice/producto/crearProducto.php" class="nav-link active">
                             <i class="bi bi-person me-2"></i> Crear producto
                         </a>
+
+                        <form action="tablaProducto.php" method="get" class="filtros-form">
+                            <div class="filtros-container">
+
+                                <div class="filtro-grupo">
+                                    <input type="text" class="busqueda-input" placeholder="Buscar por nombre"
+                                           name="nombre" value="<?= $filtroNombre ?>">
+                                </div>
+
+                                <div class="filtro-grupo">
+                                    <select class="form-select" name="orden">
+                                        <option value="nombre asc" <?= ($filtroOrden == 'nombre asc') ? 'selected' : '' ?>>Nombre:
+                                            A-Z
+                                        </option>
+                                        <option value="nombre desc" <?= ($filtroOrden == 'nombre desc') ? 'selected' : '' ?>>Nombre:
+                                            Z-A
+                                        </option>
+                                        <option value="precio asc" <?= ($filtroOrden == 'precio asc') ? 'selected' : '' ?> >Precio:
+                                            Menor a Mayor
+                                        </option>
+                                        <option value="precio desc" <?= ($filtroOrden == 'precio desc') ? 'selected' : '' ?>>Precio:
+                                            Mayor a Menor
+                                        </option>
+                                    </select>
+
+
+                                </div>
+
+                                <div class="filtro-grupo">
+                                    <input type="submit" value="Buscar">
+                                </div>
+
+                            </div>
+                        </form>
                     </div>
                     <div class="card-body">
                         <table class="table admin-table">
@@ -66,7 +110,7 @@ $productos = $gestorProducto->listarProductos();
                             </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($productos as $producto){ ?>
+                            <?php foreach ($listadoProductos as $producto){ ?>
                             <tr>
                                 <td><?= $producto->getId() ?></td>
                                 <td><?= $producto->getNombre() ?></td>
@@ -84,7 +128,7 @@ $productos = $gestorProducto->listarProductos();
                                 <td>
                                     <a href="./../../producto/producto-detalle.php" class="btn btn-sm admin-btn"><i class="bi bi-eye"></i></a>
                                     <a href="actualizarProducto.php?id=<?= $producto->getId()?>" class="btn btn-sm admin-btn"><i class="bi bi-pencil"></i></a>
-                                    <a href="borrarProducto.php?id=<?=$producto->getId() ?>" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+<!--                                    <a href="borrarProducto.php?id=--><?php //=$producto->getId() ?><!--" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>-->
                                 </td>
                             </tr>
                             <?php } ?>
@@ -92,10 +136,20 @@ $productos = $gestorProducto->listarProductos();
                             </tbody>
                         </table>
                         <nav>
-                            <ul class="pagination">
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            </ul>
+                            <div class="paginacion">
+                                <?php if ($pagina > 1): ?>
+                                    <a href="?pagina=<?= $pagina - 1 ?>" class="pagina-link">Anterior</a>
+                                <?php endif; ?>
+
+                                <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                                    <a href="?pagina=<?= $i ?>"
+                                       class="pagina-link <?= ($i == $pagina) ? 'activa' : '' ?>"><?= $i ?></a>
+                                <?php endfor; ?>
+
+                                <?php if ($pagina < $totalPaginas): ?>
+                                    <a href="?pagina=<?= $pagina + 1 ?>" class="pagina-link">Siguiente</a>
+                                <?php endif; ?>
+                            </div>
                         </nav>
                     </div>
                 </div>

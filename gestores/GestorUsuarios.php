@@ -171,7 +171,6 @@ class GestorUsuarios
         $fechaNacimiento = $usuario_bd['fechaNacimiento'] ? new DateTime($usuario_bd['fechaNacimiento']) : null;
 
 
-
         if ($usuario_bd) {
             //Si el usuario existe creo la instancia del objeto con sus datos:
             $usuario = new Usuario($usuario_bd['id'], $usuario_bd['usuario'], $usuario_bd['email'], $usuario_bd['nombre'], $usuario_bd['apellido1'], $usuario_bd['apellido2'], $usuario_bd['direccion'], $usuario_bd['localidad'], $usuario_bd['provincia'], $usuario_bd['telefono'], $usuario_bd['contrasenya'], $fechaNacimiento, $usuario_bd['rol'], $usuario_bd['activo']);
@@ -217,6 +216,7 @@ class GestorUsuarios
             $usuario['activo']
         );
     }
+
 
     public function listarUsuarios($email = null)
     {
@@ -347,5 +347,53 @@ class GestorUsuarios
         $statement->bindValue(':contrasenya', $usuario->getContrasenya());
         $statement->bindValue(':activo', $usuario->getActivo());
         return $statement;
+    }
+
+
+    public function listarUsuariosFiltro(?string $nombre, ?string $fecha, ?string $filtroOrden, int $inicio = 0, int $limite = 10)
+    {
+        $filtroNombreQuery = ($nombre != null) ? "AND nombre LIKE :nombre" : "";
+        $filtroFechaQuery = ($fecha != null) ? "AND DATE(fechaNacimiento) = :fecha" : "";
+        $filtroOrdenQuery = $filtroOrden ? "ORDER BY $filtroOrden" : "ORDER BY nombre";
+
+        // Ponemos 1=1 para que no de error si no hay ningún filtro
+        $sqlUsuarios = "SELECT * FROM usuarios WHERE 1=1 $filtroNombreQuery $filtroFechaQuery $filtroOrdenQuery LIMIT :offset, :limit";
+        $sqlTotalUsuarios = "SELECT * FROM usuarios WHERE 1=1 $filtroNombreQuery $filtroFechaQuery";
+
+        $statementUsuarios = $this->pdo->prepare($sqlUsuarios);
+        $statementTotalUsuarios = $this->pdo->prepare($sqlTotalUsuarios);
+
+        try {
+            if ($nombre != null) {
+                $statementUsuarios->bindValue(':nombre', "%$nombre%");
+                $statementTotalUsuarios->bindValue(':nombre', "%$nombre%");
+            }
+
+            if ($fecha != null) {
+                $statementUsuarios->bindValue(':fecha', $fecha);
+                $statementTotalUsuarios->bindValue(':fecha', $fecha);
+            }
+
+            //Paginación
+            $statementUsuarios->bindValue(':offset', $inicio, PDO::PARAM_INT);
+            $statementUsuarios->bindValue(':limit', $limite, PDO::PARAM_INT);
+
+            $statementUsuarios->execute();
+            $statementTotalUsuarios->execute();
+
+            $usuarios_bd = $statementUsuarios->fetchAll(PDO::FETCH_ASSOC);
+            $totalUsuarios_bd = count($statementTotalUsuarios->fetchAll(PDO::FETCH_ASSOC));
+
+            $usuarios = [];
+            foreach ($usuarios_bd as $usuario_bd) {
+                $fechaNacimiento = $usuario_bd['fechaNacimiento'] ? new DateTime($usuario_bd['fechaNacimiento']) : null;
+                $usuario = new Usuario($usuario_bd['id'], $usuario_bd['usuario'], $usuario_bd['email'], $usuario_bd['nombre'], $usuario_bd['apellido1'], $usuario_bd['apellido2'], $usuario_bd['direccion'], $usuario_bd['localidad'], $usuario_bd['provincia'], $usuario_bd['telefono'], $usuario_bd['contrasenya'], $fechaNacimiento, $usuario_bd['rol'], $usuario_bd['activo']);
+                $usuarios[] = $usuario;
+            }
+
+            return ['usuarios' => $usuarios, 'totalUsuarios' => $totalUsuarios_bd];
+        } catch (Throwable $error) {
+            throw new Exception($error->getMessage());
+        }
     }
 }

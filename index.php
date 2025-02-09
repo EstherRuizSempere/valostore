@@ -3,14 +3,14 @@ session_start();
 include_once __DIR__ . '/gestores/GestorProducto.php';
 //Capturo las variables de la url
 $nombre = $_GET['nombre'] ?? null;
-$orden = $_GET['orden'] ?? null;
+$filtroOrden = $_GET['orden'] ?? null;
 $pagina = $_GET['pagina'] ?? 1;
 $limite = 8;
 $inicio = ($pagina - 1) * $limite;
 
 
 $gestorProducto = new GestorProducto();
-$resultadoProductos = $gestorProducto->filtrarProductos($orden, $nombre, $inicio, $limite);
+$resultadoProductos = $gestorProducto->filtrarProductos($filtroOrden, $nombre, $inicio, $limite);
 
 $productos = $resultadoProductos['productos'];
 $totalProductos = $resultadoProductos['totalProductos'];
@@ -56,16 +56,16 @@ if (isset($_SESSION['usuario'])) {
                     <div class="col-md-8">
 
                             <select class="form-select" name="orden">
-                                <option value="nombre asc" <?= ($orden == 'nombre asc') ? 'selected' : '' ?>>Nombre:
+                                <option value="nombre asc" <?= ($filtroOrden == 'nombre asc') ? 'selected' : '' ?>>Nombre:
                                     A-Z
                                 </option>
-                                <option value="nombre desc" <?= ($orden == 'nombre desc') ? 'selected' : '' ?>>Nombre:
+                                <option value="nombre desc" <?= ($filtroOrden == 'nombre desc') ? 'selected' : '' ?>>Nombre:
                                     Z-A
                                 </option>
-                                <option value="precio asc" <?= ($orden == 'precio asc') ? 'selected' : '' ?> >Precio:
+                                <option value="precio asc" <?= ($filtroOrden == 'precio asc') ? 'selected' : '' ?> >Precio:
                                     Menor a Mayor
                                 </option>
-                                <option value="precio desc" <?= ($orden == 'precio desc') ? 'selected' : '' ?>>Precio:
+                                <option value="precio desc" <?= ($filtroOrden == 'precio desc') ? 'selected' : '' ?>>Precio:
                                     Mayor a Menor
                                 </option>
                             </select>

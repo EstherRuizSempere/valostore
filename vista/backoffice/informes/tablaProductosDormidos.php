@@ -16,6 +16,9 @@ try {
     $mensaje = $e->getMessage();
 
 }
+
+$totalProductosActivos = count($listaProductosActivos);
+$totalProductosDormidos = count($listarProductosDormidos);
 ?>
 
 <!doctype html>
@@ -46,10 +49,8 @@ try {
             <div class="col-lg-10">
                 <div class="card personajes-card">
                     <div class="card-header">
-                        <h3><i class="bi bi-box-seam"></i>Listado de Productos <strong>Activos</strong></h3>
-                        <a href="/vista/backoffice/producto/crearProducto.php" class="nav-link active">
-                            <i class="bi bi-person me-2"></i> ¿Botón para ordenar por más vendidos y menos vendidos?
-                        </a>
+                        <h3><i class="bi bi-box-seam me-4"></i>Listado de Productos <strong>Activos ( <?= $totalProductosActivos ?> ) </strong></h3>
+
                     </div>
                     <div class="card-body">
                         <table class="table admin-table">
@@ -85,12 +86,7 @@ try {
 
                             </tbody>
                         </table>
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            </ul>
-                        </nav>
+
                     </div>
                 </div>
             </div>
@@ -98,10 +94,8 @@ try {
             <div class="col-lg-10 my-5">
                 <div class="card personajes-card">
                     <div class="card-header">
-                        <h3><i class="bi bi-box-seam"></i>Listado de Productos <strong>Inactivos</strong></h3>
-                        <a href="/vista/backoffice/producto/crearProducto.php" class="nav-link active">
-                            <i class="bi bi-person me-2"></i> ¿Botón para ordenar por más vendidos y menos vendidos?
-                        </a>
+                        <h3><i class="bi bi-box-seam me-4"></i>Listado de Productos <strong>Inactivos ( <?= $totalProductosDormidos ?> )</strong></h3>
+
                     </div>
                     <div class="card-body">
                         <table class="table admin-table">
@@ -137,12 +131,6 @@ try {
 
                             </tbody>
                         </table>
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            </ul>
-                        </nav>
                     </div>
                 </div>
             </div>

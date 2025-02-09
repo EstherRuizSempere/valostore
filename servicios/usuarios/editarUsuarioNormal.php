@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../gestores/GestorUsuarios.php';
 require_once __DIR__ . '/../../config/seguridad.php';
+require_once __DIR__ . '/../../config/utilidades.php';
 
 //Permito acceso a:
 Seguridad::usuarioPermisos(['usuario', 'admin', 'editor']);
@@ -30,6 +31,10 @@ if ($usuario == null || $email == null || $nombre == null || $apellido1 == null 
     exit();
 }
 
+//Comrpuebo la fecha de nacimiento
+Utilidades::validarFechaNacimiento($fechaNacimiento);
+
+
 //Reasigno que fecha de nacimiento sea una fecha no un string
 $fechaNacimiento = new DateTime($fechaNacimiento);
 $gestorUsuarios = new GestorUsuarios();
@@ -55,6 +60,16 @@ try {
     $usuario_bd->setRol($rol);
     $usuario_bd->setActivo($activo);
 
+    //Valido que el nombre de usuario sea correcto
+    if (!Utilidades::validarNombreUsuario($usuario)) {
+        header("Location:  ../../vista/usuario/normal/actualizarUsuarioNormal.php?error=UsuarioInvalido");
+        exit();
+    }
+    //Valido que el nombre sea correcto
+    if (!Utilidades::validarNombre($nombre)) {
+        header("Location:  ../../vista/usuario/normal/actualizarUsuarioNormal.php?error=NombreInvalido");
+        exit();
+    }
 
     $gestorUsuarios->editarUsuario($usuario_bd);
 

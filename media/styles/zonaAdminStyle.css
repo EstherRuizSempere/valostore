@@ -1,8 +1,9 @@
 @import url('zonaUsuarioNormalStyle.css');
+@import url('formulariosFiltro.css');
 .admin-table {
     width: 100%;
     margin-bottom: 1rem;
-    text-align: center; /* Center-align all table content */
+    text-align: center;
 }
 
 .admin-table thead {
@@ -49,18 +50,28 @@
     background-color: #dc3545;
 }
 
-.pagination {
+
+
+.paginacion {
     display: flex;
     justify-content: center;
-    margin-top: 1rem;
+    gap: 10px;
+    margin-top: 30px;
 }
 
-.pagination .page-item.active .page-link {
-    background-color: var(--primary);
-    border-color: var(--primary);
+.pagina-link {
+    padding: 8px 15px;
+    border-radius: 5px;
+    background: var(--background-dark);
     color: var(--background-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
-.pagination .page-link {
-    color: var(--background-dark);
+.pagina-link:hover {
+    background: var(--primary);
+}
+
+.pagina-link.activa {
+    background: var(--primary);
 }

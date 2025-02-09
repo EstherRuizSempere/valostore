@@ -92,7 +92,7 @@ class GestorPedido
                 $pedidos[] = $pedido;
             }
             return ["pedidos" => $pedidos, "totalPedidos" => $totalPedidos_bd];
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             echo "Error al listar los pedidos: " . $e->getMessage();
             exit();
         }

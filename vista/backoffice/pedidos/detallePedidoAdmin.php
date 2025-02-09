@@ -4,7 +4,7 @@ include_once __DIR__ . '/../../../config/seguridad.php';
 include_once __DIR__ . '/../../../gestores/GestorPedido.php';
 include_once __DIR__ . '/../../../gestores/GestorLineaPedido.php';
 
-Seguridad::usuarioPermisos(['admin', 'editor']);
+Seguridad::usuarioPermisos(['admin']);
 
 $id = $_GET['id'];
 

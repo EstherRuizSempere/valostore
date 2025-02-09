@@ -2,7 +2,7 @@
 
 include_once __DIR__ . '/../../../config/seguridad.php';
 
-Seguridad::usuarioPermisos(['admin', 'editor']);
+Seguridad::usuarioPermisos(['admin']);
 
 
 ?>

@@ -1,5 +1,6 @@
 <?php
 include_once __DIR__ . '/../../../gestores/GestorUsuarios.php';
+include_once __DIR__ . '/../../../config/utilidades.php';
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
 return;
@@ -29,10 +30,25 @@ header("Location:  /vista/backoffice/usuario/crearUsuario.php?error=UsuarioYaExi
 exit();
 }
 
-
 //Valido que la contrasenya sea igual
 if($contrasenya != $validarContrasenya){
 header("Location:  /vista/backoffice/usuario/crearUsuario.php?error=ContrasenyasNoCoinciden");
+exit();
+}
+
+//Valido que la contrasenya tenga al menos 4 caracteres
+if(!Utilidades::validarContrasenya($contrasenya)){
+header("Location:  /vista/backoffice/usuario/crearUsuario.php?error=ContrasenyaInvalida");
+exit();
+}
+//Valido que el nombre de usuario sea correcto
+if(!Utilidades::validarNombreUsuario($usuario)){
+header("Location:  /vista/backoffice/usuario/crearUsuario.php?error=UsuarioInvalido");
+exit();
+}
+//Valido que el nombre sea correcto
+if(!Utilidades::validarNombre($nombre)){
+header("Location:  /vista/backoffice/usuario/crearUsuario.php?error=NombreInvalido");
 exit();
 }
 

@@ -3,7 +3,7 @@
 include_once __DIR__ . '/../../../config/seguridad.php';
 include_once __DIR__ . '/../../../gestores/GestorPedido.php';
 
-Seguridad::usuarioPermisos(['admin', 'editor']);
+Seguridad::usuarioPermisos(['admin']);
 
 $filtroEstado = $_GET['estado'] ?? null;
 $filtroFecha = $_GET['fecha'] ?? null;

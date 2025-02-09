@@ -63,7 +63,7 @@ $total = $gestorCarrito->getTotal();
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" class="form-control" name="email" required>
+                                    <input type="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
                                 </div>
                             </div>
 
@@ -91,7 +91,7 @@ $total = $gestorCarrito->getTotal();
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="localidad">Teléfono *</label>
-                                            <input type="text" class="form-control" id="telefono" name="telefono"
+                                            <input type="text" class="form-control" id="telefono" pattern="\d{9}" maxlength="9" name="telefono"
                                                    required>
                                         </div>
                                     </div>

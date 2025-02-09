@@ -9,6 +9,9 @@ $clavePublica = Stripe::$clavePublica;
 $gestorCarrito = new GestorCarrito();
 $total = $gestorCarrito->getTotal();
 $id = $_GET['idPedido'];
+
+//Obtengo el método de pago seleccionado
+$metodoPago = isset($_GET['metodoPago']) ? $_GET['metodoPago'] : '';
 ?>
 <!doctype html>
 <html lang="es">
@@ -40,57 +43,47 @@ $id = $_GET['idPedido'];
 
                     <div class="row">
                         <div class="col-lg-8">
-                            <div class="opciones-pago">
-                                <div class="opcion-pago">
-                                    <input type="radio" name="metodoPago" id="paypal" value="paypal"
-                                           class="opcion-pago-radio">
-                                    <label for="paypal" class="opcion-pago-label">
-                                        <div class="opcion-pago-header">
-                                            <i class="bi bi-paypal opcion-pago-icon"></i>
-                                            <h3 class="opcion-pago-titulo">PayPal</h3>
-                                        </div>
-                                        <p class="opcion-pago-descripcion">
-                                            Paga de forma segura utilizando tu cuenta de PayPal
-                                        </p>
-                                    </label>
-                                </div>
+                            <form method="GET" action="">
+                                <input type="hidden" name="idPedido" value="<?= $id ?>">
+                                <div class="opciones-pago">
+                                    <div class="opcion-pago">
+                                        <input type="radio" name="metodoPago" id="tarjeta" value="tarjeta"
+                                               class="opcion-pago-radio" <?= $metodoPago === 'tarjeta' ? 'checked' : '' ?>
+                                               onchange="this.form.submit()">
+                                        <label for="tarjeta" class="opcion-pago-label">
+                                            <div class="opcion-pago-header">
+                                                <i class="bi bi-credit-card opcion-pago-icon"></i>
+                                                <h3 class="opcion-pago-titulo">Tarjeta de Crédito/Débito</h3>
+                                            </div>
+                                            <p class="opcion-pago-descripcion">
+                                                Paga con tu tarjeta de crédito o débito
+                                            </p>
+                                            <div class="tarjetas-aceptadas">
+                                                <img src="./../../media/img/visa.png" alt="Visa" class="tarjeta-imagen">
+                                                <img src="./../../media/img/mc_symbol_opt_73_3x.png" alt="Mastercard"
+                                                     class="tarjeta-imagen">
+                                                <img src="./../../media/img/american-express.png" alt="American Express"
+                                                     class="tarjeta-imagen">
+                                            </div>
+                                        </label>
+                                    </div>
 
-                                <div class="opcion-pago">
-                                    <input type="radio" name="metodoPago" id="tarjeta" value="tarjeta"
-                                           class="opcion-pago-radio">
-                                    <label for="tarjeta" class="opcion-pago-label">
-                                        <div class="opcion-pago-header">
-                                            <i class="bi bi-credit-card opcion-pago-icon"></i>
-                                            <h3 class="opcion-pago-titulo">Tarjeta de Crédito/Débito</h3>
-                                        </div>
-                                        <p class="opcion-pago-descripcion">
-                                            Paga con tu tarjeta de crédito o débito
-                                        </p>
-                                        <div class="tarjetas-aceptadas">
-                                            <img src="./../../media/img/visa.png" alt="Visa" class="tarjeta-imagen">
-                                            <img src="./../../media/img/mc_symbol_opt_73_3x.png" alt="Mastercard"
-                                                 class="tarjeta-imagen">
-                                            <img src="./../../media/img/american-express.png" alt="American Express"
-                                                 class="tarjeta-imagen">
-                                        </div>
-                                    </label>
+                                    <div class="opcion-pago">
+                                        <input type="radio" name="metodoPago" id="transferencia" value="transferencia"
+                                               class="opcion-pago-radio" <?= $metodoPago === 'transferencia' ? 'checked' : '' ?>
+                                               onchange="this.form.submit()">
+                                        <label for="transferencia" class="opcion-pago-label">
+                                            <div class="opcion-pago-header">
+                                                <i class="bi bi-bank opcion-pago-icon"></i>
+                                                <h3 class="opcion-pago-titulo">Transferencia Bancaria</h3>
+                                            </div>
+                                            <p class="opcion-pago-descripcion">
+                                                Realiza una transferencia directa a nuestra cuenta bancaria
+                                            </p>
+                                        </label>
+                                    </div>
                                 </div>
-
-                                <div class="opcion-pago">
-                                    <input type="radio" name="metodoPago" id="transferencia" value="transferencia"
-                                           class="opcion-pago-radio">
-                                    <label for="transferencia" class="opcion-pago-label">
-                                        <div class="opcion-pago-header">
-                                            <i class="bi bi-bank opcion-pago-icon"></i>
-                                            <h3 class="opcion-pago-titulo">Transferencia Bancaria</h3>
-                                        </div>
-                                        <p class="opcion-pago-descripcion">
-                                            Realiza una transferencia directa a nuestra cuenta bancaria
-                                        </p>
-
-                                    </label>
-                                </div>
-                            </div>
+                            </form>
                         </div>
 
                         <div class="col-lg-4">
@@ -100,11 +93,15 @@ $id = $_GET['idPedido'];
                                     <span>Total a pagar</span>
                                     <span><?= $total ?> VP</span>
                                 </div>
+                                <?php if ($metodoPago == 'transferencia'){ ?>
                                 <div class="boton-transferencia">
                                     <a href="/servicios/pedidos/transferencia_exito.php?idPedido=<?= $id ?>" class="btn-continuar">
                                         Continuar con el pago
                                     </a>
                                 </div>
+                                <?php } ?>
+
+                                <?php if ($metodoPago == 'tarjeta'){ ?>
                                 <div class="boton-stripe">
                                     <form action="/servicios/pedidos/procesar_stripe.php" method="POST">
                                         <input type="hidden" name="idPedido" value="<?= $id ?>">
@@ -113,7 +110,7 @@ $id = $_GET['idPedido'];
                                         </button>
                                     </form>
                                 </div>
-                                <div class="boton-paypal"></div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

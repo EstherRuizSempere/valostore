@@ -61,7 +61,7 @@ $listadoPersonajesNoEnPosesion = $gestorUsuarioProducto->productoNoEnPosesion($_
                                     </span>
                                     <h2 class="perfil-username"><?php echo $_SESSION['usuario'] ?></h2>
                                     <div class="mb-2 ">
-                                        <a href="../editarContrasenya.php" class="btn  edit-perfil-btn">
+                                        <a href="/vista/usuario/editarContrasenya.php" class="btn  edit-perfil-btn">
                                             <i class="bi bi-pencil"></i> Cambio Contraseña
                                         </a>
                                     </div>
@@ -118,7 +118,7 @@ $listadoPersonajesNoEnPosesion = $gestorUsuarioProducto->productoNoEnPosesion($_
                                             <img src="<?= $producto->getImagen() ?>" alt="Personaje 1"
                                                  class="img-fluid">
                                             <div class="personaje-detalles">
-                                                <button class="btn btn-light btn-sm">Ver Detalles</button>
+                                                <a href="/vista/producto/producto-detalle.php?id=<?= $producto->getId() ?>" class="btn btn-light btn-sm">Ver Detalles</a>
                                             </div>
                                         </div>
                                         <div class="personaje-info">

@@ -93,21 +93,23 @@ $gestorCarrito = new GestorCarrito();
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li><a class="dropdown-item"
-                                       href="/vista/backoffice/informes/tablaProductosMasVendidos.php"><i
+                                       href="/vista/backoffice/informes/tablaProductosDormidos.php"><i
                                                 class="bi bi-tag"></i> Productos </a></li>
 
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="/vista/backoffice/informes/ventaDelMes.php"><i
+                                <li><a class="dropdown-item" href="/vista/backoffice/informes/totalVentas.php"><i
                                                 class="bi bi-tag"></i> Ventas </a></li>
                             </ul>
                         </li>
+                        <?php if ($_SESSION['rol'] == 'admin'){?>
                         <li class="nav-item">
                             <a href="/vista/backoffice/pedidos/tablaPedidos.php" class="nav-link active">
                                 <i class="bi bi-cart img-iconos"></i> Pedidos
                             </a>
                         </li>
+                        <?php } ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                                aria-expanded="false">

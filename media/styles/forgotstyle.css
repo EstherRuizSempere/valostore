@@ -5,13 +5,18 @@ body {
     background-size: cover;
 }
 
-
+p{
+    color: var(--background-light);
+}
 
 .registro-form {
     background-color: var(--background-dark);
     border-radius: 23px;
     padding: 30px;
     margin: 30px auto;
+}
+.col-md-8 {
+    width: 100%;
 }
 
 .form-control {
